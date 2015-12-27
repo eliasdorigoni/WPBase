@@ -1,2 +1,4 @@
-# basewp
-Base para crear themes en WordPress.
+# WPBase
+
+Boilerplate para themes de WordPress.
+Incluye el framework Foundation.
