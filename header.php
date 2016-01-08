@@ -13,7 +13,7 @@
     <header class="container">
         <div class="row">
             <div class="column large-6">
-                <a href="<?php echo HOME_URL; ?>">WWW</a>
+                <a href="<?php echo HOME_URL; ?>"><?php echo bloginfo(); ?></a>
             </div>
             <div class="column large-6">
                 <?php if (has_nav_menu('principal')): ?>
@@ -30,4 +30,4 @@
             </div>
         </div>
     </header>
-    <section class="site-content">
+    <section class="site-content row">
