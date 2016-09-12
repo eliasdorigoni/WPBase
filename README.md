@@ -1,4 +1,8 @@
 # WPBase
 
 Boilerplate para themes de WordPress.
-Incluye framework Foundation.
+
+Contiene:
+
+    * Foundation v6.2.3
+
