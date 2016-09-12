@@ -1,35 +1,12 @@
 <?php
 
-/*
-    Nota #1: todas las funciones deben devolver el contenido, no mostrarlo.
-    Nota #2: echo do_shortcode(['mi-shortcode']);
+function cb_shortcode($atts = array()) {
+    $atts = shortcode_atts( array(
+        'foo' => 'something',
+        'bar' => 'something else',
+    ), $atts );
 
- */
-
-class ThemeShortcode
-{
-    function __construct($shortcode, $funcion)
-    {
-        add_shortcode($shortcode, array($this, $funcion));
-    }
-
-    private function _miShortcode($atts)
-    {
-        $atts = shortcode_atts( array(
-            'foo' => 'something',
-            'bar' => 'something else',
-        ), $atts );
-    }
-
-    private function _otroShortcode($atts, $content)
-    {
-        $atts = shortcode_atts( array(
-            'foo' => 'something',
-            'bar' => 'something else',
-        ), $atts );
-    }
+    return 'string';
 }
-
-new ThemeShortcode('mi-shortcode','_miShortcode');
-new ThemeShortcode('otro-shortcode','_otroShortcode');
-
+add_shortcode('id-shortcode', 'cb_shortcode');
+// echo do_shortcode('[id-shortcode]');
