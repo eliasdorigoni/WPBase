@@ -1,6 +1,6 @@
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-    <?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
-    <div class="entry-content">
+<article <?php post_class(); ?>>
+    <h1 class="titulo-entrada"><?php the_title(); ?></h1>
+    <div class="contenido-entrada">
         <?php the_content(); ?>
         <?php
             wp_link_pages( array(
@@ -12,6 +12,16 @@
                 'separator'   => '<span class="screen-reader-text">, </span>',
             ) );
         ?>
-    </div><!-- .entry-content -->
-    <?php edit_post_link('Editar', '<small class="edit-link">', '</small>' ); ?>
-</article><!-- #post-## -->
+    </div>
+    <?php
+        edit_post_link(
+            sprintf(
+                'Editar <span class="screen-reader-text">"%s"</span>',
+                get_the_title()
+            ),
+            '<footer class="metadatos"><span class="edit-link">',
+            '</span></footer>'
+        );
+    ?>
+
+</article>

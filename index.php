@@ -1,24 +1,53 @@
 <?php get_header(); ?>
-    <main class="site-main column large-8" role="main">
-        <?php if ( have_posts() ) : ?>
-            <?php if ( is_home() && ! is_front_page() ) : ?>
-                <h1 class="page-title screen-reader-text"><?php single_post_title(); ?></h1>
-            <?php endif; ?>
-            <?php
-            while (have_posts()) : the_post();
-                get_template_part( 'contenido', get_post_format() );
-            endwhile;
 
-            the_posts_pagination(array(
-                'prev_text'          => 'Pagina anterior',
-                'next_text'          => 'Pagina siguiente',
-                'before_page_number' => '<span class="meta-nav screen-reader-text">Pagina </span>',
-            ));
-        else :
-            get_template_part( 'contenido', 'none' );
-        endif;
-        ?>
-    </main>
-    <?php 
-get_sidebar();
-get_footer();
+<div class="row">
+    <div class="column large-8">
+        <main role="main" class="main">
+            <?php if (have_posts()) : ?>
+
+                <?php if (!is_front_page()) : ?>
+                    <header class="header-main">
+                        <h1 class="titulo-pagina"><?php single_post_title(); ?></h1>
+                    </header>
+                <?php endif; ?>
+
+                <?php while (have_posts()) : the_post(); ?>
+                    <?php get_template_part( 'contenido', get_post_format()); ?>
+                <?php endwhile; ?>
+
+                <?php if (comments_open() || get_comments_number()): ?>
+                    <?php comments_template(); ?>
+                <?php endif; ?> 
+
+                <?php the_posts_pagination(array(
+                    'prev_text' => '&lt; Anterior',
+                    'next_text' => 'Siguiente &gt;',
+                    'before_page_number' => '<span class="meta-nav screen-reader-text">Pagina </span>',
+                )); ?>
+
+            <?php else: // else if (!have_posts()) ?>
+
+                <?php get_template_part( 'contenido', 'none' ); ?>
+
+            <?php endif; ?>
+
+            
+            <?php
+                edit_post_link(
+                    sprintf(
+                        'Editar <span class="screen-reader-text">"%s"</span>',
+                        get_the_title()
+                    ),
+                    '<footer class="metadatos"><span class="edit-link">',
+                    '</span></footer>'
+                );
+            ?>
+            
+        </main>
+    </div>
+    <div class="column large-4">
+        <?php get_sidebar(); ?>
+    </div>
+</div>
+
+<?php get_footer(); ?>

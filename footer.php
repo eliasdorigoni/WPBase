@@ -1,7 +1,9 @@
     </section><!-- .site-content -->
-	<footer role="contentinfo">
-        <div class="row column">
-		  <p class="text-right"><?php echo bloginfo(); ?><br><?php echo date('Y') ?></p>
+	<footer class="footer">
+        <div class="row">
+            <div class="column">
+                <p><?php echo bloginfo('name'); ?><br><?php echo date('Y') ?></p>
+            </div>
         </div>
 	</footer>
     <?php wp_footer(); ?>
