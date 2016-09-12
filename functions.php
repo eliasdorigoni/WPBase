@@ -27,10 +27,7 @@ add_action('login_enqueue_scripts', 'theme_login');
 add_filter('login_headertitle', 'get_bloginfo');
 add_filter('login_headerurl', 'home_url');
 
-// Modificar clases de uno o varios sidebar
-// theme_claseWidgets::$ids[] = 'widget-1';
-// add_filter('dynamic_sidebar_params', array('theme_claseWidgets', 'cantidad'));
-// add_filter('dynamic_sidebar_params', array('theme_claseWidgets', 'incremental'));
+
 
 
 //////////////
