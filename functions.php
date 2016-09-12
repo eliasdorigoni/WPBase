@@ -11,6 +11,7 @@ define('DISALLOW_FILE_EDIT', true);
 if (!isset($content_width)) $content_width = 625;
 
 require THEME_ROOT . 'inc/helper.php';
+require THEME_ROOT . 'inc/utilidades.php';
 
 require THEME_ROOT . 'inc/theme_setup.php';
 add_action('after_setup_theme', 'theme_setup');
