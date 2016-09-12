@@ -1,5 +1,4 @@
 <?php
-
 function cb_shortcode($atts = array()) {
     $atts = shortcode_atts( array(
         'foo' => 'something',

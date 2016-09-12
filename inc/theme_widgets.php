@@ -1,5 +1,4 @@
 <?php
-
 function theme_widgets() {
     register_sidebar(array(
         'name' => 'Widget #1',

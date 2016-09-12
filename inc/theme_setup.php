@@ -6,36 +6,19 @@ function theme_setup() {
     add_theme_support('html5', array('comment-list', 'comment-form', 'search-form', 'gallery', 'caption'));
     add_theme_support('post-formats', array('aside', 'gallery', 'link', 'image', 'quote', 'status', 'video', 'audio', 'chat'));
 
-    // %s = get_stylesheet_directory_uri()
-    register_default_headers(array(
-        'default' => array(
-            'url'           => '%s/img/fondo.jpg',
-            'thumbnail_url' => '%s/img/fondo-thumb.jpg',
-            ),
-        'alt' => array(
-            'url'           => '%s/img/fondo-alt.jpg',
-            'thumbnail_url' => '%s/img/fondo-alt-thumb.jpg',
-            )
-        ));
+    theme_nav_menu();
 
-    add_theme_support('custom-header', array(
-        'width'         => 1920,
-        'height'        => 1080,
-        'default-image' => STYLESHEET_URI . '/img/fondo.jpg',
-        'uploads'       => true,
-    ));
+    // Imagen de fondo personalizada:
+    require THEME_ROOT . 'inc/custom-background.php';
 
-    add_theme_support('custom-logo', array(
-        'height'      => 100,
-        'width'       => 400,
-        'flex-height' => true,
-        'flex-width'  => true,
-        'header-text' => array('site-title', 'site-description'),
-    ));
+    // Logo personalizado:
+    require THEME_ROOT . 'inc/custom-logo.php';
 
-    set_post_thumbnail_size(624, 9999); // Altura ilimitada, soft crop
-    // add_editor_style('css/editor-style.css');
+    // set_post_thumbnail_size(320, 320, false);
+    // add_image_size('formato', '220', '220', true);
+
+}
+
+function theme_nav_menu() {
     register_nav_menu('principal', 'Menu de cabecera');
-
-    add_image_size('formato', '220', '220', true);
 }
