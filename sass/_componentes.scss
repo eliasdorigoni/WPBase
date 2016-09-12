@@ -1,0 +1,36 @@
+body, html, h1, h2, h3, h4, h5, h6 {
+    font-family: $stackPrincipal;
+    font-weight: 400;
+}
+
+strong {
+    font-weight: 600;
+}
+
+.screen-reader-text {
+    display: none;
+}
+
+pre {
+    text-transform: none !important;
+}
+
+a.boton {
+    background: $colorPrincipal;
+    border: 1px solid $colorPrincipal;
+    color: #fff;
+    display: inline-block;
+    padding: 0.25em 0.5em;
+    &:hover {
+        background: darken($colorPrincipal, 15%);
+        border-color: darken($colorPrincipal, 15%);
+    }
+    &.boton-secundario {
+        background: $colorSecundario;
+        border-color: $colorSecundario;
+        &:hover {
+            background: darken($colorSecundario, 5%);
+            border-color: darken($colorSecundario, 15%);
+        }
+    }
+}
