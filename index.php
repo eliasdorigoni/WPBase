@@ -31,18 +31,6 @@
 
             <?php endif; ?>
 
-            
-            <?php
-                edit_post_link(
-                    sprintf(
-                        'Editar <span class="screen-reader-text">"%s"</span>',
-                        get_the_title()
-                    ),
-                    '<footer class="metadatos"><span class="edit-link">',
-                    '</span></footer>'
-                );
-            ?>
-            
         </main>
     </div>
     <div class="column large-4">
