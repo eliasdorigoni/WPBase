@@ -114,7 +114,7 @@ if (!function_exists('sanitize_textarea')) {
  * @param  string $clase     Clase del elemento <a>
  * @return string            Boton para compartir.
  */
-function retornarLinkCompartir($redSocial, $link, $contenido = '', $clase = '') {
+function retornarBotonesCompartir($redSocial, $link, $contenido = '', $clase = '') {
     if (!$clase) $clase = $redSocial;
 
     switch ($redSocial) {
