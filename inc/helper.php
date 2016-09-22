@@ -154,3 +154,11 @@ function retornarLinkCompartir($redSocial, $link, $contenido = '', $clase = '') 
 
     return sprintf($formato, $clase, $uri, $nombre, $contenido);
 }
+
+function agregarFavicon() {
+    $formato = '<link rel="%s" href="%s/favicon.ico" type="image/x-icon" />' . "\n";
+    printf($formato, 'shortcut icon', STYLESHEET_URI);
+    printf($formato, 'icon', STYLESHEET_URI);
+}
+
+add_action('wp_head', 'agregarFavicon');
