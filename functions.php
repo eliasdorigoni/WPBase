@@ -5,6 +5,7 @@ define('THEME_ROOT',      dirname(__FILE__) . DIRECTORY_SEPARATOR);
 define('THEME_URI',       get_template_directory_uri());
 define('STYLESHEET_URI',  get_stylesheet_directory_uri());
 define('HOME_URL',        home_url());
+define('SVG_DIR',         'img/svg/'); // relativo a este archivo, con barra al final.
 
 define('DISALLOW_FILE_EDIT', true);
 
@@ -26,9 +27,6 @@ require THEME_ROOT . 'inc/theme_login.php';
 add_action('login_enqueue_scripts', 'theme_login');
 add_filter('login_headertitle', 'get_bloginfo');
 add_filter('login_headerurl', 'home_url');
-
-
-
 
 //////////////
 // Limpieza //

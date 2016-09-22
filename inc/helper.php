@@ -31,7 +31,7 @@ add_filter('body_classes', 'theme_agregarSlugClase');
  * @return arr/bool      Array con la url y el contenido, o false.
  */
 function buscarSVG($nombre = '') {
-    $ruta = 'img/svg/' . $nombre . '.svg';
+    $ruta = SVG_DIR . $nombre . '.svg';
     
     if (is_string($nombre) && strlen($nombre) > 0 && is_file(THEME_ROOT . $ruta)) {
         return array(
@@ -44,22 +44,34 @@ function buscarSVG($nombre = '') {
 }
 
 /**
- * Muestra un archivo SVG a partir del nombre (sin extension ni ruta).
- * Lo imprime en pantalla incrustándolo dentro de <span> o lo enlaza a traves de <img>
- * @param  string  $nombre    Nombre del svg
- * @param  boolean $incrustar Pone el contenido dentro de <span> o lo enlaza en <img>
- * @return echo               Muestra el contenido si lo encontró o devuelve vacío.
+ * Retorna un archivo SVG a partir del nombre (sin extension ni ruta), incrustado 
+ * dentro de etiquetas span o enlazazo en una etiqueta img
+ * @param  string  $nombre    Nombre del archivo svg
+ * @param  boolean $incrustar Pone el contenido dentro de <span> o lo enlaza en <img>.
+ *                            Por defecto true
+ * @return string             Retorna el contenido o un string vacío.
  */
-function mostrarSVG($nombre = '', $incrustar = true) {
-    $svg = buscarSVG();
-
+function retornarSVG($nombre = '', $incrustar = true) {
+    $retorno = '';
+    $svg = buscarSVG($nombre);
     if ($svg) {
-        if ($incrustar) {
-            printf('<span class="svg %s">%s</span>', $slug, $svg['contenido']);
-        } else {
-            printf('<img class="svg %s" src="%s" />', $slug, $svg['url']);
-        }
+        $formato = '<span class="svg %1$s">%2$s</span>';
+        if (!$incrustar) $formato = '<img class="svg %1$s" src="%3$s" />';
+
+        $retorno = sprintf($formato, $nombre, $svg['contenido'], $svg['url']);
     }
+
+    return $retorno;
+}
+
+/**
+ * Muestra el retorno de retornarSVG.
+ * @param  string  $nombre    Nombre del archivo svg.
+ * @param  boolean $incrustar Pone el contenido dentro de <span> o lo enlaza en <img>.
+ * @return void
+ */
+function mostrarSVG($nombre, $incrustar = true) {
+    echo retornarSVG($nombre, $incrustar);
 }
 
 /**
