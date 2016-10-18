@@ -12,7 +12,7 @@
                 <?php endif; ?>
 
                 <?php while (have_posts()) : the_post(); ?>
-                    <?php get_template_part( 'contenido', get_post_format()); ?>
+                    <?php the_content(); ?>
                 <?php endwhile; ?>
 
                 <?php if (comments_open() || get_comments_number()): ?>
@@ -25,9 +25,9 @@
                     'before_page_number' => '<span class="meta-nav screen-reader-text">Pagina </span>',
                 )); ?>
 
-            <?php else: // else if (!have_posts()) ?>
+            <?php else: // !have_posts() ?>
 
-                <?php get_template_part( 'contenido', 'none' ); ?>
+                <p>Sin contenido.</p>
 
             <?php endif; ?>
 
