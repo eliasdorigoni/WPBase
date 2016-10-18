@@ -1,7 +1,7 @@
 <?php
 function theme_enqueue() {
     wp_enqueue_style('custom-fonts', 'http://fonts.googleapis.com/css?family=Open+Sans:400,600,700', array(), null);
-    wp_enqueue_style('foundation', STYLESHEET_URI . '/css/foundation.min.css', array(), '6.2.3');
+    // wp_enqueue_style('foundation', STYLESHEET_URI . '/css/foundation.min.css', array(), '6.2.3');
     wp_enqueue_style('app', STYLESHEET_URI . '/css/app.css', array(), '0.1');
 
     wp_enqueue_script('jquery');

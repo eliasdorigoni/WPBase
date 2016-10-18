@@ -1,5 +1,8 @@
-@import "variables";
-@import "mixins";
+@import "base/variables";
+@import "base/mixins";
+
+@import "vendor/foundation";
+
 @import "componentes";
 @import "header";
 @import "sidebar";
@@ -8,5 +11,6 @@
 @import "wordpress/wysiwyg";
 @import "wordpress/nav";
 @import "footer";
-@import "lightbox";
-@import "slick";
+
+@import "modulos/lightbox";
+@import "modulos/slick";

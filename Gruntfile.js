@@ -4,22 +4,22 @@ module.exports = function(grunt) {
 
     grunt.initConfig({
         sass: {
-            expanded: {
+            debug: {
                 options: {
                     sourceMap: false,
-                    outputStyle: "expanded", // nested, > expanded, compact, compressed
+                    outputStyle: "expanded",
                 },
                 files: {
-                    'css/app.css': 'sass/principal.scss'
+                    'css/app.css': 'sass/global.scss'
                 }
             },
-            compressed: {
+            produccion: {
                 options: {
                     sourceMap: false,
                     outputStyle: "compressed",
                 },
                 files: {
-                    'css/app.min.css': 'sass/principal.scss'
+                    'css/app.min.css': 'sass/global.scss'
                 }
             }
         },
@@ -38,7 +38,7 @@ module.exports = function(grunt) {
         watch: {
             sass: {
                 files: ['sass/**/*.scss'],
-                tasks: ['sass:expanded'],
+                tasks: ['sass:debug'],
                 options: {livereload: true }
             },
             plugin: {
@@ -52,7 +52,7 @@ module.exports = function(grunt) {
             }
         }
     });
-    grunt.registerTask('default', ['sass:expanded']);
-    grunt.registerTask('build', ['sass:compressed']);
+    grunt.registerTask('default', ['sass:debug']);
+    grunt.registerTask('build', ['sass:produccion']);
     grunt.registerTask('plugin', ['copy']);
 };
