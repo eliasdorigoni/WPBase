@@ -9,3 +9,5 @@ Author URI: http://eliasdorigoni.com
 */
 
 define('WPBASE_PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
+
+require_once(WPBASE_PLUGIN_DIR_PATH . 'shortcodes.php');

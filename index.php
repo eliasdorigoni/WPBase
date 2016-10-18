@@ -13,6 +13,35 @@
 
                 <?php while (have_posts()) : the_post(); ?>
                     <?php the_content(); ?>
+                    <hr>
+                    <table>
+                    <?php 
+                    $svgs = array(
+                        'facebook', 
+                        'facebook-circulo', 
+                        'facebook-cuadrado',
+                        'google-plus',
+                        'google-plus-circulo',
+                        'google-plus-cuadrado',
+                        'google-plus-cuadrado-alt',
+                        'google-plus-nuevo',
+                        'google-plus-nuevo-circulo',
+                        'google-plus-nuevo-cuadrado',
+                        'pinterest',
+                        'pinterest-circulo',
+                        'pinterest-cuadrado',
+                        'twitter',
+                        'twitter-circulo',
+                        'twitter-cuadrado',
+                        'whatsapp',
+                        'whatsapp-circulo',
+                        'whatsapp-cuadrado',
+                        );
+                    foreach ($svgs as $svg) {
+                        echo '<tr><td>'.$svg.'</td><td>' . retornarSVG($svg) . '</td></tr>';
+                    }
+                    ?>
+                    </table>
                 <?php endwhile; ?>
 
                 <?php if (comments_open() || get_comments_number()): ?>
