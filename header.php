@@ -12,7 +12,13 @@
     <header class="header">
         <div class="row">
             <div class="column large-6">
-                <a href="<?php echo HOME_URL; ?>"><?php echo bloginfo('name'); ?></a>
+                <a href="<?php echo HOME_URL; ?>" title="<?php echo bloginfo('name'); ?>">
+                <?php if (has_custom_logo()): ?>
+                    <?php the_custom_logo(); ?>
+                <?php else: ?>
+                    <?php echo bloginfo('name'); ?>
+                <?php endif ?>
+                </a>
             </div>
             <div class="column large-6">
                 <?php if (has_nav_menu('principal')): ?>

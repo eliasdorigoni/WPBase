@@ -12,7 +12,13 @@ function theme_setup() {
     require THEME_ROOT . 'inc/custom-background.php';
 
     // Logo personalizado:
-    require THEME_ROOT . 'inc/custom-logo.php';
+    add_theme_support('custom-logo', array(
+        'height'      => 200,
+        'width'       => 400,
+        'flex-height' => true,
+        // 'flex-width'  => true,
+        'header-text' => array('site-title', 'site-description'),
+    ));
 
     // set_post_thumbnail_size(320, 320, false);
     // add_image_size('formato', '220', '220', true);
