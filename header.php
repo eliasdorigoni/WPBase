@@ -9,6 +9,7 @@
     <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
+    <a class="skip-link screen-reader-text" href="#content">Ir al contenido</a>
     <header class="header">
         <div class="row">
             <div class="column large-6">
