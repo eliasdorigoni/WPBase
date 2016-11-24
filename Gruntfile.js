@@ -4,27 +4,27 @@ module.exports = function(grunt) {
 
     grunt.initConfig({
         sass: {
-            debug: {
+            dist: {
                 options: {
-                    sourceMap: false,
-                    outputStyle: "expanded",
-                },
-                files: {
-                    'css/app.css': 'sass/global.scss'
-                }
-            },
-            produccion: {
-                options: {
-                    sourceMap: false,
+                    sourceMap: true,
                     outputStyle: "compressed",
                 },
                 files: {
                     'css/app.min.css': 'sass/global.scss'
                 }
+            },
+            foundation: {
+                options: {
+                    includePaths: ['node_modules/foundation-sites/scss'],
+                    outputStyle: "expanded"
+                },
+                files: {
+                    'sass/_framework.scss': 'sass/custom-foundation.scss'
+                }
             }
         },
         copy: {
-            main: {
+            plugins: {
                 files: [
                     {
                         expand : true,
@@ -37,7 +37,7 @@ module.exports = function(grunt) {
         },
         watch: {
             sass: {
-                files: ['sass/**/*.scss'],
+                files: ['sass/**/*.scss', '!sass/foundation.scss'],
                 tasks: ['sass:debug'],
                 options: {livereload: true }
             },
@@ -52,7 +52,6 @@ module.exports = function(grunt) {
             }
         }
     });
-    grunt.registerTask('default', ['sass:debug']);
-    grunt.registerTask('build', ['sass:produccion']);
-    grunt.registerTask('plugin', ['copy']);
+    grunt.registerTask('default', ['sass:dist', 'copy']);
+    grunt.registerTask('build', ['sass:dist', 'sass:foundation', 'copy']);
 };
