@@ -8,6 +8,8 @@ Version: 0.1
 Author URI: http://eliasdorigoni.com
 */
 
+if (!defined('ABSPATH')) exit;
+
 define('WPBASE_PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
 
 require_once(WPBASE_PLUGIN_DIR_PATH . 'shortcodes.php');

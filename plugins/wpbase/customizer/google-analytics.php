@@ -1,4 +1,5 @@
 <?php
+if (!defined('ABSPATH')) exit;
 
 function personalizarGoogleAnalytics($wp_customize) {
     $wp_customize->add_section('section-google-analytics', array(

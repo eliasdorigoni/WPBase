@@ -1,4 +1,5 @@
 <?php
+if (!defined('ABSPATH')) exit;
 
 function personalizarRedesSociales($wp_customize) {
     $wp_customize->add_section('redes-sociales', array(
@@ -36,6 +37,5 @@ function personalizarRedesSociales($wp_customize) {
                 )
             );
     }
-
 }
 add_action('customize_register', 'personalizarRedesSociales');

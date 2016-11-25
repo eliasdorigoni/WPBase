@@ -1,4 +1,5 @@
 <?php
+if (!defined('ABSPATH')) exit;
 
 /**
  * Muestra botones para compartir una página.
