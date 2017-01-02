@@ -35,6 +35,30 @@ module.exports = function(grunt) {
                 ]
             }
         },
+        svgmin: {
+            options: {
+                plugins: [
+                    {
+                        removeViewBox: false
+                    }, {
+                        removeUselessStrokeAndFill: false
+                    }, {
+                        removeAttrs: {
+                            attrs: ['xmlns']
+                        }
+                    }
+                ]
+            },
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: 'svg/original/',
+                    src: '*.svg',
+                    dest: 'img/svg/',
+                    ext: '.min.svg'
+                }]
+            }
+        },
         watch: {
             sass: {
                 files: ['sass/**/*.scss', '!sass/foundation.scss'],
