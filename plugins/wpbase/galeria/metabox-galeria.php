@@ -42,18 +42,20 @@ function registrarMetaboxGaleria() {
 add_action('add_meta_boxes', 'registrarMetaboxGaleria');
 
 function mostrarMetaboxGaleria($post) {
-    $maximo = 20; // Cantidad máxima de imagenes.
+    $limite = 20; // Límite de imagenes.
     if (false == ($ids = get_post_meta($post->ID, 'galeria', true))) 
         $ids = array();
 
     $galeria = buscarAttachments($ids, 'thumbnail');
-    include WPBASE_PLUGIN_DIR_PATH . 'galeria/metabox-galeria-template.phtml';
+    wp_nonce_field('metabox_galeria', 'metabox_galeria_nonce');
+    include WPBASE_PLUGIN_DIR_PATH . 'templates/media-upload.phtml';
 }
 
 function enqueueMetaboxGaleria($hook) {
     if ($hook == 'post-new.php' || $hook == 'post.php') {
         global $post;
         if ($post->post_type === 'page') { 
+            wp_enqueue_style('media-upload', plugin_dir_url(__FILE__) . '../css/media-upload.css', array(), '0.1');
             wp_enqueue_script('metabox-galeria', plugins_url('admin-metabox-galeria.js', __FILE__), array('jquery'), '0.1', true);
         }
     }

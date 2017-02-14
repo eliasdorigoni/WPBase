@@ -1,4 +1,6 @@
 jQuery(function($) {
+
+    var limitarCantidad = (typeof limite == 'string') ? true : false;
     var cantidadImagenesGaleria = $('.media-upload input').length
 
     var actualizarRestantes = function() {
@@ -44,7 +46,7 @@ jQuery(function($) {
         $(this).parents('li').remove()
         cantidadImagenesGaleria--
         actualizarRestantes()
-    }).on('click', '.reemplazar', function(event) {
+    }).on('click', '.thumb', function(event) {
         event.preventDefault()
         var $input = $(this).parents('li')
         var custom_uploader = wp.media({
