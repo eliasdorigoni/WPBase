@@ -1,0 +1,28 @@
+<?php 
+if (!isset($galeria) || !is_array($galeria)) {
+    $galeria = array();
+}
+if (!isset($limite)) {
+    $limite = false;
+}
+?>
+<div class="<?php if (isset($clase)) echo $clase ?> media-upload">
+    
+    <?php $formato = '<li><input type="hidden" value="%s" class="media-url" name="galeria[]" /> <img class="thumb" src="%s" title="Clic para reemplazar" /> <button type="button" class="eliminar" title="Eliminar esta imagen">X</button></li>'; ?>
+    <ul>
+        <?php
+        foreach($galeria as $id => $src) {
+            printf($formato, $id, $src[0]);
+        } 
+        ?>
+        <li><button type="button" class="button cargarImagen cargarImagenJS"> + </button></li>
+    </ul>
+
+    <?php if ($limite): ?>
+        <p><span><?php echo $limite - count($galeria); ?></span> imagenes disponibles de <?php echo $limite; ?></p>
+    <?php endif ?>
+</div>
+<script type="text/javascript">
+    var input = '<?php printf($formato, '', '') ?>';
+    var limite = <?php echo $limite; ?>;
+</script>
