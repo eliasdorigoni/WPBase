@@ -1,29 +1,27 @@
 .entry-content img {
     margin: 0 0 1.5em 0;
 }
-.alignleft, 
-img.alignleft {
+
+.alignleft, img.alignleft {
     margin-right: 1.5em;
     display: inline;
     float: left;
 }
-.alignright, 
-img.alignright {
+
+.alignright, img.alignright {
     margin-left: 1.5em;
     display: inline;
     float: right;
 }
-.aligncenter, 
-img.aligncenter {
+
+.aligncenter, img.aligncenter {
     margin-right: auto;
     margin-left: auto;
     display: block;
     clear: both;
-    }
-.alignnone, 
-img.alignnone {
-    
 }
+
+.alignnone, img.alignnone {}
 
 .wp-caption {
     margin-bottom: 1.5em;
@@ -40,10 +38,12 @@ img.alignnone {
         margin: 0;
     }
 }
+
 .wp-smiley {
     margin: 0 !important;
     max-height: 1em;
 }
+
 blockquote {
     &.left {
         margin-right: 20px;
@@ -60,6 +60,7 @@ blockquote {
         float: right;
     }
 }
+
 .gallery {
     dl {
         a {}
@@ -68,8 +69,8 @@ blockquote {
     dt {}
     dd {}
 }
-.gallery-caption {}
 
+.gallery-caption {}
 .size-full {}
 .size-large {}
 .size-medium {}

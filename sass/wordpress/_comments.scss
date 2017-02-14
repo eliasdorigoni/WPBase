@@ -1,47 +1,65 @@
-.commentlist .reply {}
-.commentlist .reply a {}
+.commentlist {
+    .reply {
+        a {}
+    }
+    .alt {}
+    .odd {}
+    .even {}
 
-.commentlist .alt {}
-.commentlist .odd {}
-.commentlist .even {}
-.commentlist .thread-alt {}
-.commentlist .thread-odd {}
-.commentlist .thread-even {}
-.commentlist li ul.children .alt {}
-.commentlist li ul.children .odd {}
-.commentlist li ul.children .even {}
+    .thread-alt {}
+    .thread-odd {}
+    .thread-even {}
 
-.commentlist .vcard {}
-.commentlist .vcard cite.fn {}
-.commentlist .vcard span.says {}
-.commentlist .vcard img.photo {}
-.commentlist .vcard img.avatar {}
-.commentlist .vcard cite.fn a.url {}
+    li {
+        ul.children {
+            .alt {}
+            .odd {}
+            .even {}
+        }
+    }
+    .vcard {
+        cite.fn {
+            a.url {}
+        }
+        span.says {}
+        img {
+            &.photo {}
+            &.avatar {}
+        }
+    }
+    .comment-meta {
+        a {}
+    } 
+    .commentmetadata {
+        a {}
+    }
+    .parent {}
+    .comment {}
+    .children {}
+    .pingback {}
+    .bypostauthor {}
+    .comment-author {}
+    .comment-author-admin {}
 
-.commentlist .comment-meta {} 
-.commentlist .comment-meta a {}
-.commentlist .commentmetadata {}
-.commentlist .commentmetadata a {}
+    .commentlist {
+        li {
+            p {}
+            ul {
+                &.children {
+                    li {
+                        &.alt {}
+                        &.byuser {}
+                        &.comment {}
+                        &.depth-{id} {}
+                        &.bypostauthor {}
+                        &.comment-author-admin {}
+                    }
+                }
+            }
+        }
 
-.commentlist .parent {}
-.commentlist .comment {}
-.commentlist .children {}
-.commentlist .pingback {}
-.commentlist .bypostauthor {}
-.commentlist .comment-author {}
-.commentlist .comment-author-admin {}
-
-.commentlist {}
-.commentlist li {}
-.commentlist li p {}
-.commentlist li ul {}
-.commentlist li ul.children li {}
-.commentlist li ul.children li.alt {}
-.commentlist li ul.children li.byuser {}
-.commentlist li ul.children li.comment {}
-.commentlist li ul.children li.depth-{id} {}
-.commentlist li ul.children li.bypostauthor {}
-.commentlist li ul.children li.comment-author-admin {}
+    }
+}
 
 #cancel-comment-reply {}
 #cancel-comment-reply a {}
