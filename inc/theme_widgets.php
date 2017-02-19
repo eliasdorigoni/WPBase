@@ -1,4 +1,6 @@
 <?php
+if (!defined('ABSPATH')) exit;
+
 function theme_widgets() {
     register_sidebar(array(
         'name' => 'Widget #1',
@@ -95,3 +97,5 @@ class theme_claseWidgets {
 // Y agregar un filtro.
 // add_filter('dynamic_sidebar_params', array('theme_claseWidgets', 'cantidad'));
 // add_filter('dynamic_sidebar_params', array('theme_claseWidgets', 'incremental'));
+
+add_action('widgets_init', 'theme_widgets');

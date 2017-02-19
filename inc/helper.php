@@ -1,4 +1,6 @@
 <?php
+if (!defined('ABSPATH')) exit;
+
 /**
  * Se puede definir una constante para diferenciar un entorno 
  * de trabajo local de uno de producción.

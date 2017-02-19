@@ -18,20 +18,10 @@ if (!isset($content_width)) $content_width = 625;
 
 require THEME_ROOT . 'inc/helper.php';
 require THEME_ROOT . 'inc/utilidades.php';
-
 require THEME_ROOT . 'inc/theme_setup.php';
-add_action('after_setup_theme', 'theme_setup');
-
 require THEME_ROOT . 'inc/theme_widgets.php';
-add_action('widgets_init', 'theme_widgets');
-
 require THEME_ROOT . 'inc/theme_enqueue.php';
-add_action('wp_enqueue_scripts', 'theme_enqueue');
-
 require THEME_ROOT . 'inc/theme_login.php';
-add_action('login_enqueue_scripts', 'theme_login');
-add_filter('login_headertitle', 'get_bloginfo');
-add_filter('login_headerurl', 'home_url');
 
 //////////////
 // Limpieza //
