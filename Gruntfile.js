@@ -23,6 +23,11 @@ module.exports = function(grunt) {
                 }
             }
         },
+        clean: {
+            prebuild: [
+                'build/'
+            ],
+        },
         copy: {
             plugins: {
                 files: [
@@ -33,12 +38,31 @@ module.exports = function(grunt) {
                         dest   : '../../plugins/'
                     }
                 ]
+            },
+            build: {
+                files: [
+                    {
+                        expand : false,
+                        src : [
+                            '*.php',
+                            'style.css',
+                            'screenshot.png',
+                            '!*.map',
+
+                            '**/*',
+                            '!.git',
+                            '!node_modules/**',
+                            '!sass/**',
+                            ],
+                        dest : 'build/'
+                    }
+                ]
             }
         },
         watch: {
             sass: {
                 files: ['sass/**/*.scss', '!sass/foundation.scss'],
-                tasks: ['sass:debug'],
+                tasks: ['sass:dist'],
                 options: {livereload: true }
             },
             plugin: {
@@ -52,6 +76,6 @@ module.exports = function(grunt) {
             }
         }
     });
-    grunt.registerTask('default', ['sass:dist', 'copy']);
-    grunt.registerTask('build', ['sass:dist', 'sass:foundation', 'copy']);
+    grunt.registerTask('default', ['sass:dist', 'copy:plugins', 'watch']);
+    grunt.registerTask('build', ['sass:foundation', 'sass:dist', 'clean:prebuild', 'copy:build']);
 };
