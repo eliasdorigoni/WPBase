@@ -31,12 +31,12 @@ add_filter('body_classes', 'theme_agregarSlugClase');
  * @return arr/bool      Array con la url y el contenido, o false.
  */
 function buscarSVG($nombre = '') {
-    $ruta = SVG_DIR . $nombre . '.svg';
-    
-    if (is_string($nombre) && strlen($nombre) > 0 && is_file(THEME_ROOT . $ruta)) {
+    $archivo = $nombre . '.svg';
+
+    if (is_string($nombre) && strlen($nombre) > 0 && is_file(ASSETS_SVG_DIR . $archivo)) {
         return array(
-            'url' => STYLESHEET_URI . $ruta,
-            'contenido' => file_get_contents(THEME_ROOT . $ruta)
+            'url' => ASSETS_SVG_URI . $archivo,
+            'contenido' => file_get_contents(ASSETS_SVG_DIR . $archivo)
             );
     }
 
@@ -157,8 +157,8 @@ function retornarBotonesCompartir($redSocial, $link, $contenido = '', $clase = '
 
 function agregarFavicon() {
     $formato = '<link rel="%s" href="%s/favicon.ico" type="image/x-icon" />' . "\n";
-    printf($formato, 'shortcut icon', STYLESHEET_URI);
-    printf($formato, 'icon', STYLESHEET_URI);
+    printf($formato, 'shortcut icon', THEME_URI);
+    printf($formato, 'icon', THEME_URI);
 }
 
 add_action('wp_head', 'agregarFavicon');

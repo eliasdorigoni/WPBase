@@ -15,7 +15,7 @@ register_default_headers(array(
 add_theme_support('custom-header', array(
     'width'         => 1920,
     'height'        => 1080,
-    'default-image' => STYLESHEET_URI . '/img/fondo.jpg',
+    'default-image' => ASSETS_IMG_URI . 'fondo.jpg',
     'uploads'       => true,
 ));
 

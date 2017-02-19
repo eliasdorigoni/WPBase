@@ -1,11 +1,16 @@
 <?php
-date_default_timezone_set('America/Argentina/Buenos_Aires');
+defined('DS') or define('DS', DIRECTORY_SEPARATOR);
+define('HOME_URL',        esc_url(home_url('/')));
+define('THEME_ROOT',      dirname(__FILE__) . DS);
+define('THEME_URI',       esc_url(get_stylesheet_directory_uri() . '/'));
 
-define('THEME_ROOT',      dirname(__FILE__) . DIRECTORY_SEPARATOR);
-define('THEME_URI',       get_template_directory_uri());
-define('STYLESHEET_URI',  get_stylesheet_directory_uri());
-define('HOME_URL',        home_url());
-define('SVG_DIR',         'img/svg/'); // relativo a este archivo, con barra al final.
+define('ASSETS_URI',      THEME_URI  . 'assets/');
+define('ASSETS_DIR',      THEME_ROOT . 'assets/');
+define('ASSETS_CSS_URI',  ASSETS_URI . 'css/');
+define('ASSETS_JS_URI',   ASSETS_URI . 'js/');
+define('ASSETS_IMG_URI',  ASSETS_URI . 'img/');
+define('ASSETS_SVG_DIR',  ASSETS_DIR . 'img/svg/');
+define('ASSETS_SVG_URI',  ASSETS_URI . 'img/svg/');
 
 define('DISALLOW_FILE_EDIT', true);
 
