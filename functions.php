@@ -17,12 +17,12 @@ define('DISALLOW_FILE_EDIT', true);
 
 if (!isset($content_width)) $content_width = 625;
 
-require THEME_ROOT . 'inc/helper.php';
-require THEME_ROOT . 'inc/utilidades.php';
-require THEME_ROOT . 'inc/theme_setup.php';
-require THEME_ROOT . 'inc/theme_widgets.php';
-require THEME_ROOT . 'inc/theme_enqueue.php';
-require THEME_ROOT . 'inc/theme_login.php';
+require THEME_ROOT . 'includes/helper.php';
+require THEME_ROOT . 'includes/utilidades.php';
+require THEME_ROOT . 'includes/theme_setup.php';
+require THEME_ROOT . 'includes/theme_widgets.php';
+require THEME_ROOT . 'includes/theme_enqueue.php';
+require THEME_ROOT . 'includes/theme_login.php';
 
 //////////////
 // Limpieza //
