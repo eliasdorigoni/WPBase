@@ -36,14 +36,17 @@ function themeNavMenu() {
 }
 
 function permitirFondoPersonalizado() {
+    // %s = get_stylesheet_directory_uri()
+    $base = str_replace(get_stylesheet_directory_uri(), '%s', ASSETS_IMG_URI);
+
     register_default_headers(array(
         'default' => array(
-            'url'           => '%s/img/fondo.jpg', // %s = get_stylesheet_directory_uri()
-            'thumbnail_url' => '%s/img/fondo-thumb.jpg',
+            'url'           => $base . 'fondo.jpg',
+            'thumbnail_url' => $base . 'fondo-thumb.jpg',
             ),
         'alt' => array(
-            'url'           => '%s/img/fondo-alt.jpg',
-            'thumbnail_url' => '%s/img/fondo-alt-thumb.jpg',
+            'url'           => $base . 'fondo-alt.jpg',
+            'thumbnail_url' => $base . 'fondo-alt-thumb.jpg',
             )
         ));
 
@@ -67,12 +70,12 @@ function permitirLogoPersonalizado() {
 }
 
 function cambiarDimensionesImagenes() {
-    set_post_thumbnail_size(320, 320, false);
+    set_post_thumbnail_size(320, 320, true);
     add_image_size('formato', '220', '220', true);
 }
 
 add_action('after_setup_theme', 'themeSetup');
 add_action('after_setup_theme', 'themeNavMenu');
-// add_action('after_setup_theme', 'permitirFondoPersonalizado');
-// add_action('after_setup_theme', 'permitirLogoPersonalizado');
-// add_action('after_setup_theme', 'cambiarDimensionesImagenes');
+add_action('after_setup_theme', 'permitirFondoPersonalizado');
+add_action('after_setup_theme', 'permitirLogoPersonalizado');
+add_action('after_setup_theme', 'cambiarDimensionesImagenes');
