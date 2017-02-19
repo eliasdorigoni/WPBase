@@ -132,21 +132,23 @@ function buscarSVG($nombre = '') {
  * Retorna un archivo SVG a partir del nombre (sin extension ni ruta), incrustado 
  * dentro de etiquetas span o enlazazo en una etiqueta img
  * @param  string  $nombre    Nombre del archivo svg
- * @param  boolean $incrustar Pone el contenido dentro de <span> o lo enlaza en <img>.
+ * @param  boolean $incrustar Pone el contenido dentro de <svg> o lo enlaza en <img>.
  *                            Por defecto true
  * @return string             Retorna el contenido o un string vacío.
  */
 function retornarSVG($nombre = '', $incrustar = true) {
-    $retorno = '';
-    $svg = buscarSVG($nombre);
-    if ($svg) {
-        $formato = '<span class="svg %1$s">%2$s</span>';
-        if (!$incrustar) $formato = '<img class="svg %1$s" src="%3$s" />';
-
-        $retorno = sprintf($formato, $nombre, $svg['contenido'], $svg['url']);
+    $array = buscarSVG($nombre);
+    if (!$array) {
+        return '';
     }
 
-    return $retorno;
+    if (!$incrustar) {
+        $formato = '<img class="svg %s" src="%s" />';
+        return sprintf($formato, $nombre, $array['url']);
+    }
+
+    $array['contenido'] = str_replace('<svg', '<svg class="'.$nombre.'" ', $array['contenido']);
+    return $array['contenido'];
 }
 
 /**

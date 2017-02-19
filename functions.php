@@ -22,7 +22,9 @@ require THEME_ROOT . 'includes/theme_setup.php';
 require THEME_ROOT . 'includes/theme_widgets.php';
 require THEME_ROOT . 'includes/theme_enqueue.php';
 require THEME_ROOT . 'includes/theme_login.php';
+
 require THEME_ROOT . 'includes/shortcode.compartir.php';
+require THEME_ROOT . 'includes/shortcode.svg.php';
 
 //////////////
 // Limpieza //
