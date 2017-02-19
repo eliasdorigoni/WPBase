@@ -10,7 +10,8 @@ module.exports = function(grunt) {
                     outputStyle: "compressed",
                 },
                 files: {
-                    'css/app.min.css': 'sass/global.scss'
+                    'assets/css/app.min.css': 'sass/global.scss',
+                    'assets/css/login.min.css': 'sass/login.scss'
                 }
             },
             foundation: {
@@ -76,6 +77,7 @@ module.exports = function(grunt) {
             }
         }
     });
-    grunt.registerTask('default', ['sass:dist', 'copy:plugins', 'watch']);
-    grunt.registerTask('build', ['sass:foundation', 'sass:dist', 'clean:prebuild', 'copy:build']);
+    grunt.registerTask('default', ['clean:prebuild', 'sass:dist', 'copy:plugins', 'watch']);
+    grunt.registerTask('framework', ['clean:prebuild', 'sass:foundation']);
+    grunt.registerTask('build', ['clean:prebuild', 'sass:foundation', 'sass:dist', 'copy:build']);
 };
