@@ -8,6 +8,7 @@ define('ASSETS_URI',      THEME_URI  . 'assets/');
 define('ASSETS_DIR',      THEME_ROOT . 'assets/');
 define('ASSETS_CSS_URI',  ASSETS_URI . 'css/');
 define('ASSETS_JS_URI',   ASSETS_URI . 'js/');
+define('ASSETS_IMG_DIR',  ASSETS_DIR . 'img/');
 define('ASSETS_IMG_URI',  ASSETS_URI . 'img/');
 define('ASSETS_SVG_DIR',  ASSETS_DIR . 'img/svg/');
 define('ASSETS_SVG_URI',  ASSETS_URI . 'img/svg/');
