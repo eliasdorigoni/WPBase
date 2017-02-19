@@ -1,8 +1,8 @@
 <?php
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
-define('HOME_URL',        esc_url(home_url('/')));
+define('HOME_URL',        esc_url(home_url()) . '/');
 define('THEME_ROOT',      dirname(__FILE__) . DS);
-define('THEME_URI',       esc_url(get_stylesheet_directory_uri() . '/'));
+define('THEME_URI',       esc_url(get_stylesheet_directory_uri()) . '/');
 
 define('ASSETS_URI',      THEME_URI  . 'assets/');
 define('ASSETS_DIR',      THEME_ROOT . 'assets/');

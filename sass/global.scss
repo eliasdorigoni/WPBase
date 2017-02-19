@@ -3,14 +3,15 @@
 
 @import "framework";
 
-@import "componentes";
-@import "header";
-@import "sidebar";
-@import "contenido";
-@import "single";
+@import "componentes/componentes";
+@import "componentes/header";
+@import "componentes/sidebar";
+@import "componentes/contenido";
+@import "componentes/single";
+@import "componentes/footer";
+
 @import "wordpress/wysiwyg";
 @import "wordpress/nav";
-@import "footer";
 
-@import "modulos/lightbox";
-@import "modulos/slick";
+// @import "modulos/lightbox";
+// @import "modulos/slick";

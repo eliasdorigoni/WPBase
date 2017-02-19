@@ -2,7 +2,7 @@
 if (!defined('ABSPATH')) exit;
 
 function theme_login() {
-    wp_enqueue_style('custom-login', THEME_URI . '/css/login.css' );
+    wp_enqueue_style('custom-login', ASSETS_CSS_URI . 'login.min.css' );
 }
 
 function retornarLoginURL() {
