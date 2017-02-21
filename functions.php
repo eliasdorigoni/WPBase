@@ -26,6 +26,8 @@ require THEME_ROOT . 'includes/theme_login.php';
 require THEME_ROOT . 'includes/shortcode.compartir.php';
 require THEME_ROOT . 'includes/shortcode.svg.php';
 
+require THEME_ROOT . 'includes/widgets/galeria/class.galeria.php';
+
 //////////////
 // Limpieza //
 //////////////

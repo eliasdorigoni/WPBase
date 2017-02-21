@@ -1,0 +1,57 @@
+.widget.media-upload {
+    ul {
+        margin: 10px 0 0;
+    }
+    li {
+        display: inline-block;
+        position: relative;
+        margin: 0 6px 6px 0;
+        line-height: 1;
+        vertical-align: top;
+        .button {
+            opacity: 0.1;
+        }
+        &:hover .button {
+            opacity: 1;
+        }
+    }
+    .cargarImagen {
+        width: 150px;
+        height: 150px;
+        font-size: 90px;
+        padding: 30px 0;
+        border: 2px dashed #afafaf;
+        border-radius: 10px;
+        background-color: #e0e0e0;
+        font-weight: bold;
+        display: block;
+        color: #888;
+    }
+    .thumb {
+        cursor: pointer;
+        width: 100px;
+        height: 100px;
+        display: inline-block;
+        img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+        :hover {
+            outline: 1px solid gold;
+        }
+    }
+    .eliminar,
+    .reemplazar {
+        position: absolute;
+        right: 4px;
+    }
+    .reemplazar {
+        bottom: 4px;
+    }
+    .eliminar {
+        top: 4px;
+        background-color: #C4351B;
+        color: #fff;
+        font-weight: bold;
+    }
+}

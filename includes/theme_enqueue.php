@@ -28,3 +28,11 @@ function theme_enqueueSlick() {
 function theme_enqueueLightbox() {
     wp_enqueue_script('lightbox', ASSETS_JS_URI . 'vendor/lightbox.min.js', array('jquery'), '2.8.2', true);
 }
+
+function theme_enqueueWidgetGaleria() {
+    wp_enqueue_style('widget-galeria', ASSETS_CSS_URI . 'widget-galeria.css', array(), '0.1');
+
+    wp_enqueue_script('jquery');
+    wp_enqueue_media();
+    wp_enqueue_script('widget-galeria', ASSETS_JS_URI . 'widget-galeria.js', array('jquery'));
+}
