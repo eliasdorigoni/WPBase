@@ -10,9 +10,9 @@ module.exports = function(grunt) {
                     outputStyle: "compressed",
                 },
                 files: {
-                    'assets/css/app.min.css': 'sass/global.scss',
-                    'assets/css/login.min.css': 'sass/login.scss',
-                    'assets/css/widget-galeria.min.css': 'sass/modulos/widget-galeria.scss'
+                    'assets/css/app.min.css': 'source/sass/global.scss',
+                    'assets/css/login.min.css': 'source/sass/login.scss',
+                    'assets/css/backend-widget-galeria.min.css': 'source/sass/widgets/backend-galeria.scss'
                 }
             },
             foundation: {
@@ -21,11 +21,14 @@ module.exports = function(grunt) {
                     outputStyle: "expanded"
                 },
                 files: {
-                    'sass/_framework.scss': 'sass/custom-foundation.scss'
+                    'sass/_framework.scss': 'source/sass/custom-foundation.scss'
                 }
-            }
+            },
         },
         clean: {
+            predist: [
+                'assets/'
+            ],
             prebuild: [
                 'build/'
             ],
@@ -41,47 +44,56 @@ module.exports = function(grunt) {
                     }
                 ]
             },
+            js: {
+                files: [
+                    {
+                        expand : true,
+                        cwd    : 'source',
+                        src    : ['js/**/*'],
+                        dest   : 'assets/'
+                    }
+                ]
+            },
             build: {
                 files: [
                     {
-                        expand : false,
+                        expand : true,
                         src : [
-                            '*.php',
-                            'style.css',
-                            'screenshot.png',
-                            '!*.map',
-
-                            '**/*',
-                            '!.git',
-                            '!node_modules/**',
-                            '!sass/**',
+                            '{assets,includes,templates}/**/*',
+                            '*.*',
+                            '.htaccess',
+                            '!*.{map,md}',
+                            '!package.json',
                             ],
                         dest : 'build/'
-                    }
+                    },
                 ]
             }
         },
         svgmin: {
             options: {
                 plugins: [
-                    {
-                        removeViewBox: false
-                    }, {
-                        removeUselessStrokeAndFill: false
-                    }, {
-                        removeAttrs: {
-                            attrs: ['xmlns']
-                        }
-                    }
+                    {removeViewBox: false },
+                    {removeUselessStrokeAndFill: false },
+                    {removeAttrs: {attrs: ['xmlns'] } }
                 ]
             },
             dist: {
                 files: [{
                     expand: true,
-                    cwd: 'svg/',
-                    src: '*.svg',
-                    dest: 'assets/img/svg/',
-                    ext: '.min.svg'
+                    cwd: 'source/',
+                    src: 'svg/*.svg',
+                    dest: 'assets/'
+                }]
+            }
+        },
+        imagemin: {
+            dynamic: {
+                files: [{
+                    expand: true,
+                    cwd: 'source/',
+                    src: ['img/**/*.{png,jpg,gif}'],
+                    dest: 'assets/',
                 }]
             }
         },
@@ -89,20 +101,21 @@ module.exports = function(grunt) {
             sass: {
                 files: ['sass/**/*.scss', '!sass/foundation.scss'],
                 tasks: ['sass:dist'],
-                options: {livereload: true }
+                options: {livereload: true}
             },
             plugin: {
                 files: ['plugins/**/*'],
                 tasks: ['copy'],
-                options: {livereload: false }
+                options: {livereload: false}
             },
             template: {
                 files: ['*.php'],
-                options: {livereload: true }
+                options: {livereload: true}
             }
         }
     });
-    grunt.registerTask('default', ['clean:prebuild', 'sass:dist', 'watch']);
-    grunt.registerTask('framework', ['clean:prebuild', 'sass:foundation']);
-    grunt.registerTask('build', ['clean:prebuild', 'sass:foundation', 'sass:dist', 'copy:build']);
+    grunt.registerTask('default', ['sass:dist', 'copy:js', 'newer:imagemin', 'newer:svgmin']);
+    grunt.registerTask('framework', ['sass:foundation']);
+    grunt.registerTask('build', ['clean', 'default', 'copy:build']);
+    grunt.registerTask('rebuild', ['clean:prebuild', 'copy:build']);
 };
