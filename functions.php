@@ -16,6 +16,8 @@ define('ASSETS_SVG_DIR',  ASSETS_IMG_DIR . 'svg' . DS);
 define('ASSETS_SVG_URI',  ASSETS_IMG_URI . 'svg' . DS);
 define('DISALLOW_FILE_EDIT', true);
 
+define('VERSION', '1.0.0');
+
 if (!isset($content_width)) $content_width = 625;
 
 require THEME_DIR . 'includes/util.php';
