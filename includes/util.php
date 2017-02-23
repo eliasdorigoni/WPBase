@@ -190,3 +190,21 @@ if (!function_exists('sanitize_textarea')) {
         return $restored;
     }
 }
+
+/**
+ * Permite cargar información sensible en constantes, para dejarlas
+ * fuera del backup.
+ * @param  string $archivo               Ruta absoluta al archivo INI
+ * @param  array  $constantesPorDefecto  Claves y valores para constantes por defecto.
+ */
+function cargarConstantesDesdeINI($archivo = '', $constantesPorDefecto = array()) {
+    $ini = (file_exists($archivo)) ? parse_ini_file($archivo) : array();
+    $constantesPorDefecto = array(
+        'claves_por_defecto' => 'valores_por_defecto',
+        );
+    $data = wp_parse_args($ini, $constantesPorDefecto);
+
+    foreach ($data as $const => $valor) {
+        define(strtoupper($const), $valor);
+    }
+}
