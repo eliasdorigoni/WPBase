@@ -1,0 +1,19 @@
+<div class="widgetGaleriaJS media-upload" data-maximo="<?php echo ($cantidadMaxima > 0) ? $cantidadMaxima : -1 ?>" data-name-input="<?php echo $this->get_field_name('galeria'); ?>[]">
+    <?php if ($cantidadMaxima): ?>
+        <p>Imagenes usadas: <span class="cantidadActual"><?php echo count($galeria); ?></span> de <?php echo $cantidadMaxima; ?></p>
+    <?php else: ?>
+        <p>Imágenes:</p>
+    <?php endif ?>
+    <ul>
+    <?php foreach($galeria as $id): ?>
+        <?php $src = wp_get_attachment_image_src($id); ?>
+        <li class="thumb">
+            <input type="hidden" value="<?php echo $id ?>" name="<?php echo $this->get_field_name('galeria'); ?>[]" />
+            <img src="<?php echo $src[0] ?>" />
+            <button type="button" class="button eliminar">Eliminar</button> <button type="button" class="button reemplazar">Reemplazar</button>
+        </li>
+    <?php endforeach; ?>
+    </ul>
+    <button type="button" class="button button-primary cargarImagenJS">Agregar imagenes</button>
+    <br><br>
+</div>
