@@ -114,8 +114,10 @@ module.exports = function(grunt) {
             }
         }
     });
-    grunt.registerTask('default', ['sass:dist', 'copy:js', 'newer:imagemin', 'newer:svgmin']);
+    grunt.registerTask('dist', ['sass:dist', 'copy:js', 'newer:imagemin', 'newer:svgmin']);
     grunt.registerTask('framework', ['sass:foundation']);
-    grunt.registerTask('build', ['clean', 'default', 'copy:build']);
+    grunt.registerTask('build', ['clean', 'dist', 'copy:build']);
     grunt.registerTask('rebuild', ['clean:prebuild', 'copy:build']);
+
+    grunt.registerTask('default', ['dist', 'watch']);
 };
