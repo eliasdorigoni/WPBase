@@ -12,8 +12,8 @@ define('ASSETS_JS_DIR',   ASSETS_DIR . 'js' . DS);
 define('ASSETS_JS_URI',   ASSETS_URI . 'js/');
 define('ASSETS_IMG_DIR',  ASSETS_DIR . 'img' . DS);
 define('ASSETS_IMG_URI',  ASSETS_URI . 'img/');
-define('ASSETS_SVG_DIR',  ASSETS_IMG_DIR . 'svg' . DS);
-define('ASSETS_SVG_URI',  ASSETS_IMG_URI . 'svg' . DS);
+define('ASSETS_SVG_DIR',  ASSETS_DIR . 'svg' . DS);
+define('ASSETS_SVG_URI',  ASSETS_URI . 'svg' . DS);
 define('DISALLOW_FILE_EDIT', true);
 
 define('VERSION', '1.0.0');
