@@ -2,7 +2,7 @@
 <table>
 <?php
 echo '<tr><td>HOME_URL</td><td>' . HOME_URL . '</td></tr>';
-echo '<tr><td>THEME_ROOT</td><td>' . THEME_ROOT . '</td></tr>';
+echo '<tr><td>THEME_DIR</td><td>' . THEME_DIR . '</td></tr>';
 echo '<tr><td>THEME_URI</td><td>' . THEME_URI . '</td></tr>';
 echo '<tr><td>ASSETS_URI</td><td>' . ASSETS_URI . '</td></tr>';
 echo '<tr><td>ASSETS_DIR</td><td>' . ASSETS_DIR . '</td></tr>';
