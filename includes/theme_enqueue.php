@@ -30,7 +30,7 @@ function theme_enqueueLightbox() {
 }
 
 function theme_enqueueWidgetGaleria() {
-    wp_enqueue_style('widget-galeria', ASSETS_CSS_URI . 'widget-galeria.min.css', array(), VERSION);
+    wp_enqueue_style('widget-galeria', ASSETS_CSS_URI . 'backend-widget-galeria.min.css', array(), VERSION);
 
     wp_enqueue_script('jquery');
     wp_enqueue_media();
