@@ -2,3 +2,4 @@ node_modules
 css
 sass/_framework.scss
 build/
+img/svg/
