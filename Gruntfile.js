@@ -11,7 +11,8 @@ module.exports = function(grunt) {
                 },
                 files: {
                     'assets/css/app.min.css': 'sass/global.scss',
-                    'assets/css/login.min.css': 'sass/login.scss'
+                    'assets/css/login.min.css': 'sass/login.scss',
+                    'assets/css/widget-galeria.min.css': 'sass/modulos/widget-galeria.scss'
                 }
             },
             foundation: {
@@ -77,7 +78,7 @@ module.exports = function(grunt) {
             }
         }
     });
-    grunt.registerTask('default', ['clean:prebuild', 'sass:dist', 'copy:plugins', 'watch']);
+    grunt.registerTask('default', ['clean:prebuild', 'sass:dist', 'watch']);
     grunt.registerTask('framework', ['clean:prebuild', 'sass:foundation']);
     grunt.registerTask('build', ['clean:prebuild', 'sass:foundation', 'sass:dist', 'copy:build']);
 };
