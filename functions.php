@@ -30,6 +30,7 @@ require THEME_DIR . 'includes/theme_login.php';
 
 require THEME_DIR . 'includes/shortcode.compartir.php';
 require THEME_DIR . 'includes/shortcode.svg.php';
+require THEME_DIR . 'includes/customizer.google-analytics.php';
 
 require THEME_DIR . 'includes/galeria/index.php';
 require THEME_DIR . 'includes/redes-sociales/index.php';
