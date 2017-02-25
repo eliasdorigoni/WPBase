@@ -1,4 +1,4 @@
-<div class="widgetGaleriaJS media-upload" data-maximo="<?php echo ($cantidadMaxima > 0) ? $cantidadMaxima : -1 ?>" data-name-input="<?php echo $this->get_field_name('galeria'); ?>[]">
+<div class="widgetGaleriaJS media-upload" data-maximo="<?php echo $cantidadMaxima ?>" data-name-input="<?php echo $this->get_field_name('galeria'); ?>[]">
     <?php if ($cantidadMaxima): ?>
         <p>Imagenes usadas: <span class="cantidadActual"><?php echo count($galeria); ?></span> de <?php echo $cantidadMaxima; ?></p>
     <?php else: ?>

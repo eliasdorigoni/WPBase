@@ -3,7 +3,7 @@ if (!defined('ABSPATH')) exit;
 
 class WP_Widget_Galeria extends WP_Widget
 {
-    public $cantidadMaxima = 3;
+    public $cantidadMaxima = -1; // -1 = ilimitado, 0 = desactivado, > 0 = limitado
 
     public function __construct()
     {
@@ -25,7 +25,7 @@ class WP_Widget_Galeria extends WP_Widget
         $widget_text = !empty($instance['text']) ? $instance['text'] : '';
         $text = apply_filters('widget_text', $widget_text, $instance, $this);
 
-        include 'widget.phtml';
+        include 'templates/frontend-widget.phtml';
     }
 
     public function update($new_instance, $old_instance)
@@ -38,21 +38,12 @@ class WP_Widget_Galeria extends WP_Widget
 
     public function form($instance)
     {
-        $instance = wp_parse_args(
-            $instance, 
-            array(
-                'galeria' => array()
-            )
-        );
-
+        $default = array(
+            'galeria' => array(),
+            );
+        $instance = wp_parse_args($instance, $default);
         $cantidadMaxima = $this->cantidadMaxima;
-        $galeria = ($instance['galeria']) ? $instance['galeria'] : array();
-        
-        include 'form.phtml';
+        $galeria = $instance['galeria'];
+        include 'templates/backend-form-widget.phtml';
     }
 }
-
-function registrarWidgetGaleria() {
-    register_widget('WP_Widget_Galeria');
-}
-add_action('widgets_init', 'registrarWidgetGaleria');

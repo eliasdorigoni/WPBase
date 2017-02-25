@@ -2,7 +2,7 @@
 if (!defined('ABSPATH')) exit;
 
 function theme_enqueueCSS() {
-    wp_enqueue_style('custom-fonts', 'http://fonts.googleapis.com/css?family=Open+Sans:400,600,700', array(), null);
+    // wp_enqueue_style('custom-fonts', 'http://fonts.googleapis.com/css?family=Open+Sans:400,600,700', array(), null);
     wp_enqueue_style('app', ASSETS_CSS_URI . 'app.min.css', array(), VERSION);
 }
 
