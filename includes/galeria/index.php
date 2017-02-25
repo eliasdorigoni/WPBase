@@ -2,7 +2,7 @@
 
 if (!defined('ABSPATH')) exit;
 
-require_once 'class.galeria.php';
+require_once 'widget.php';
 
 function registrarWidgetGaleria() {
     register_widget('WP_Widget_Galeria');

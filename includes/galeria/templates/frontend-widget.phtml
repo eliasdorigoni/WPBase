@@ -1,12 +1,12 @@
 <?php
 
-echo $args['before_widget']; 
+echo $before_widget; 
 
-if ($instance['galeria']) {
-    foreach ($instance['galeria'] as $id) {
+if ($galeria) {
+    foreach ($galeria as $id) {
         $imagen = wp_get_attachment_image_src($id, 'thumbnail');
         printf('<img src="%s" />', $imagen[0]);
     }
 }
 
-echo $args['after_widget'];
+echo $after_widget;

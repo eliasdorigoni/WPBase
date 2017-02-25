@@ -22,9 +22,12 @@ class WP_Widget_Galeria extends WP_Widget
 
     public function widget($args, $instance)
     {
-        $widget_text = !empty($instance['text']) ? $instance['text'] : '';
-        $text = apply_filters('widget_text', $widget_text, $instance, $this);
-
+        $default = array(
+            'galeria' => array(),
+            );
+        $instance = wp_parse_args($instance, $default);
+        extract($instance);
+        extract($args);
         include 'templates/frontend-widget.phtml';
     }
 
