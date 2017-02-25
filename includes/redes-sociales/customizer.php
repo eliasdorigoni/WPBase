@@ -1,10 +1,8 @@
 <?php
-if (!defined('ABSPATH')) exit;
-
 function personalizarRedesSociales($wp_customize) {
     $wp_customize->add_section('redes-sociales', array(
         'title' => 'Redes sociales',
-        'description' => 'Cambie las URLs de las redes sociales',
+        'description' => 'Agrega las direcciones de sus redes sociales. Déjelas vacías para no usarlas.',
         'panel' => '', // Not typically needed.
         'priority' => 160,
         'capability' => 'edit_theme_options',
@@ -12,11 +10,11 @@ function personalizarRedesSociales($wp_customize) {
         ));
 
     $redesSociales = array(
-        'url-twitter' => 'URL de Twitter',
-        'url-facebook' => 'URL de Facebook',
+        'url-twitter'     => 'URL de Twitter',
+        'url-facebook'    => 'URL de Facebook',
         'url-google-plus' => 'URL de Google Plus',
-        'url-youtube' => 'URL del canal de Youtube',
-        'url-instagram' => 'URL de Instagram',
+        'url-youtube'     => 'URL del canal de Youtube',
+        'url-instagram'   => 'URL de Instagram',
         );
 
     foreach ($redesSociales as $setting => $label) {
