@@ -32,6 +32,7 @@ require THEME_DIR . 'includes/shortcode.compartir.php';
 require THEME_DIR . 'includes/shortcode.svg.php';
 
 require THEME_DIR . 'includes/galeria/index.php';
+require THEME_DIR . 'includes/redes-sociales/index.php';
 
 require THEME_DIR . 'includes/widget.contenido.php';
 
