@@ -38,7 +38,7 @@ jQuery(function($) {
                     break
                 }
                 var attachment = models[i].toJSON()
-                var $nuevo = $('<li class="thumb"><input type="hidden" value="" name="" /><img src="" /> <button type="button" class="button eliminar">Eliminar</button> <button type="button" class="button reemplazar">Reemplazar</button></li>')
+                var $nuevo = $('<li class="thumb"><input type="hidden" value="" name="" /><img src="" /> <button type="button" class="eliminar" title="Eliminar esta imagen">X</button> <button type="button" class="reemplazar" title="Reemplazar esta imagen">Reemplazar imagen</button></li>')
                 $nuevo.find('input').attr('name', $widget.attr('data-name-input')).val(attachment.id)
                 $nuevo.find('img').attr('src', attachment.sizes.thumbnail.url)
                 $widget.find('ul').append($nuevo)

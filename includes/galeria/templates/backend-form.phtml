@@ -17,9 +17,9 @@ $name = (isset($this) && is_object($this)) ? $this->get_field_name('galeria') : 
         <li class="thumb">
             <input type="hidden" value="<?php echo $id ?>" name="<?php echo $name; ?>[]" />
             <img src="<?php echo $src[0] ?>" />
-            <button type="button" class="button eliminar">Eliminar</button> <button type="button" class="button reemplazar">Reemplazar</button>
+            <button type="button" class="eliminar" title="Eliminar esta imagen">X</button> <button type="button" class="reemplazar" title="Reemplazar esta imagen">Reemplazar imagen</button>
         </li>
     <?php endforeach; ?>
     </ul>
-    <button type="button" class="button button-primary cargarImagenJS">Agregar imagenes</button>
+    <button type="button" class="button button-primary cargarImagen cargarImagenJS">Agregar imagenes</button>
 </div>

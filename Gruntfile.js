@@ -21,7 +21,7 @@ module.exports = function(grunt) {
                     outputStyle: "expanded"
                 },
                 files: {
-                    'sass/_framework.scss': 'source/sass/custom-foundation.scss'
+                    'source/sass/componentes/_framework.scss': 'source/sass/custom-foundation.scss'
                 }
             },
         },
@@ -99,13 +99,18 @@ module.exports = function(grunt) {
         },
         watch: {
             sass: {
-                files: ['sass/**/*.scss', '!sass/foundation.scss'],
+                files: ['source/sass/**/*.scss', '!source/sass/custom-foundation.scss'],
                 tasks: ['sass:dist'],
                 options: {livereload: true}
             },
+            js: {
+                files: ['source/js/**/*'],
+                tasks: ['copy:js'],
+                options: {livereload: false}
+            },
             plugin: {
                 files: ['plugins/**/*'],
-                tasks: ['copy'],
+                tasks: ['copy:plugins'],
                 options: {livereload: false}
             },
             template: {
@@ -114,8 +119,9 @@ module.exports = function(grunt) {
             }
         }
     });
-    grunt.registerTask('dist', ['sass:dist', 'copy:js', 'newer:imagemin', 'newer:svgmin']);
     grunt.registerTask('framework', ['sass:foundation']);
+    grunt.registerTask('dist', ['sass:dist', 'copy:js', 'newer:imagemin', 'newer:svgmin']);
+
     grunt.registerTask('build', ['clean', 'dist', 'copy:build']);
     grunt.registerTask('rebuild', ['clean:prebuild', 'copy:build']);
 
