@@ -1,3 +1,6 @@
+<?php
+echo do_shortcode('[redes-sociales mostrar="gplus,facebook,twitter"]');
+?>
 <h1>Constantes</h1>
 <table>
 <?php
