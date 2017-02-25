@@ -12,7 +12,7 @@ module.exports = function(grunt) {
                 files: {
                     'assets/css/app.min.css': 'source/sass/global.scss',
                     'assets/css/login.min.css': 'source/sass/login.scss',
-                    'assets/css/backend-widget-galeria.min.css': 'source/sass/widgets/backend-galeria.scss'
+                    'assets/css/backend.min.css': 'source/sass/backend.scss'
                 }
             },
             foundation: {

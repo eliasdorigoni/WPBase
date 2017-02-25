@@ -5,15 +5,20 @@ function theme_enqueueCSS() {
     // wp_enqueue_style('custom-fonts', 'http://fonts.googleapis.com/css?family=Open+Sans:400,600,700', array(), null);
     wp_enqueue_style('app', ASSETS_CSS_URI . 'app.min.css', array(), VERSION);
 }
+add_action('wp_enqueue_scripts', 'theme_enqueueCSS');
 
 function theme_enqueueJS() {
     wp_enqueue_script('jquery');
     wp_enqueue_script('foundation', ASSETS_JS_URI . 'vendor/foundation.min.js', array('jquery'), '6.2.3', true );
     wp_enqueue_script('app', ASSETS_JS_URI.'app.js', array('foundation'), VERSION, true );
 }
-
-add_action('wp_enqueue_scripts', 'theme_enqueueCSS');
 add_action('wp_enqueue_scripts', 'theme_enqueueJS');
+
+function theme_enqueueBackend() {
+    wp_enqueue_style('backend', ASSETS_CSS_URI . 'backend.min.css', array(), VERSION);
+    wp_enqueue_script('backend', ASSETS_JS_URI . 'backend-galeria.js', array('jquery'), VERSION, true);
+}
+add_action('admin_enqueue_scripts', 'theme_enqueueBackend');
 
 /**
  * @link https://github.com/kenwheeler/slick/

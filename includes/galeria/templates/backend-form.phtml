@@ -1,5 +1,12 @@
-<div class="widgetGaleriaJS media-upload" data-maximo="<?php echo $cantidadMaxima ?>" data-name-input="<?php echo $this->get_field_name('galeria'); ?>[]">
-    <?php if ($cantidadMaxima): ?>
+<?php 
+
+/** Este template se usa como widget y como metabox. */
+if (!isset($galeria) || !is_array($galeria)) $galeria = array();
+if (!isset($cantidadMaxima)) $cantidadMaxima = -1;
+$name = (isset($this) && is_object($this)) ? $this->get_field_name('galeria') : 'galeria';
+?>
+<div class="componente-galeria" data-maximo="<?php echo $cantidadMaxima ?>" data-name-input="<?php echo $name; ?>[]">
+    <?php if ($cantidadMaxima >= 0): ?>
         <p>Imagenes usadas: <span class="cantidadActual"><?php echo count($galeria); ?></span> de <?php echo $cantidadMaxima; ?></p>
     <?php else: ?>
         <p>Imágenes:</p>
@@ -8,12 +15,11 @@
     <?php foreach($galeria as $id): ?>
         <?php $src = wp_get_attachment_image_src($id); ?>
         <li class="thumb">
-            <input type="hidden" value="<?php echo $id ?>" name="<?php echo $this->get_field_name('galeria'); ?>[]" />
+            <input type="hidden" value="<?php echo $id ?>" name="<?php echo $name; ?>[]" />
             <img src="<?php echo $src[0] ?>" />
             <button type="button" class="button eliminar">Eliminar</button> <button type="button" class="button reemplazar">Reemplazar</button>
         </li>
     <?php endforeach; ?>
     </ul>
     <button type="button" class="button button-primary cargarImagenJS">Agregar imagenes</button>
-    <br><br>
 </div>

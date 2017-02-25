@@ -47,7 +47,7 @@ class WP_Widget_Galeria extends WP_Widget
         $instance = wp_parse_args($instance, $default);
         $cantidadMaxima = $this->cantidadMaxima;
         $galeria = $instance['galeria'];
-        include 'templates/backend-form-widget.phtml';
+        include THEME_DIR . 'includes' . DS . 'galeria' . DS . 'templates' . DS . 'backend-form.phtml';
     }
 }
 

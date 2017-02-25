@@ -208,3 +208,34 @@ function cargarConstantesDesdeINI($archivo = '', $constantesPorDefecto = array()
         define(strtoupper($const), $valor);
     }
 }
+
+/**
+ * Retorna un array con las urls de las imagenes de los attachments.
+ * O con los posts si no hay $dimensiones definidas.
+ * 
+ * @param  array  $ids         IDs de posts como valores.
+ * @param  string $dimensiones Dimensiones, ej: thumbnail, medium, large.
+ * @return array
+ */
+function retornarImagenesDeAttachments($ids = array(), $dimensiones = '') {
+    if (!$ids || !is_array($ids)) {
+        return array();
+    }
+
+    $query = new WP_Query(array(
+        'post_type' => 'attachment',
+        'post_status' => 'any',
+        'post__in' => $ids,
+        ));
+
+    $retorno = array();
+    foreach ($query->posts as $post) {
+        if ($dimensiones) {
+            $retorno[$post->ID] = wp_get_attachment_image_src($post->ID, $dimensiones);
+        } else {
+            $retorno[$post->ID] = $post;
+        }
+    }
+
+    return $retorno;
+}

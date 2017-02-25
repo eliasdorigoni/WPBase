@@ -1,12 +1,10 @@
 jQuery(function($) {
-    var formatoThumb = '<li class="thumb"><input type="hidden" value="" name="" /><img src="" /> <button type="button" class="button eliminar">Eliminar</button> <button type="button" class="button reemplazar">Reemplazar</button></li>'
-
-    $('body').on('click', '.widgetGaleriaJS .eliminar', function() {
-        var $widget = $(this).parents('.widgetGaleriaJS')
+    $('body').on('click', '.componente-galeria .eliminar', function() {
+        var $widget = $(this).parents('.componente-galeria')
         var cantidad = $widget.find('.thumb').length - 1
         $widget.find('.cantidadActual').html(cantidad)
         $(this).parents('li').remove()
-    }).on('click', '.widgetGaleriaJS .reemplazar', function(e) {
+    }).on('click', '.componente-galeria .reemplazar', function(e) {
         var $thumb = $(this).parents('.thumb')
 
         var uploader = wp.media({
@@ -22,8 +20,8 @@ jQuery(function($) {
         })
 
         uploader.open()
-    }).on('click', '.widgetGaleriaJS .cargarImagenJS', function(e) {
-        var $widget = $(this).parents('.widgetGaleriaJS')
+    }).on('click', '.componente-galeria .cargarImagenJS', function(e) {
+        var $widget = $(this).parents('.componente-galeria')
         var cantidad = $widget.attr('data-maximo')
         var limitarCantidad = (cantidad > '0') ? true : false
 
@@ -40,7 +38,7 @@ jQuery(function($) {
                     break
                 }
                 var attachment = models[i].toJSON()
-                var $nuevo = $(formatoThumb)
+                var $nuevo = $('<li class="thumb"><input type="hidden" value="" name="" /><img src="" /> <button type="button" class="button eliminar">Eliminar</button> <button type="button" class="button reemplazar">Reemplazar</button></li>')
                 $nuevo.find('input').attr('name', $widget.attr('data-name-input')).val(attachment.id)
                 $nuevo.find('img').attr('src', attachment.sizes.thumbnail.url)
                 $widget.find('ul').append($nuevo)
