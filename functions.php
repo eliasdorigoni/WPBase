@@ -31,6 +31,8 @@ require THEME_DIR . 'includes/shortcode.svg.php';
 
 require THEME_DIR . 'includes/galeria/index.php';
 
+require THEME_DIR . 'includes/widget.contenido.php';
+
 //////////////
 // Limpieza //
 //////////////
