@@ -50,3 +50,8 @@ class WP_Widget_Galeria extends WP_Widget
         include 'templates/backend-form-widget.phtml';
     }
 }
+
+function registrarWidgetGaleria() {
+    register_widget('WP_Widget_Galeria');
+}
+add_action('widgets_init', 'registrarWidgetGaleria');
