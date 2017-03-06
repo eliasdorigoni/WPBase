@@ -1,0 +1,44 @@
+.nav-cabecera {
+    .menu-item {
+        background: #fff;
+        display: inline-block;
+        padding: 0.2em 0.35em;
+        position: relative;
+        outline: 1px solid #eee;
+        &:hover {
+            background: #D9D9D9;
+            > .sub-menu {
+                display: block;
+            }
+        }
+        > a {
+            color: #1391E1;
+        }
+    }
+    .current-menu-item > a,
+    .current_page_item > a {
+        color: #D13A1C;
+    }
+    .menu-item-has-children > a:after {
+        content: "\02193";
+        margin: 0 0.2em;
+    }
+    .sub-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: auto;
+        margin-left: 0;
+        .sub-menu {
+            background: tomato;
+            position: absolute;
+            top: 0;
+            left: 100%;
+            right: auto;
+        }
+        .menu-item {
+            width: 12em;
+        }
+    }
+}
