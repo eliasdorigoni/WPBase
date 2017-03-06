@@ -26,7 +26,7 @@
     <a class="skip-link screen-reader-text" href="#content">Ir al contenido</a>
     <header class="header">
         <div class="row">
-            <div class="column large-6">
+            <div class="column large-4">
                 <a href="<?php echo HOME_URL; ?>" title="<?php echo bloginfo('name'); ?>">
                 <?php if (has_custom_logo()): ?>
                     <?php the_custom_logo(); ?>
@@ -37,12 +37,12 @@
                 <?php endif ?>
                 </a>
             </div>
-            <div class="column large-6">
+            <div class="column large-8">
                 <?php if (has_nav_menu('principal')): ?>
                 <nav role="navigation">
                 <?php
                     $args = array(
-                        'menu_class'     => 'nav-menu',
+                        'menu_class'     => 'nav-cabecera',
                         'theme_location' => 'principal',
                     );
                     wp_nav_menu($args);
