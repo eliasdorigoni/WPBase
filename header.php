@@ -39,7 +39,7 @@
             </div>
             <div class="column large-8">
                 <?php if (has_nav_menu('principal')): ?>
-                    <button class="toggle toggleNavCabecera"><?php mostrarSVG('menu'); ?>Menú</button>
+                    <button class="toggle toggleNavCabecera">Menú</button>
                 <nav role="navigation">
                 <?php
                     $args = array(
