@@ -11,7 +11,7 @@
     <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
-    <?php if (false != ($ua = get_option('google_analytics', false))): ?>
+    <?php if (false != ($ua = get_option('google-analytics', false))): ?>
         <script>
           (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
           (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -27,7 +27,7 @@
     <header class="header">
         <div class="row">
             <div class="column large-4">
-                <a href="<?php echo HOME_URL; ?>" title="<?php echo bloginfo('name'); ?>">
+                <a class="logo" href="<?php echo HOME_URL; ?>" title="<?php echo bloginfo('name'); ?>">
                 <?php if (has_custom_logo()): ?>
                     <?php the_custom_logo(); ?>
                 <?php elseif (is_file(ASSETS_IMG_DIR . 'logo.jpg')): ?>
@@ -39,6 +39,7 @@
             </div>
             <div class="column large-8">
                 <?php if (has_nav_menu('principal')): ?>
+                    <button class="toggle toggleNavCabecera"><?php mostrarSVG('menu'); ?>Menú</button>
                 <nav role="navigation">
                 <?php
                     $args = array(
