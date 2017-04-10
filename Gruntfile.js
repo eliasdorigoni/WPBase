@@ -106,7 +106,7 @@ module.exports = function(grunt) {
             js: {
                 files: ['source/js/**/*'],
                 tasks: ['copy:js'],
-                options: {livereload: false}
+                options: {livereload: true}
             },
             plugin: {
                 files: ['plugins/**/*'],
