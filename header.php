@@ -11,7 +11,7 @@
     <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
-    <?php if (false != ($ua = get_option('google_analytics', false))): ?>
+    <?php if (false != ($ua = get_option('google-analytics', false))): ?>
         <script>
           (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
           (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -26,8 +26,8 @@
     <a class="skip-link screen-reader-text" href="#content">Ir al contenido</a>
     <header class="header">
         <div class="row">
-            <div class="column large-6">
-                <a href="<?php echo HOME_URL; ?>" title="<?php echo bloginfo('name'); ?>">
+            <div class="column large-4">
+                <a class="logo" href="<?php echo HOME_URL; ?>" title="<?php echo bloginfo('name'); ?>">
                 <?php if (has_custom_logo()): ?>
                     <?php the_custom_logo(); ?>
                 <?php elseif (is_file(ASSETS_IMG_DIR . 'logo.jpg')): ?>
@@ -37,12 +37,13 @@
                 <?php endif ?>
                 </a>
             </div>
-            <div class="column large-6">
+            <div class="column large-8">
                 <?php if (has_nav_menu('principal')): ?>
+                    <button class="toggle toggleNavCabecera">Menú</button>
                 <nav role="navigation">
                 <?php
                     $args = array(
-                        'menu_class'     => 'nav-menu',
+                        'menu_class'     => 'nav-cabecera',
                         'theme_location' => 'principal',
                     );
                     wp_nav_menu($args);
