@@ -15,6 +15,17 @@ module.exports = function(grunt) {
                     'assets/css/backend.min.css': 'source/sass/backend.scss'
                 }
             },
+            dist: {
+                options: {
+                    sourceMap: false,
+                    outputStyle: "compressed",
+                },
+                files: {
+                    'assets/css/app.min.css': 'source/sass/global.scss',
+                    'assets/css/login.min.css': 'source/sass/login.scss',
+                    'assets/css/backend.min.css': 'source/sass/backend.scss'
+                }
+            },
             foundation: {
                 options: {
                     includePaths: ['node_modules/foundation-sites/scss'],
@@ -32,6 +43,9 @@ module.exports = function(grunt) {
             prebuild: [
                 'build/'
             ],
+            temp: [
+                'temp/'
+            ],
         },
         copy: {
             plugins: {
@@ -44,12 +58,12 @@ module.exports = function(grunt) {
                     }
                 ]
             },
-            js: {
+            estaticos: {
                 files: [
                     {
                         expand : true,
                         cwd    : 'source',
-                        src    : ['js/**/*'],
+                        src    : ['js/**/*', 'fonts/**/*'],
                         dest   : 'assets/'
                     }
                 ]
@@ -59,7 +73,7 @@ module.exports = function(grunt) {
                     {
                         expand : true,
                         src : [
-                            '{assets,includes,templates}/**/*',
+                            '{assets,includes,templates,woocommerce}/**/*',
                             '*.*',
                             '.htaccess',
                             '!*.{map,md}',
@@ -75,6 +89,7 @@ module.exports = function(grunt) {
                 plugins: [
                     {removeViewBox: false },
                     {removeUselessStrokeAndFill: false },
+                    {removeStyleElement: true},
                     {removeAttrs: {attrs: ['xmlns'] } }
                 ]
             },
@@ -83,8 +98,30 @@ module.exports = function(grunt) {
                     expand: true,
                     cwd: 'source/',
                     src: 'svg/*.svg',
-                    dest: 'assets/'
+                    dest: 'temp/'
                 }]
+            }
+        },
+        svg_sprite: {
+            target: {
+                cwd: 'temp/svg/',
+                src: ['*.svg'],
+                dest: 'assets/svg/',
+                options: {
+                    shape: {
+                        dimension: {
+                            maxWidth: 200,
+                            maxHeight: 200
+                        },
+                    },
+                    mode: {
+                        symbol: {
+                            dest: '',
+                            prefix: '',
+                            sprite: "sprite.svg"
+                        }
+                    }
+                }
             }
         },
         imagemin: {
@@ -99,13 +136,16 @@ module.exports = function(grunt) {
         },
         watch: {
             sass: {
-                files: ['source/sass/**/*.scss', '!source/sass/custom-foundation.scss'],
+                files: [    
+                    'source/sass/**/*.scss',
+                    '!source/sass/custom-foundation.scss'
+                ],
                 tasks: ['sass:dist'],
                 options: {livereload: true}
             },
             js: {
                 files: ['source/js/**/*'],
-                tasks: ['copy:js'],
+                tasks: ['copy:estaticos'],
                 options: {livereload: true}
             },
             plugin: {
@@ -120,7 +160,8 @@ module.exports = function(grunt) {
         }
     });
     grunt.registerTask('framework', ['sass:foundation']);
-    grunt.registerTask('dist', ['sass:dist', 'copy:js', 'newer:imagemin', 'newer:svgmin']);
+    grunt.registerTask('iconos', ['svgmin', 'svg_sprite', 'clean:temp']);
+    grunt.registerTask('dist', ['sass:dist', 'copy:estaticos', 'newer:imagemin', 'iconos']);
 
     grunt.registerTask('build', ['clean', 'dist', 'copy:build']);
     grunt.registerTask('rebuild', ['clean:prebuild', 'copy:build']);
