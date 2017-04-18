@@ -1,4 +1,3 @@
-    </section><!-- .site-content -->
     <?php
         edit_post_link(
             sprintf(
