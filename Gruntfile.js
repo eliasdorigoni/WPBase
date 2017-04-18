@@ -43,9 +43,6 @@ module.exports = function(grunt) {
             prebuild: [
                 'build/'
             ],
-            temp: [
-                'temp/'
-            ],
         },
         copy: {
             plugins: {
@@ -84,34 +81,19 @@ module.exports = function(grunt) {
                 ]
             }
         },
-        svgmin: {
-            options: {
-                plugins: [
-                    {removeViewBox: false },
-                    {removeUselessStrokeAndFill: false },
-                    {removeStyleElement: true},
-                    {removeAttrs: {attrs: ['xmlns'] } }
-                ]
-            },
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: 'source/',
-                    src: 'svg/*.svg',
-                    dest: 'temp/'
-                }]
-            }
-        },
         svg_sprite: {
             target: {
-                cwd: 'temp/svg/',
+                cwd: 'source/svg/',
                 src: ['*.svg'],
                 dest: 'assets/svg/',
                 options: {
                     shape: {
                         dimension: {
-                            maxWidth: 200,
-                            maxHeight: 200
+                            maxWidth: 100,
+                            maxHeight: 100
+                        },
+                        id: {
+                            whitespace: '_',
                         },
                     },
                     mode: {
@@ -156,11 +138,16 @@ module.exports = function(grunt) {
             template: {
                 files: ['*.php'],
                 options: {livereload: true}
-            }
+            },
+            iconos: {
+                files: ['source/svg/*'],
+                tasks: ['iconos'],
+                options: {livereload: true}
+            },
         }
     });
     grunt.registerTask('framework', ['sass:foundation']);
-    grunt.registerTask('iconos', ['svgmin', 'svg_sprite', 'clean:temp']);
+    grunt.registerTask('iconos', ['svg_sprite']);
     grunt.registerTask('dist', ['sass:dist', 'copy:estaticos', 'newer:imagemin', 'iconos']);
 
     grunt.registerTask('build', ['clean', 'dist', 'copy:build']);
