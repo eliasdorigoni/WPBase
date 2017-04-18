@@ -32,10 +32,10 @@ module.exports = function(grunt) {
             foundation: {
                 options: {
                     includePaths: ['node_modules/foundation-sites/scss'],
-                    outputStyle: "expanded"
+                    outputStyle: "compressed"
                 },
                 files: {
-                    'source/sass/componentes/_framework.scss': 'source/sass/custom-foundation.scss'
+                    'source/sass/foundation/_compilado.scss': 'source/sass/foundation/custom-foundation.scss'
                 }
             },
         },
@@ -149,7 +149,7 @@ module.exports = function(grunt) {
             },
         }
     });
-    grunt.registerTask('framework', ['sass:foundation']);
+    grunt.registerTask('foundation', ['sass:foundation']);
     grunt.registerTask('iconos', ['svg_sprite']);
     grunt.registerTask('dist', ['sass:dist', 'copy:estaticos', 'newer:imagemin', 'iconos']);
 
