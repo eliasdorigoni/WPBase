@@ -31,8 +31,8 @@ class SVG {
         if (!$nombre) {
             return '';
         } else {
-            $formato = '<svg id="icono-%1$s" role="img"><use href="#%1$s" xlink:href="#%1$s"></use></svg>';
-            $elemento = sprintf($formato, $nombre);
+            $formato = '<svg class="icono icono-%1$s" role="img"> <use href="#%1$s" xlink:href="#%1$s"></use> </svg>';
+            $elemento = sprintf($formato, sanitize_title($nombre));
             return sprintf($contenedor, $elemento);
         }
     }
