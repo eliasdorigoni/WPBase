@@ -3,6 +3,9 @@ module.exports = function(grunt) {
     require('load-grunt-tasks')(grunt);
 
     grunt.initConfig({
+        globalConfig: {
+            theme: 'wpbase'
+        },
         sass: {
             dist: {
                 options: {
@@ -76,7 +79,7 @@ module.exports = function(grunt) {
                             '!*.{map,md}',
                             '!package.json',
                             ],
-                        dest : 'build/'
+                        dest : 'build/<%= globalConfig.theme  %>',
                     },
                 ]
             }
