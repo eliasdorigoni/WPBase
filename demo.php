@@ -1,3 +1,4 @@
+<hr>
 <?php
 echo do_shortcode('[redes-sociales mostrar="gplus,facebook,twitter"]');
 ?>
