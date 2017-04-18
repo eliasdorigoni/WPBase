@@ -16,16 +16,18 @@ echo '<tr><td>ASSETS_SVG_DIR</td><td>' . ASSETS_SVG_DIR . '</td></tr>';
 echo '<tr><td>ASSETS_SVG_URI</td><td>' . ASSETS_SVG_URI . '</td></tr>';
 ?>
 </table>
-<h1>Archivos SVG</h1>
+<h1>Iconos</h1>
 <table>
 <?php 
 
-$rutas = glob(ASSETS_SVG_DIR . '*.svg');
+$rutas = glob(dirname(__FILE__) . '/source/svg/**');
+
 foreach ($rutas as $ruta) {
-    if (is_file($ruta)) {
-        $nombre = preg_replace('/\.svg$/', '', basename($ruta));
-        printf('<tr><td>%s</td><td>%s</td></tr>', $nombre, retornarSVG($nombre));
-    }
+    $id = str_replace('.svg', '', basename($ruta));
+    echo SVG::retornar(array(
+        'nombre' => $id,
+        'contenedor' => '<tr><td>'.$id.'</td><td>%s</td></tr>',
+        ));
 }
 ?>
 </table>
