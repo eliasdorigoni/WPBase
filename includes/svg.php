@@ -61,3 +61,4 @@ class SVG {
 }
 
 add_shortcode('icono', array('SVG', 'retornar'));
+add_action('post_body', array('SVG', 'mostrarSprite'));
