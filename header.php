@@ -24,6 +24,7 @@
         </script>
     <?php endif ?>
     <a class="skip-link screen-reader-text" href="#content">Ir al contenido</a>
+    <?php SVG::mostrarSprite() ?>
     <header class="header">
         <div class="row">
             <div class="column large-4">
