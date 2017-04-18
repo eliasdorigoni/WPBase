@@ -110,58 +110,6 @@ function theme_agregarSlugClase($classes) {
 add_filter('body_classes', 'theme_agregarSlugClase');
 
 /**
- * Busca un archivo SVG a partir del nombre del archivo (sin extension).
- * Retorna un array con la URL y el contenido si lo encontró, o false si no lo encontró.
- * @param  string $slug  Nombre del archivo
- * @return arr/bool      Array con la url y el contenido, o false.
- */
-function buscarSVG($nombre = '') {
-    $archivo = $nombre . '.svg';
-
-    if (is_string($nombre) && strlen($nombre) > 0 && is_file(ASSETS_SVG_DIR . $archivo)) {
-        return array(
-            'url' => ASSETS_SVG_URI . $archivo,
-            'contenido' => file_get_contents(ASSETS_SVG_DIR . $archivo)
-            );
-    }
-
-    return false;
-}
-
-/**
- * Retorna un archivo SVG a partir del nombre (sin extension ni ruta), incrustado 
- * dentro de etiquetas span o enlazazo en una etiqueta img
- * @param  string  $nombre    Nombre del archivo svg
- * @param  boolean $incrustar Pone el contenido dentro de <svg> o lo enlaza en <img>.
- *                            Por defecto true
- * @return string             Retorna el contenido o un string vacío.
- */
-function retornarSVG($nombre = '', $incrustar = true) {
-    $array = buscarSVG($nombre);
-    if (!$array) {
-        return '';
-    }
-
-    if (!$incrustar) {
-        $formato = '<img class="svg %s" src="%s" />';
-        return sprintf($formato, $nombre, $array['url']);
-    }
-
-    $array['contenido'] = str_replace('<svg', '<svg class="'.$nombre.'" ', $array['contenido']);
-    return $array['contenido'];
-}
-
-/**
- * Muestra el retorno de retornarSVG.
- * @param  string  $nombre    Nombre del archivo svg.
- * @param  boolean $incrustar Pone el contenido dentro de <span> o lo enlaza en <img>.
- * @return void
- */
-function mostrarSVG($nombre, $incrustar = true) {
-    echo retornarSVG($nombre, $incrustar);
-}
-
-/**
  * Retorna el nombre de la taxonomia dentro de una plantilla de taxonomía.
  * @return string  Nombre de la taxonomia
  */

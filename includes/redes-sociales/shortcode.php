@@ -57,7 +57,7 @@ function mostrarRedesSociales($atts = array()) {
         foreach ($redesDisponibles as $red) {
             if (!$usar && in_array($item, $red['claves'])) {
                 $enlace = get_option($red['option'], false);
-                $svg = retornarSVG($red['svg']);
+                $svg = SVG::retornar($red['svg']);
             }
         }
 
