@@ -2,24 +2,19 @@
 
 <div class="row">
     <div class="column large-8">
-        <main role="main" class="main">
-            <?php if (have_posts()) : ?>
-
-                <?php if (!is_front_page()) : ?>
-                    <header class="header-main">
-                        <h1 class="titulo-pagina"><?php single_post_title(); ?></h1>
-                    </header>
-                <?php endif; ?>
-
+        <main role="main" class="<?php post_class() ?>">
+            <?php if (have_posts()): ?>
                 <?php while (have_posts()) : the_post(); ?>
+
+                    <?php if (!is_front_page()) : ?>
+                        <h1 class="titulo-pagina"><?php the_title(); ?></h1>
+                    <?php endif; ?>
+
                     <?php the_content(); ?>
-                    <hr>
-                    <?php get_template_part('demo'); ?>
+
                 <?php endwhile; ?>
 
-                <?php if (comments_open() || get_comments_number()): ?>
-                    <?php comments_template(); ?>
-                <?php endif; ?> 
+                <?php if (comments_open() || get_comments_number()) comments_template(); ?>
 
                 <?php the_posts_pagination(array(
                     'prev_text' => '&lt; Anterior',
@@ -32,6 +27,8 @@
                 <p>Sin contenido.</p>
 
             <?php endif; ?>
+
+            <?php get_template_part('demo'); ?>
 
         </main>
     </div>
