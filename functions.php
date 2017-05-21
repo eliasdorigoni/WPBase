@@ -33,7 +33,7 @@ require THEME_DIR . 'includes/svg.php';
 require THEME_DIR . 'includes/google-analytics.php';
 
 require THEME_DIR . 'includes/galeria/index.php';
-require THEME_DIR . 'includes/redes-sociales/index.php';
+require THEME_DIR . 'includes/class.redes-sociales.php';
 
 require THEME_DIR . 'includes/widget.contenido.php';
 

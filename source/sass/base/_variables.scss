@@ -7,9 +7,20 @@ $xxlarge: 90em;
 $colorPrincipal: #fff;
 $colorSecundario: #eee;
 
-$colorGooglePlus: #F6432D;
-$colorTwitter: #00ACEF;
 $colorFacebook: #0063B2;
+$colorTwitter: #00ACEF;
+$colorGooglePlus: #F6432D;
+$colorPinterest: #BD081C;
+$colorWhatsapp: #25D366;
+$colorInstagram: #DB3075;
+
+// http://colorzilla.com/gradient-editor/#f9ed32+0,ee2a7b+75,002aff+100
+%degradadoInstagram {
+    background: #ee2a7b;
+    background: -webkit-linear-gradient(45deg, #f9ed32 0%, #ee2a7b 75%, #002aff 100%);
+    background:    -moz-linear-gradient(45deg, #f9ed32 0%, #ee2a7b 75%, #002aff 100%);
+    background:         linear-gradient(45deg, #f9ed32 0%, #ee2a7b 75%, #002aff 100%);
+}
 
 $stackPrincipal: Open Sans, Verdana, Arial, sans-serif;
 

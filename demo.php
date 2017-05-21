@@ -1,7 +1,12 @@
 <hr>
-<?php
-echo do_shortcode('[redes-sociales mostrar="gplus,facebook,twitter"]');
-?>
+<h1>Todas las redes</h1>
+<?php echo do_shortcode('[redes-sociales]'); ?>
+
+<h1>Sólo Facebook</h1>
+<?php echo do_shortcode('[redes-sociales mostrar="facebook"]'); ?>
+
+<h1>Compartir</h1>
+<?php echo do_shortcode('[compartir]'); ?>
 <h1>Constantes</h1>
 <table>
 <?php

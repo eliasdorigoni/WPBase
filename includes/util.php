@@ -187,3 +187,19 @@ function retornarImagenesDeAttachments($ids = array(), $dimensiones = '') {
 
     return $retorno;
 }
+
+function cortarEnPalabra($string, $cantidadCaracteres) {
+    $partes = preg_split('/([\s\n\r]+)/', $string, null, PREG_SPLIT_DELIM_CAPTURE);
+    $cantidadPartes = count($partes);
+
+    $caracteres = 0;
+    $ultimaParte = 0;
+    for (; $ultimaParte < $cantidadPartes; ++$ultimaParte) {
+        $caracteres += strlen($partes[$ultimaParte]);
+        if ($caracteres > $cantidadCaracteres) {
+            break;
+        }
+    }
+
+    return implode(array_slice($partes, 0, $ultimaParte));
+}
