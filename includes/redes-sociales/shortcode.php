@@ -25,28 +25,28 @@ function mostrarRedesSociales($atts = array()) {
             'claves' => array('twitter'),
             'option' => 'url-twitter',
             'svg'    => 'twitter',
-            ),
+        ),
         array(
             'claves' => array('facebook'),
             'option' => 'url-facebook',
             'svg'    => 'facebook',
-            ),
+        ),
         array(
             'claves' => array('google-plus', 'googleplus', 'gplus'),
             'option' => 'url-google-plus',
             'svg'    => 'google-plus-nuevo',
-            ),
+        ),
         array(
             'claves' => array('youtube'),
             'option' => 'url-youtube',
             'svg'    => 'youtube',
-            ),
+        ),
         array(
             'claves' => array('instagram'),
             'option' => 'url-instagram',
             'svg'    => 'instagram',
-            ),
-        );
+        ),
+    );
 
     $mostrar = extraerRedes($mostrar, $redesDisponibles);
 
@@ -65,12 +65,21 @@ function mostrarRedesSociales($atts = array()) {
             $retorno[] = array(
                 'enlace' => $enlace,
                 'contenido' => $svg,
-                );
+            );
         }
     }
 
-    if ($retorno) {
-        include 'template.frontend.phtml';
+    if (!$retorno) {
+        return '';
     }
+
+    $contenedorExterno = '<ul class="redesSociales">%s</ul>';
+    $contenedorInterno = '<li class="redSocial"><a href="%s">%s</a></li>';
+
+    ob_start();
+    foreach ($retorno as $item) {
+        printf($contenedorInterno, $item['enlace'], $item['contenido']);
+    }
+    return sprintf($contenedorExterno, ob_get_clean());
 }
 add_shortcode('redes-sociales', 'mostrarRedesSociales');
