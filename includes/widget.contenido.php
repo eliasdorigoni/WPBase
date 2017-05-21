@@ -1,7 +1,9 @@
 <?php
 if (!defined('ABSPATH')) exit;
 
-class WP_Widget_Contenido extends WP_Widget {
+// Copia del widget de texto que no muestra el título.
+class WP_Widget_Contenido extends WP_Widget
+{
 
     public function __construct()
     {
@@ -36,26 +38,24 @@ class WP_Widget_Contenido extends WP_Widget {
         } else {
             $instance['text'] = wp_kses_post($new_instance['text']);
         }
-        $instance['filter'] = empty($new_instance['filter']);
+        $instance['filter'] = !empty($new_instance['filter']);
         return $instance;
     }
 
     public function form($instance)
     {
-        $instance = wp_parse_args($instance, array(
-            'title' => '', 
-            'text' => '',
-            'filter' => 0,
-            ));
+        $instance = wp_parse_args((array) $instance, array(
+            'title' => '',
+            'text' => ''
+        ));
         $filter = isset($instance['filter']) ? $instance['filter'] : 0;
         $title = sanitize_text_field($instance['title']);
-        $text = sanitize_text_field($instance['text']);
         ?>
-        <p><label for="<?php echo $this->get_field_id('title'); ?>">Título: (no se va a mostrar en el frontend)</label>
+        <p><label for="<?php echo $this->get_field_id('title'); ?>">Titulo (no se va a mostrar en el frontend):</label>
         <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" /></p>
 
-        <p><label for="<?php echo $this->get_field_id('text'); ?>">Contenido</label>
-        <textarea class="widefat" rows="16" cols="20" id="<?php echo $this->get_field_id('text'); ?>" name="<?php echo $this->get_field_name('text'); ?>"><?php echo esc_textarea($text); ?></textarea></p>
+        <p><label for="<?php echo $this->get_field_id('text'); ?>">Contenido:</label>
+        <textarea class="widefat" rows="16" cols="20" id="<?php echo $this->get_field_id('text'); ?>" name="<?php echo $this->get_field_name('text'); ?>"><?php echo esc_textarea( $instance['text'] ); ?></textarea></p>
 
         <p><input id="<?php echo $this->get_field_id('filter'); ?>" name="<?php echo $this->get_field_name('filter'); ?>" type="checkbox"<?php checked( $filter ); ?> />&nbsp;<label for="<?php echo $this->get_field_id('filter'); ?>"><?php _e('Automatically add paragraphs'); ?></label></p>
         <?php
