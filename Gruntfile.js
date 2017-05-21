@@ -84,9 +84,27 @@ module.exports = function(grunt) {
                 ]
             }
         },
+        svgmin: {
+            options: {
+                plugins: [
+                    {removeViewBox: false},
+                    {removeUselessStrokeAndFill: false},
+                    {removeStyleElement: true},
+                    {removeAttrs: {attrs: ['xmlns']}}
+                ]
+            },
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: 'source/svg/',
+                    src: '*.svg',
+                    dest: 'assets/svg/'
+                }]
+            }
+        },
         svg_sprite: {
             target: {
-                cwd: 'source/svg/',
+                cwd: 'source/svg/sprite',
                 src: ['*.svg'],
                 dest: 'assets/svg/',
                 options: {
@@ -143,14 +161,14 @@ module.exports = function(grunt) {
                 options: {livereload: true}
             },
             iconos: {
-                files: ['source/svg/*'],
+                files: ['source/svg/**/*'],
                 tasks: ['iconos'],
                 options: {livereload: true}
             },
         }
     });
     grunt.registerTask('foundation', ['sass:foundation']);
-    grunt.registerTask('iconos', ['svg_sprite']);
+    grunt.registerTask('iconos', ['svgmin', 'svg_sprite']);
     grunt.registerTask('dist', ['sass:dist', 'copy:estaticos', 'newer:imagemin', 'iconos']);
 
     grunt.registerTask('build', ['clean', 'dist', 'copy:build']);
