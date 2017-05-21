@@ -30,14 +30,16 @@ function themeSetup() {
         )
     );
 }
+add_action('after_setup_theme', 'themeSetup');
 
 function themeNavMenu() {
     register_nav_menu('principal', 'Menu de cabecera');
 }
+add_action('after_setup_theme', 'themeNavMenu');
 
 function permitirFondoPersonalizado() {
     // %s = get_stylesheet_directory_uri()
-    $base = str_replace(get_stylesheet_directory_uri(), '%s', ASSETS_IMG_URI);
+    $base = str_replace(get_stylesheet_directory_uri(), '%s', ASSETS_URI_IMG);
 
     register_default_headers(array(
         'default' => array(
@@ -53,11 +55,12 @@ function permitirFondoPersonalizado() {
     add_theme_support('custom-header', array(
         'width'         => 1920,
         'height'        => 1080,
-        'default-image' => ASSETS_IMG_URI . 'fondo.jpg',
+        'default-image' => ASSETS_URI_IMG . 'fondo.jpg',
         'uploads'       => true,
     ));
     // Usar header_image() para obtener la URL de la imagen.
 }
+add_action('after_setup_theme', 'permitirFondoPersonalizado');
 
 function permitirLogoPersonalizado() {
     add_theme_support('custom-logo', array(
@@ -68,14 +71,10 @@ function permitirLogoPersonalizado() {
         'header-text' => array('site-title', 'site-description'),
     ));
 }
+add_action('after_setup_theme', 'permitirLogoPersonalizado');
 
 function cambiarDimensionesImagenes() {
     set_post_thumbnail_size(320, 320, true);
     add_image_size('formato', '220', '220', true);
 }
-
-add_action('after_setup_theme', 'themeSetup');
-add_action('after_setup_theme', 'themeNavMenu');
-add_action('after_setup_theme', 'permitirFondoPersonalizado');
-add_action('after_setup_theme', 'permitirLogoPersonalizado');
 add_action('after_setup_theme', 'cambiarDimensionesImagenes');

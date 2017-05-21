@@ -203,3 +203,7 @@ function cortarEnPalabra($string, $cantidadCaracteres) {
 
     return implode(array_slice($partes, 0, $ultimaParte));
 }
+
+function retornarLoginURL() {
+    return HOME_URL;
+}

@@ -9,7 +9,6 @@ require THEME_DIR . 'includes/util.php';
 require THEME_DIR . 'includes/theme_setup.php';
 require THEME_DIR . 'includes/theme_widgets.php';
 require THEME_DIR . 'includes/theme_enqueue.php';
-require THEME_DIR . 'includes/theme_login.php';
 
 require THEME_DIR . 'includes/svg.php';
 require THEME_DIR . 'includes/google-analytics.php';
@@ -18,6 +17,12 @@ require THEME_DIR . 'includes/galeria/index.php';
 require THEME_DIR . 'includes/class.redes-sociales.php';
 
 require THEME_DIR . 'includes/widget.contenido.php';
+
+add_filter('login_headertitle', 'get_bloginfo');
+add_filter('login_headerurl', 'retornarLoginURL');
+
+// Permitir usar shortcodes en widgets.
+add_filter('widget_text','do_shortcode');
 
 //////////////
 // Limpieza //
