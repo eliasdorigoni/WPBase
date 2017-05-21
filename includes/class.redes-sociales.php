@@ -11,6 +11,12 @@ class RedesSociales
             'customizer' => array(
                 'label' => 'URL de Twitter',
             ),
+            'compartir' => array(
+                'url' => 'https://twitter.com/home?',
+                'query' => array(
+                    'status' => 'REEMPLAZAR_CON_ENLACE',
+                ),
+            ),
         ),
         'facebook' => array(
             'nombre' => 'Facebook',
@@ -19,6 +25,15 @@ class RedesSociales
             'customizer' => array(
                 'label' => 'URL de Facebook',
             ),
+            'compartir' => array(
+                'url' => 'https://www.facebook.com/sharer/sharer.php?',
+                'query' => array(
+                    'u' => 'REEMPLAZAR_CON_ENLACE',
+                    'display' => 'popup',
+                    'ref' => 'plugin',
+                    'src' => 'share_button',
+                ),
+            ),
         ),
         'google-plus' => array(
             'nombre' => 'Google Plus',
@@ -26,6 +41,12 @@ class RedesSociales
             'icono' => 'google-plus',
             'customizer' => array(
                 'label' => 'URL de Google Plus',
+            ),
+            'compartir' => array(
+                'url' => 'https://plus.google.com/share?',
+                'query' => array(
+                    'url' => 'REEMPLAZAR_CON_ENLACE',
+                ),
             ),
         ),
         'youtube' => array(
@@ -42,6 +63,16 @@ class RedesSociales
             'icono' => 'instagram',
             'customizer' => array(
                 'label' => 'URL de Instagram',
+            ),
+        ),
+        'whatsapp' => array(
+            'nombre' => 'WhatsApp',
+            'icono' => 'whatsapp',
+            'compartir' => array(
+                'url' => 'whatsapp://send?',
+                'query' => array(
+                    'text' => 'REEMPLAZAR_CON_ENLACE',
+                ),
             ),
         ),
     );
@@ -80,7 +111,7 @@ class RedesSociales
         return array_key_exists($string, self::$config);
     }
 
-    static function retornar($atts = array())
+    static function retornarRedes($atts = array())
     {
         $default = array('mostrar' => 'todos');
         extract(shortcode_atts($default, $atts));
@@ -98,9 +129,13 @@ class RedesSociales
         $retorno = array();
         foreach ($mostrar as $slug) {
             $red = self::$config[$slug];
+            if (!isset($red['option'])) {
+                continue;
+            }
 
+            $enlace = get_option($red['option'], false);
             // Si no tiene enlace, no se muestra.
-            if (false === ($enlace = get_option($red['option'], false))) {
+            if (!$enlace) {
                 continue;
             }
 
@@ -129,7 +164,63 @@ class RedesSociales
         }
         return sprintf('<div class="redesSociales">%s</div>', ob_get_clean());
     }
+
+    static function retornarBotonesCompartir($atts = array())
+    {
+        $default = array(
+            // Redes sociales a mostrar
+            'mostrar'  => 'todos',
+
+            // URL a compartir.
+            'url'      => get_the_permalink(),
+            'shorturl' => wp_get_shortlink(),
+        );
+        extract(shortcode_atts($default, $atts));
+
+        $retorno = array();
+        foreach (self::$config as $slug => $array) {
+
+            if ($mostrar != 'todos' && strpos($mostrar, $slug) === false) {
+                continue;
+            } else if (!isset($array['compartir'])) {
+                continue;
+            }
+
+            $clases = array('compartir', $slug);
+
+            // %1$s: URL
+            // %2$s: Contenido del elemento
+            // %3$s: Clase
+            // %4$s: Titulo ("Compartir en...")
+            if ($slug == 'whatsapp') {
+                $formato = '<a class="%3$s" href="%1$s" rel="nofollow">%2$s</a>';
+            } else {
+                $formato = '<a class="%3$s" href="%1$s" onclick="return !window.open(this.href, \'%4$s\', \'width=640,height=580\')">%2$s</a>';
+            }
+
+            foreach ($array['compartir']['query'] as $clave => $valor) {
+                if ($slug == 'twitter') {
+                    $valor = str_replace('REEMPLAZAR_CON_ENLACE', $shorturl, $valor);
+                } else {
+                    $valor = str_replace('REEMPLAZAR_CON_ENLACE', $url, $valor);
+                }
+                $array['compartir']['query'][$clave] = $valor;
+            }
+            $query = http_build_query($array['compartir']['query']);
+            $urlCompartir = $array['compartir']['url'] . $query;
+
+            $titulo = 'Compartir en ' . $array['nombre'];
+            $contenido = SVG::retornar($array['icono']);
+
+            $clases = implode(' ', $clases);
+
+            $retorno[] = sprintf($formato, $urlCompartir, $contenido, $clases, $titulo);
+        }
+
+        return implode('', $retorno);
+    }
 }
 
 add_action('customize_register', array('RedesSociales', 'registrarOpcionesCustomizer'));
-add_shortcode('redes-sociales', array('RedesSociales', 'retornar'));
+add_shortcode('redes-sociales', array('RedesSociales', 'retornarRedes'));
+add_shortcode('compartir', array('RedesSociales', 'retornarBotonesCompartir'));
