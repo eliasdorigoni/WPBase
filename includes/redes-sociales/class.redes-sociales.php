@@ -7,6 +7,7 @@ class RedesSociales
         'twitter' => array(
             'nombre' => 'Twitter',
             'option' => 'url-twitter',
+            'icono' => 'twitter',
             'customizer' => array(
                 'label' => 'URL de Twitter',
             ),
@@ -14,6 +15,7 @@ class RedesSociales
         'facebook' => array(
             'nombre' => 'Facebook',
             'option' => 'url-facebook',
+            'icono' => 'facebook',
             'customizer' => array(
                 'label' => 'URL de Facebook',
             ),
@@ -21,6 +23,7 @@ class RedesSociales
         'google-plus' => array(
             'nombre' => 'Google Plus',
             'option' => 'url-google-plus',
+            'icono' => 'google-plus',
             'customizer' => array(
                 'label' => 'URL de Google Plus',
             ),
@@ -28,6 +31,7 @@ class RedesSociales
         'youtube' => array(
             'nombre' => 'YouTube',
             'option' => 'url-youtube',
+            'icono' => 'youtube',
             'customizer' => array(
                 'label' => 'URL del canal de Youtube',
             ),
@@ -35,6 +39,7 @@ class RedesSociales
         'instagram' => array(
             'nombre' => 'Instagram',
             'option' => 'url-instagram',
+            'icono' => 'instagram',
             'customizer' => array(
                 'label' => 'URL de Instagram',
             ),
@@ -69,6 +74,62 @@ class RedesSociales
             );
         }
     }
+
+    static function stringEsRedSocial($string)
+    {
+        return array_key_exists($string, self::$config);
+    }
+
+    static function retornar($atts = array())
+    {
+        $default = array('mostrar' => 'todos');
+        extract(shortcode_atts($default, $atts));
+        $mostrar = explode(',', strtolower($mostrar));
+
+        if (in_array('todos', $mostrar)) {
+            $mostrar = array();
+            foreach (self::$config as $slug => $array) {
+                $mostrar[] = $slug;
+            }
+        } else {
+            $mostrar = array_filter($mostrar, array('RedesSociales', 'stringEsRedSocial'));
+        }
+
+        $retorno = array();
+        foreach ($mostrar as $slug) {
+            $red = self::$config[$slug];
+
+            // Si no tiene enlace, no se muestra.
+            if (false === ($enlace = get_option($red['option'], false))) {
+                continue;
+            }
+
+            $icono = SVG::retornar($red['icono']);
+            $titulo = $red['nombre'];
+
+            $retorno[$slug] = array(
+                'slug' => $slug,
+                'titulo' => $titulo,
+                'enlace' => $enlace, 
+                'icono' => $icono
+            );
+        }
+
+        if (!$retorno) return;
+
+        ob_start();
+        foreach ($retorno as $item) {
+            printf(
+                '<a class="redSocial %s" href="%s" title="%s">%s</a>',
+                $item['slug'],
+                $item['enlace'],
+                $item['titulo'],
+                $item['icono']
+            );
+        }
+        return sprintf('<div class="redesSociales">%s</div>', ob_get_clean());
+    }
 }
 
 add_action('customize_register', array('RedesSociales', 'registrarOpcionesCustomizer'));
+add_shortcode('redes-sociales', array('RedesSociales', 'retornar'));
