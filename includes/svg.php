@@ -28,13 +28,18 @@ class SVG {
     {
         extract(self::normalizarAtributos($atts));
 
-        if (!$nombre) {
-            return '';
-        } else {
-            $formato = '<svg class="icono icono-%1$s" role="img"> <use href="#%1$s" xlink:href="#%1$s"></use> </svg>';
-            $elemento = sprintf($formato, sanitize_title($nombre));
+        if (!$nombre) return '';
+
+        if (is_file(ASSETS_DIR_SVG . $nombre . '.svg')) {
+            $elemento = file_get_contents(ASSETS_DIR_SVG . $nombre . '.svg');
             return sprintf($contenedor, $elemento);
         }
+
+        $formato = '<svg class="icono icono-%1$s" role="img">'
+                    . ' <use href="#%1$s" xlink:href="#%1$s"></use> '
+                . '</svg>';
+        $elemento = sprintf($formato, sanitize_title($nombre));
+        return sprintf($contenedor, $elemento);
     }
     /**
      * Muestra el retorno de retornarSVG.

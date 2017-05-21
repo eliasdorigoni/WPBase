@@ -18,7 +18,7 @@ module.exports = function(grunt) {
                     'assets/css/backend.min.css': 'source/sass/backend.scss'
                 }
             },
-            dist: {
+            build: {
                 options: {
                     sourceMap: false,
                     outputStyle: "compressed",
@@ -78,15 +78,34 @@ module.exports = function(grunt) {
                             '.htaccess',
                             '!*.{map,md}',
                             '!package.json',
+                            '!Gruntfile.js',
                             ],
                         dest : 'build/<%= globalConfig.theme  %>',
                     },
                 ]
             }
         },
+        svgmin: {
+            options: {
+                plugins: [
+                    {removeViewBox: false},
+                    {removeUselessStrokeAndFill: false},
+                    {removeStyleElement: true},
+                    {removeAttrs: {attrs: ['xmlns']}}
+                ]
+            },
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: 'source/svg/',
+                    src: '*.svg',
+                    dest: 'assets/svg/'
+                }]
+            }
+        },
         svg_sprite: {
             target: {
-                cwd: 'source/svg/',
+                cwd: 'source/svg/sprite',
                 src: ['*.svg'],
                 dest: 'assets/svg/',
                 options: {
@@ -143,18 +162,18 @@ module.exports = function(grunt) {
                 options: {livereload: true}
             },
             iconos: {
-                files: ['source/svg/*'],
+                files: ['source/svg/**/*'],
                 tasks: ['iconos'],
                 options: {livereload: true}
             },
         }
     });
     grunt.registerTask('foundation', ['sass:foundation']);
-    grunt.registerTask('iconos', ['svg_sprite']);
-    grunt.registerTask('dist', ['sass:dist', 'copy:estaticos', 'newer:imagemin', 'iconos']);
+    grunt.registerTask('iconos', ['svgmin', 'svg_sprite']);
+    grunt.registerTask('estaticos', ['copy:estaticos', 'newer:imagemin', 'iconos']);
 
-    grunt.registerTask('build', ['clean', 'dist', 'copy:build']);
+    grunt.registerTask('build', ['clean', 'sass:build', 'estaticos', 'copy:build']);
     grunt.registerTask('rebuild', ['clean:prebuild', 'copy:build']);
 
-    grunt.registerTask('default', ['dist', 'watch']);
+    grunt.registerTask('default', ['sass:dist', 'estaticos', 'watch']);
 };
