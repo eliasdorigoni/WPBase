@@ -42,7 +42,7 @@ class SVG {
      */
     static function mostrar($atts = array())
     {
-        echo retornarSVG($atts);
+        echo self::retornar($atts);
     }
 
     /**
@@ -50,7 +50,7 @@ class SVG {
      */
     static function mostrarSprite()
     {
-        $ruta = ASSETS_SVG_DIR . 'sprite.svg';
+        $ruta = ASSETS_DIR_SVG . 'sprite.svg';
         if (is_file($ruta)) {
             printf(
                 '<div style="display: none; visibility: hidden">%s</div>',

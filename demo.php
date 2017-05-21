@@ -10,16 +10,27 @@
 <h1>Constantes</h1>
 <table>
 <?php
-echo '<tr><td>HOME_URL</td><td>' . HOME_URL . '</td></tr>';
-echo '<tr><td>THEME_DIR</td><td>' . THEME_DIR . '</td></tr>';
-echo '<tr><td>THEME_URI</td><td>' . THEME_URI . '</td></tr>';
-echo '<tr><td>ASSETS_URI</td><td>' . ASSETS_URI . '</td></tr>';
-echo '<tr><td>ASSETS_DIR</td><td>' . ASSETS_DIR . '</td></tr>';
-echo '<tr><td>ASSETS_CSS_URI</td><td>' . ASSETS_CSS_URI . '</td></tr>';
-echo '<tr><td>ASSETS_JS_URI</td><td>' . ASSETS_JS_URI . '</td></tr>';
-echo '<tr><td>ASSETS_IMG_URI</td><td>' . ASSETS_IMG_URI . '</td></tr>';
-echo '<tr><td>ASSETS_SVG_DIR</td><td>' . ASSETS_SVG_DIR . '</td></tr>';
-echo '<tr><td>ASSETS_SVG_URI</td><td>' . ASSETS_SVG_URI . '</td></tr>';
+
+$constantes = array(
+    'HOME_URL',
+    'THEME_DIR',
+    'THEME_URI',
+    'ASSETS_URI',
+    'ASSETS_URI_CSS',
+    'ASSETS_URI_JS',
+    'ASSETS_URI_IMG',
+    'ASSETS_URI_SVG',
+    'ASSETS_DIR',
+    'ASSETS_DIR_CSS',
+    'ASSETS_DIR_JS',
+    'ASSETS_DIR_IMG',
+    'ASSETS_DIR_SVG',
+);
+
+foreach ($constantes as $const) {
+    echo '<tr><td>' . $const . '</td><td>' . constant($const) . '</td></tr>';
+}
+
 ?>
 </table>
 <h1>Iconos</h1>
