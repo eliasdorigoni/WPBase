@@ -28,7 +28,6 @@ require THEME_DIR . 'includes/theme_widgets.php';
 require THEME_DIR . 'includes/theme_enqueue.php';
 require THEME_DIR . 'includes/theme_login.php';
 
-require THEME_DIR . 'includes/shortcode.compartir.php';
 require THEME_DIR . 'includes/svg.php';
 require THEME_DIR . 'includes/google-analytics.php';
 
