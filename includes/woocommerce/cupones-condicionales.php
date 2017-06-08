@@ -2,6 +2,10 @@
 if (!defined('ABSPATH')) exit;
 
 function desactivarCuponesSiNoHay($activado) {
+    if ($activado === false) {
+        return $activado;
+    }
+
     if (is_cart() || is_checkout()) {
         $query = new WP_Query(array(
             'posts_per_page'   => 1,
@@ -9,7 +13,6 @@ function desactivarCuponesSiNoHay($activado) {
             'post_status'      => 'publish',
             'no_found_rows'    => true,
             ));
-
         $activado = $query->have_posts();
     }
     return $activado;
