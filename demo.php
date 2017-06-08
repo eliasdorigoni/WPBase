@@ -41,7 +41,7 @@ $rutas = glob(dirname(__FILE__) . '/source/svg/**');
 
 foreach ($rutas as $ruta) {
     $id = str_replace('.svg', '', basename($ruta));
-    echo SVG::retornar(array(
+    mostrarSVG(array(
         'nombre' => $id,
         'contenedor' => '<tr><td>'.$id.'</td><td>%s</td></tr>',
         ));
