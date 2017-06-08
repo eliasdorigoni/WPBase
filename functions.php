@@ -17,6 +17,7 @@ require THEME_DIR . 'includes/galeria/index.php';
 require THEME_DIR . 'includes/class.redes-sociales.php';
 
 require THEME_DIR . 'includes/widget.contenido.php';
+require THEME_DIR . 'includes/woocommerce/init.php';
 
 add_filter('login_headertitle', 'get_bloginfo');
 add_filter('login_headerurl', 'retornarLoginURL');
