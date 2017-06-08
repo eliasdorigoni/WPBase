@@ -10,7 +10,7 @@ require THEME_DIR . 'includes/theme_setup.php';
 require THEME_DIR . 'includes/theme_widgets.php';
 require THEME_DIR . 'includes/theme_enqueue.php';
 
-require THEME_DIR . 'includes/svg.php';
+require THEME_DIR . 'includes/class.svg.php';
 require THEME_DIR . 'includes/google-analytics.php';
 
 require THEME_DIR . 'includes/galeria/index.php';
