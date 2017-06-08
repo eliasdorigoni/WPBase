@@ -1,38 +1,38 @@
 <?php
 if (!defined('ABSPATH')) exit;
 
-class SVG {
-    static function normalizarAtributos($atts)
+class SVG
+{
+    /**
+     * Utiliza la clave 'nombre' para retornar un elemento SVG de HTML.
+     * Si existe un archivo SVG con el mismo nombre de archivo, retorna el contenido
+     * del archivo.
+     * Sino se retorna un elemento SVG que linkea a un ID, que debería existir 
+     * en el sprite de iconos mostrado por SVG::mostrarSprite().
+     * @param  string/array $atts Configuración del retorno.
+     * @return string             Retorna un elemento SVG.
+     */
+    static function retornar($atts = array())
     {
+        $default = array(
+            'nombre'     => '',
+            'contenedor' => '%s',
+        );
+
         if (is_string($atts)) {
             $atts = array('nombre' => $atts);
         } else if (!is_array($atts)) {
             $atts = array();
         }
 
-        $default = array(
-            'nombre'     => '',
-            'contenedor' => '%s',
-            );
+        extract(shortcode_atts($default, $atts, 'icono'));
 
-        return shortcode_atts($default, $atts, 'icono');
-    }
-
-    /**
-     * Retorna un elemento SVG con un ID que debería coincidir
-     * con uno definido en el archivo SVG cargado.
-     * @param  string  $nombre    Nombre del ID del icono
-     * @return string             Retorna un elemento SVG
-     */
-    static function retornar($atts = array())
-    {
-        extract(self::normalizarAtributos($atts));
-
-        if (!$nombre) return '';
+        if (!$nombre) {
+            return 'Debe especificar un nombre de ícono';
+        }
 
         if (is_file(ASSETS_DIR_SVG . $nombre . '.svg')) {
-            $elemento = file_get_contents(ASSETS_DIR_SVG . $nombre . '.svg');
-            return sprintf($contenedor, $elemento);
+            return sprintf($contenedor, file_get_contents(ASSETS_DIR_SVG . $nombre . '.svg'));
         }
 
         $formato = '<svg class="icono icono-%1$s" role="img">'
@@ -41,9 +41,10 @@ class SVG {
         $elemento = sprintf($formato, sanitize_title($nombre));
         return sprintf($contenedor, $elemento);
     }
+
     /**
-     * Muestra el retorno de retornarSVG.
-     * @param  string  $nombre    Nombre del ID del icono
+     * Imprime el retorno de SVG::retornar.
+     * @param string/array $atts  Nombre del icono o array de configuracion.
      */
     static function mostrar($atts = array())
     {
