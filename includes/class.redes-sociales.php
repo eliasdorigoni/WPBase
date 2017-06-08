@@ -139,7 +139,7 @@ class RedesSociales
                 continue;
             }
 
-            $icono = SVG::retornar($red['icono']);
+            $icono = retornarSVG($red['icono']);
             $titulo = $red['nombre'];
 
             $retorno[$slug] = array(
@@ -210,7 +210,7 @@ class RedesSociales
             $urlCompartir = $array['compartir']['url'] . $query;
 
             $titulo = 'Compartir en ' . $array['nombre'];
-            $contenido = SVG::retornar($array['icono']);
+            $contenido = retornarSVG($array['icono']);
 
             $clases = implode(' ', $clases);
 
