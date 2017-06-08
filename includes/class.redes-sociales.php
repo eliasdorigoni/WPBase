@@ -155,7 +155,7 @@ class RedesSociales
         ob_start();
         foreach ($retorno as $item) {
             printf(
-                '<a class="redSocial %s" href="%s" title="%s">%s</a>',
+                '<a class="%s" href="%s" title="%s" target="_blank" rel="noopener">%s</a>',
                 $item['slug'],
                 $item['enlace'],
                 $item['titulo'],
