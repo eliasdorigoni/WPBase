@@ -42,6 +42,6 @@ function theme_enqueueWidgetGaleria() {
 }
 
 function theme_login() {
-    wp_enqueue_style('custom-login', ASSETS_CSS_URI . 'login.min.css' );
+    wp_enqueue_style('custom-login', ASSETS_URI_CSS . 'login.min.css' );
 }
 add_action('login_enqueue_scripts', 'theme_login');
