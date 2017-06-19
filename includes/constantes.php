@@ -1,6 +1,7 @@
 <?php
 if (!defined('ABSPATH')) exit;
 
+
 $theme = wp_get_theme();
 if (is_child_theme()) {
     $theme = wp_get_theme($theme->parent_theme);
@@ -10,6 +11,7 @@ define('VERSION_THEME', $theme->display('Version'));
 $pluginsActivos = apply_filters('active_plugins', get_option('active_plugins'));
 define('WOOCOMMERCE_ACTIVO', (in_array('woocommerce/woocommerce.php', $pluginsActivos)));
 
+defined('DS') or define('DS', DIRECTORY_SEPARATOR);
 define('HOME_URL', esc_url(home_url()) . '/');
 define('THEME_DIR', get_template_directory() . DS);
 define('THEME_URI', esc_url(get_stylesheet_directory_uri()) . '/');

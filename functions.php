@@ -1,23 +1,22 @@
 <?php
 
-defined('DS') or define('DS', DIRECTORY_SEPARATOR);
-require dirname(__FILE__) . DS . 'includes' . DS . 'constantes.php';
-
 if (!isset($content_width)) $content_width = 625;
 
-require THEME_DIR . 'includes/util.php';
-require THEME_DIR . 'includes/theme_setup.php';
-require THEME_DIR . 'includes/theme_widgets.php';
-require THEME_DIR . 'includes/theme_enqueue.php';
+get_template_part('includes/constantes');
+get_template_part('includes/util');
 
-require THEME_DIR . 'includes/svg.php';
-require THEME_DIR . 'includes/google-analytics.php';
+get_template_part('includes/theme_setup');
+get_template_part('includes/theme_widgets');
+get_template_part('includes/theme_enqueue');
 
-require THEME_DIR . 'includes/galeria/index.php';
-require THEME_DIR . 'includes/class.redes-sociales.php';
+get_template_part('includes/svg');
+get_template_part('includes/google-analytics');
 
-require THEME_DIR . 'includes/widget.contenido.php';
-require THEME_DIR . 'includes/woocommerce/init.php';
+get_template_part('includes/galeria/index');
+get_template_part('includes/class.redes-sociales');
+
+get_template_part('includes/widget.contenido');
+get_template_part('includes/woocommerce/init');
 
 add_filter('login_headertitle', 'get_bloginfo');
 add_filter('login_headerurl', 'retornarLoginURL');
