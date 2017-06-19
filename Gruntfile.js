@@ -166,6 +166,11 @@ module.exports = function(grunt) {
                 tasks: ['iconos'],
                 options: {livereload: true}
             },
+            imagenes: {
+                files: ['source/img/**/*'],
+                tasks: ['newer:imagemin'],
+                options: {livereload: true}
+            }
         }
     });
     grunt.registerTask('foundation', ['sass:foundation']);
