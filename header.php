@@ -20,8 +20,8 @@
                 <a class="logo" href="<?php echo HOME_URL; ?>" title="<?php echo bloginfo('name'); ?>">
                 <?php if (has_custom_logo()): ?>
                     <?php the_custom_logo(); ?>
-                <?php elseif (is_file(ASSETS_DIR_IMG . 'logo.jpg')): ?>
-                    <img src="<?php echo ASSETS_URI_IMG . 'logo.jpg'; ?>">
+                <?php elseif (is_file(ASSETS_DIR_IMG . 'logo.png')): ?>
+                    <img src="<?php echo ASSETS_URI_IMG . 'logo.png'; ?>">
                 <?php else: ?>
                     <?php echo bloginfo('name'); ?>
                 <?php endif ?>
