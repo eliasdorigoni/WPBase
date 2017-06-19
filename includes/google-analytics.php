@@ -6,12 +6,13 @@ function personalizarGoogleAnalytics($wp_customize) {
         'title' => 'Google Analytics',
         'priority' => 170,
         'capability' => 'edit_theme_options',
-        ));
+    ));
 
     $wp_customize->add_setting('google-analytics', array(
         'type' => 'option',
         'capability' => 'edit_theme_options',
-        ));
+    ));
+
     $wp_customize->add_control(
         new WP_Customize_Control(
             $wp_customize,
@@ -23,11 +24,10 @@ function personalizarGoogleAnalytics($wp_customize) {
                 'type'        => 'text',
                 'input_attrs' => array(
                     'placeholder' => 'UA-XXXXXXX-XX',
-                    ),
-                )
+                ),
             )
-        );
-
+        )
+    );
 }
 add_action('customize_register', 'personalizarGoogleAnalytics');
 
