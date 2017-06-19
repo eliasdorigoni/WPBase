@@ -87,6 +87,10 @@ class RedesSociales
         ));
 
         foreach (self::$config as $slug => $item) {
+            if (empty($item['option'])) {
+                continue;
+            }
+
             $wp_customize->add_setting($item['option'], array(
                 'type' => 'option',
                 'capability' => 'edit_theme_options',
