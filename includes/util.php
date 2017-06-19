@@ -107,7 +107,7 @@ function theme_agregarSlugClase($classes) {
     }
     return $classes;
 }
-add_filter('body_classes', 'theme_agregarSlugClase');
+add_filter('body_class', 'theme_agregarSlugClase');
 
 /**
  * Retorna el nombre de la taxonomia dentro de una plantilla de taxonomía.
