@@ -53,7 +53,7 @@ class WC_Gateway_BACS_ARGENTINA extends WC_Gateway_BACS
                             <th><?php _e( 'Bank name', 'woocommerce' ); ?></th>
                             <th>CBU</th>
                             <th>Tipo de cuenta</th>
-                            <th>CUIL</th>
+                            <th>CUIL/CUIT</th>
                         </tr>
                     </thead>
                     <tbody class="accounts">
@@ -195,7 +195,7 @@ class WC_Gateway_BACS_ARGENTINA extends WC_Gateway_BACS
                         'value' => $bacs_account->cbu,
                     ),
                     'cuil'      => array(
-                        'label' => 'CUIL',
+                        'label' => 'CUIL/CUIT',
                         'value' => $bacs_account->cuil,
                     ),
                     'name' => array(
