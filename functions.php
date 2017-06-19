@@ -8,6 +8,7 @@ get_template_part('includes/util');
 get_template_part('includes/theme_setup');
 get_template_part('includes/theme_widgets');
 get_template_part('includes/theme_enqueue');
+get_template_part('includes/widget.contenido');
 
 get_template_part('includes/svg');
 get_template_part('includes/google-analytics');
@@ -15,8 +16,12 @@ get_template_part('includes/google-analytics');
 get_template_part('includes/galeria/index');
 get_template_part('includes/class.redes-sociales');
 
-get_template_part('includes/widget.contenido');
-get_template_part('includes/woocommerce/init');
+get_template_part('includes/woocommerce/gateway.banco');
+get_template_part('includes/woocommerce/reordenar-form-checkout');
+get_template_part('includes/woocommerce/cupones-condicionales');
+get_template_part('includes/woocommerce/renombrar-checkout');
+get_template_part('includes/woocommerce/vaciar-carrito');
+get_template_part('includes/woocommerce/dni');
 
 add_filter('login_headertitle', 'get_bloginfo');
 add_filter('login_headerurl', 'retornarLoginURL');
