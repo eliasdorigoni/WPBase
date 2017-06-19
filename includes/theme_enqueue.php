@@ -1,8 +1,17 @@
 <?php
 if (!defined('ABSPATH')) exit;
 
+function theme_registrarLibrerias() {
+    // https://github.com/kenwheeler/slick/
+    wp_register_script('slick', ASSETS_URI_JS . 'vendor/slick.min.js', array('jquery'), '1.6.0', true);
+
+    // https://github.com/lokesh/lightbox2/
+    wp_register_script('lightbox', ASSETS_URI_JS . 'vendor/lightbox.min.js', array('jquery'), '2.8.2', true);
+}
+add_action('wp_enqueue_scripts', 'theme_registrarLibrerias');
+
 function theme_enqueue() {
-    // wp_enqueue_style('custom-fonts', 'http://fonts.googleapis.com/css?family=Open+Sans:400,600,700', array(), null);
+    // wp_enqueue_style('google-fonts', 'http://fonts.googleapis.com/css?family=Open+Sans:400,600,700', array(), null);
     wp_enqueue_style('app', ASSETS_URI_CSS . 'app.min.css', array(), VERSION_THEME);
 
     wp_enqueue_script('jquery');
@@ -19,18 +28,12 @@ function theme_enqueueBackend() {
 }
 add_action('admin_enqueue_scripts', 'theme_enqueueBackend');
 
-/**
- * @link https://github.com/kenwheeler/slick/
- */
 function theme_enqueueSlick() {
-    wp_enqueue_script('slick', ASSETS_URI_JS . 'vendor/slick.min.js', array('jquery'), '1.6.0', true);
+    wp_enqueue_script('slick');
 }
 
-/**
- * @link https://github.com/lokesh/lightbox2/
- */
 function theme_enqueueLightbox() {
-    wp_enqueue_script('lightbox', ASSETS_URI_JS . 'vendor/lightbox.min.js', array('jquery'), '2.8.2', true);
+    wp_enqueue_script('lightbox');
 }
 
 function theme_enqueueWidgetGaleria() {
