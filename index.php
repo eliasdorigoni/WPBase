@@ -2,7 +2,7 @@
 
 <div class="row">
     <div class="column large-8">
-        <main role="main" class="<?php post_class() ?>">
+        <main role="main" <?php post_class() ?>>
             <?php if (have_posts()): ?>
                 <?php while (have_posts()) : the_post(); ?>
 
