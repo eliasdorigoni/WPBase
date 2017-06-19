@@ -2,8 +2,8 @@
 if (!defined('ABSPATH')) exit;
 
 function personalizarGoogleAnalytics($wp_customize) {
-    $wp_customize->add_section('section-google-analytics', array(
-        'title' => 'Google Analytics',
+    $wp_customize->add_section('section-analytics', array(
+        'title' => 'Analytics / Estadísticas de terceros',
         'priority' => 170,
         'capability' => 'edit_theme_options',
     ));
@@ -19,7 +19,7 @@ function personalizarGoogleAnalytics($wp_customize) {
             'google-analytics-control',
             array(
                 'label'       => 'Código UA de Google Analytics',
-                'section'     => 'section-google-analytics',
+                'section'     => 'section-analytics',
                 'settings'    => 'google-analytics',
                 'type'        => 'text',
                 'input_attrs' => array(
@@ -29,11 +29,12 @@ function personalizarGoogleAnalytics($wp_customize) {
         )
     );
 }
-add_action('customize_register', 'personalizarGoogleAnalytics');
+add_action('customize_register', 'personalizarGoogleAnalytics', 5);
 
 function mostrarScriptGoogleAnalytics() {
     $ua = get_option('google-analytics', '');
     if ($ua): ?>
+        <!-- Google Analytics -->
         <script>
           (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
           (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -42,7 +43,7 @@ function mostrarScriptGoogleAnalytics() {
           ga('create', '<?php echo $ua ?>', 'auto');
           ga('send', 'pageview');
         </script>
+        <!-- END Google Analytics -->
     <?php endif;
 }
-
 add_action('post_body', 'mostrarScriptGoogleAnalytics');

@@ -12,6 +12,7 @@ get_template_part('includes/widget.contenido');
 
 get_template_part('includes/svg');
 get_template_part('includes/google-analytics');
+get_template_part('includes/pixel-facebook');
 
 get_template_part('includes/galeria/index');
 get_template_part('includes/class.redes-sociales');
