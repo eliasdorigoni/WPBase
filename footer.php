@@ -3,8 +3,8 @@
             sprintf(
                 'Editar "%s"', get_the_title()
                 ),
-                '<section><div class="row"><div class="column"><span class="editar-post">',
-                '</span></div></div></section>'
+                '<section class="editar-post"><div class="row column">',
+                '</div></section>'
             );
     ?>
 	<footer class="footer">
