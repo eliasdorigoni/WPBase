@@ -28,7 +28,7 @@
 
             <?php endif; ?>
 
-            <?php get_template_part('demo'); ?>
+            <?php get_template_part('demo/contenido'); ?>
 
         </main>
     </div>
