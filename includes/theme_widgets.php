@@ -3,10 +3,36 @@ if (!defined('ABSPATH')) exit;
 
 function theme_widgets() {
     register_sidebar(array(
-        'name' => 'Widget #1',
-        'id'   => 'widget-1',
-        'description' => 'Widget de ejemplo.',
+        'name'          => 'Barra lateral',
+        'id'            => 'barra-lateral',
         'before_widget' => '<div id="%1$s" class="widget %2$s">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h2 class="widgettitle">',
+        'after_title'   => '</h2>'
+    ));
+    register_sidebar(array(
+        'name'          => 'Footer 1/3',
+        'id'            => 'footer-1',
+        'description'   => 'Columna 1 en footer.',
+        'before_widget' => '<div id="%1$s" class="column widget %2$s">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h2 class="widgettitle">',
+        'after_title'   => '</h2>'
+    ));
+    register_sidebar(array(
+        'name'          => 'Footer 2/3',
+        'id'            => 'footer-2',
+        'description'   => 'Columna 2 en footer.',
+        'before_widget' => '<div id="%1$s" class="column widget %2$s">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h2 class="widgettitle">',
+        'after_title'   => '</h2>'
+    ));
+    register_sidebar(array(
+        'name'          => 'Footer 3/3',
+        'id'            => 'footer-3',
+        'description'   => 'Columna 3 en footer.',
+        'before_widget' => '<div id="%1$s" class="column widget %2$s">',
         'after_widget'  => '</div>',
         'before_title'  => '<h2 class="widgettitle">',
         'after_title'   => '</h2>'
