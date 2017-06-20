@@ -12,7 +12,7 @@
 </head>
 <body <?php body_class(); ?>>
     <?php do_action('post_body'); ?>
-    <a class="skip-link screen-reader-text" href="#content">Ir al contenido</a>
+    <a class="skip-link screen-reader-text" href="#contenido">Ir al contenido</a>
 
     <header class="header">
         <div class="row">
