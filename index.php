@@ -24,7 +24,11 @@
 
             <?php else: // !have_posts() ?>
 
-                <p>Sin contenido.</p>
+            <h1 class="tituloPagina">Página no encontrada (error 404)</h1>
+            <div class="contenido">
+                <p>La página que estás buscando no existe o fue movida.</p>
+                <?php get_search_form(); ?>
+            </div>
 
             <?php endif; ?>
 
