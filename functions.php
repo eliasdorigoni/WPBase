@@ -14,7 +14,7 @@ get_template_part('includes/svg');
 get_template_part('includes/analytics/google-analytics');
 get_template_part('includes/analytics/pixel-facebook');
 
-get_template_part('includes/galeria/index');
+get_template_part('includes/galeria/init');
 get_template_part('includes/redes-sociales');
 
 get_template_part('includes/woocommerce/gateway.banco');

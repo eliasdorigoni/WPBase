@@ -20,20 +20,19 @@ function mostrarMetaboxGaleria($post) {
 }
 
 function guardarMetaboxGaleria($post_id) {
-    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) 
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
         return $post_id;
+    }
 
-    if (!current_user_can('manage_options'))
+    if (!current_user_can('manage_options')
+        || !isset($_POST['metabox_galeria_nonce'])
+        || !wp_verify_nonce($_POST['metabox_galeria_nonce'], 'metabox_galeria')
+        ) {
         return $post_id;
-
-    if (!isset($_POST['metabox_galeria_nonce']))
-        return $post_id;
-
-    if (!wp_verify_nonce($_POST['metabox_galeria_nonce'], 'metabox_galeria'))
-        return $post_id;
+    }
 
     $galeria = array();
-    if (isset($_POST['galeria']) && !empty($_POST['galeria'])) {
+    if (!empty($_POST['galeria'])) {
         foreach ($_POST['galeria'] as $k => $id) {
             if (!is_string($id) || !preg_match('/^\d+$/', $id)) {
                 unset($_POST['galeria'][$k]);
@@ -43,4 +42,4 @@ function guardarMetaboxGaleria($post_id) {
     }
     update_post_meta($post_id, 'galeria', $galeria);
 }
-add_action('save_post', 'guardarMetaboxGaleria', 1, 2);
+add_action('save_post', 'guardarMetaboxGaleria', 1, 1);

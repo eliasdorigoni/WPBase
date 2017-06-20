@@ -32,7 +32,6 @@ add_action('wp_enqueue_scripts', 'theme_enqueue');
 
 function theme_enqueueBackend() {
     wp_enqueue_style('backend', ASSETS_URI_CSS . 'backend.min.css', array(), VERSION_THEME);
-    wp_enqueue_script('backend', ASSETS_URI_JS . 'backend-galeria.js', array('jquery'), VERSION_THEME, true);
 }
 add_action('admin_enqueue_scripts', 'theme_enqueueBackend');
 
