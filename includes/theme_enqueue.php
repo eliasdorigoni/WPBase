@@ -7,6 +7,14 @@ function theme_registrarLibrerias() {
 
     // https://github.com/lokesh/lightbox2/
     wp_register_script('lightbox', ASSETS_URI_JS . 'vendor/lightbox.min.js', array('jquery'), '2.8.2', true);
+
+    // https://developers.google.com/maps/?hl=es-419
+    // wp_register_script('google-maps', 'https://maps.googleapis.com/maps/api/js?key=' . GMAPS_APP_KEY);
+    // wp_localize_script('google-maps', 'WPURLS', array(
+    //     'siteurl'    => HOME_URL,
+    //     'stylesheet' => THEME_URI,
+    //     )
+    // );
 }
 add_action('wp_enqueue_scripts', 'theme_registrarLibrerias');
 
