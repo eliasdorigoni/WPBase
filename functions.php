@@ -15,7 +15,7 @@ get_template_part('includes/analytics/google-analytics');
 get_template_part('includes/analytics/pixel-facebook');
 
 get_template_part('includes/galeria/index');
-get_template_part('includes/class.redes-sociales');
+get_template_part('includes/redes-sociales');
 
 get_template_part('includes/woocommerce/gateway.banco');
 get_template_part('includes/woocommerce/reordenar-form-checkout');
