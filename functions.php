@@ -25,7 +25,7 @@ get_template_part('includes/woocommerce/vaciar-carrito');
 get_template_part('includes/woocommerce/dni');
 
 add_filter('login_headertitle', 'get_bloginfo');
-add_filter('login_headerurl', 'retornarLoginURL');
+add_filter('login_headerurl', 'retornarHomeURL');
 
 // Permitir usar shortcodes en widgets.
 add_filter('widget_text','do_shortcode');

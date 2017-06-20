@@ -204,6 +204,6 @@ function cortarEnPalabra($string, $cantidadCaracteres) {
     return implode(array_slice($partes, 0, $ultimaParte));
 }
 
-function retornarLoginURL() {
+function retornarHomeURL() {
     return HOME_URL;
 }
