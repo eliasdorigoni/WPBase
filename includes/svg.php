@@ -41,7 +41,7 @@ function retornarSVG($atts = array()) {
 add_shortcode('icono', 'retornarSVG');
 
 /**
- * Imprime el retorno de retornarSVG.
+ * Imprime el retorno de retornarSVG().
  * @param string/array $atts  Nombre del icono o array de configuracion.
  */
 function mostrarSVG($atts = array())
@@ -50,7 +50,7 @@ function mostrarSVG($atts = array())
 }
 
 /**
- * Imprime el sprite de iconos
+ * Imprime el sprite de iconos generado por Grunt
  */
 function mostrarSpriteSVG()
 {
