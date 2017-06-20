@@ -207,3 +207,30 @@ function cortarEnPalabra($string, $cantidadCaracteres) {
 function retornarHomeURL() {
     return HOME_URL;
 }
+
+function construirLabels($slug, $singular, $plural, $esMasculino = true) {
+    return array(
+        'name'               => ucfirst($plural),
+        'singular_name'      => ucfirst($singular),
+        'add_new'            => 'Añadir ' . _n('nuevo', 'nueva', $esMasculino),
+        'add_new_item'       => 'Añadir ' . _n('nuevo', 'nueva', $esMasculino) . ' ' . $singular;
+        'edit_item'          => 'Editar ' . $singular,
+        'new_item'           => _n('Nuevo', 'Nueva', $esMasculino) . ' ' . $singular,
+        'view_item'          => 'Ver ' . $singular,
+        'view_items'         => 'Ver ' . $plural,
+        'search_items'       => 'Buscar cosas',
+        'not_found'          => 'No se encontraron cosas',
+        'not_found_in_trash' => 'No se encontraron cosas en la papelera',
+        'parent_item_colon'  => ucfirst($singular) . ' padre',
+        'all_items'          => _n('Todos', 'Todas', $esMasculino) . ' ' . _n('los', 'las', $esMasculino) . ' ' . $plural,
+        'archives'           => 'Archivos de ' . $singular,
+        'attributes'         => 'Atributos de ' . $singular,
+        'insert_into_item'   => 'Insertar en ' . $singular,
+        'menu_name'          => ucfirst($plural),
+        'name_admin_bar'     => ucfirst($singular),
+        'parent_item'       => ucfirst($singular) . ' padre',
+        'parent_item_colon' => ucfirst($singular) . ' padre:',
+        'update_item'       => 'Actualizar ' . $single,
+        'new_item_name'     => 'Nombre de ' . _n('nuevo', 'nueva', $esMasculino) . ' ' . $singular,
+    );
+}
