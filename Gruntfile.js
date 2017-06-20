@@ -78,6 +78,7 @@ module.exports = function(grunt) {
                             '.htaccess',
                             '!*.{map,md}',
                             '!package.json',
+                            '!LICENSE',
                             '!Gruntfile.js',
                             ],
                         dest : 'build/<%= globalConfig.theme  %>',
