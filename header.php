@@ -4,7 +4,7 @@
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width">
     <!--[if lt IE 9]>
-    <script src="<?php echo ASSETS_JS_URI; ?>html5.js"></script>
+    <script src="<?php echo ASSETS_URI_JS; ?>vendor/html5.js"></script>
     <![endif]-->
     <link rel="shortcut icon" href="<?php echo THEME_URI ?>favicon.ico" type="image/x-icon" />
     <link rel="icon" href="<?php echo THEME_URI ?>favicon.ico" type="image/x-icon" />
