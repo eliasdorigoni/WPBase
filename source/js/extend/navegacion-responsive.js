@@ -31,7 +31,7 @@ navegacionResponsive: function(boton, demoraAnimacion) {
         animarMovimiento = e.data.animar
 
         if ($menu.hasClass('visible')) {
-            $boton.addClass('activo');
+            $boton.removeClass('activo');
             if (animarMovimiento) {
                 $menu.slideUp(demoraAnimacion, function() {cerrarMenu($menu)})
             } else {
