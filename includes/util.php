@@ -208,7 +208,11 @@ function retornarHomeURL() {
     return HOME_URL;
 }
 
-function construirLabels($slug, $singular, $plural, $esMasculino = true) {
+function construirLabels($singular, $plural, $esMasculino = true, $slug = '') {
+    if (!$slug) {
+        $slug = $singular;
+    }
+
     return array(
         'name'               => ucfirst($plural),
         'singular_name'      => ucfirst($singular),
@@ -228,10 +232,10 @@ function construirLabels($slug, $singular, $plural, $esMasculino = true) {
         'insert_into_item'   => 'Insertar en ' . $singular,
         'menu_name'          => ucfirst($plural),
         'name_admin_bar'     => ucfirst($singular),
-        'parent_item'       => ucfirst($singular) . ' padre',
-        'parent_item_colon' => ucfirst($singular) . ' padre:',
-        'update_item'       => 'Actualizar ' . $single,
-        'new_item_name'     => 'Nombre de ' . _n('nuevo', 'nueva', $esMasculino) . ' ' . $singular,
+        'parent_item'        => ucfirst($singular) . ' padre',
+        'parent_item_colon'  => ucfirst($singular) . ' padre:',
+        'update_item'        => 'Actualizar ' . $single,
+        'new_item_name'      => 'Nombre de ' . _n('nuevo', 'nueva', $esMasculino) . ' ' . $singular,
     );
 }
 

@@ -4,7 +4,7 @@ if (!defined('ABSPATH')) exit;
 function registrarTaxonomiaCustom() {
     register_taxonomy('operacion', array('cosa'), array(
         'hierarchical'      => true,
-        'labels'            => construirLabels('operacion', 'operacion', 'operaciones', false),
+        'labels'            => construirLabels('operacion', 'operaciones', false),
         'show_ui'           => true,
         'show_admin_column' => true,
         'query_var'         => true

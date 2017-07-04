@@ -3,7 +3,7 @@ if (!defined('ABSPATH')) exit;
 
 function registrarNuevoCustomPostType() {
     $args = array(
-        'labels'               => construirLabels('cosa', 'cosa', 'cosas', false);,
+        'labels'               => construirLabels('cosa', 'cosas', false);,
         'public'               => true,
         'menu_position'        => 30,
         'menu_icon'            => 'dashicons-building',
@@ -46,12 +46,12 @@ function guardarMetabox($postID) {
         return $postID;
     }
 
-    if (isset($_POST['metabox-nonce']) && !wp_verify_nonce($_POST['metabox-nonce'], 'metabox')) {
+    if (isset($_POST['metabox-nonce']) && wp_verify_nonce($_POST['metabox-nonce'], 'metabox')) {
         // Limpiar los datos de este metabox específico.
         update_post_meta($post_id, 'metabox', sanitize_text_field('fecha'));
     }
 
-    if (isset($_POST['metabox-2-nonce']) && !wp_verify_nonce($_POST['metabox-2-nonce'], 'metabox-2')) {
+    if (isset($_POST['metabox-2-nonce']) && wp_verify_nonce($_POST['metabox-2-nonce'], 'metabox-2')) {
         // Limpiar los datos de este metabox específico.
         update_post_meta($post_id, 'metabox-2', sanitize_text_field('fecha-2'));
     }
