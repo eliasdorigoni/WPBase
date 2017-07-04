@@ -234,3 +234,10 @@ function construirLabels($slug, $singular, $plural, $esMasculino = true) {
         'new_item_name'     => 'Nombre de ' . _n('nuevo', 'nueva', $esMasculino) . ' ' . $singular,
     );
 }
+
+function mostrarFavicon() {
+    ?>
+    <link rel="shortcut icon" href="<?php echo THEME_URI ?>favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="<?php echo THEME_URI ?>favicon.ico" type="image/x-icon" />
+    <?php
+}

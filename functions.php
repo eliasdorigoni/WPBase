@@ -30,6 +30,10 @@ add_filter('login_headerurl', 'retornarHomeURL');
 // Permitir usar shortcodes en widgets.
 add_filter('widget_text','do_shortcode');
 
+add_action('wp_head',    'mostrarFavicon');
+add_action('login_head', 'mostrarFavicon');
+add_action('admin_head', 'mostrarFavicon');
+
 //////////////
 // Limpieza //
 //////////////
