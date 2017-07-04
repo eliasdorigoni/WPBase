@@ -143,9 +143,16 @@ module.exports = function(grunt) {
             sass: {
                 files: [    
                     'source/sass/**/*.scss',
-                    '!source/sass/custom-foundation.scss'
+                    '!source/sass/foundation/**/*.scss'
                 ],
                 tasks: ['sass:dist'],
+                options: {livereload: true}
+            },
+            foundation: {
+                files: [
+                    'source/sass/foundation/**/*.scss',
+                ],
+                tasks: ['sass:foundation', 'sass:dist'],
                 options: {livereload: true}
             },
             js: {
