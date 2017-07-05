@@ -208,11 +208,7 @@ function retornarHomeURL() {
     return HOME_URL;
 }
 
-function construirLabels($singular, $plural, $esMasculino = true, $slug = '') {
-    if (!$slug) {
-        $slug = $singular;
-    }
-
+function construirLabels($singular, $plural, $esMasculino = true) {
     return array(
         'name'               => ucfirst($plural),
         'singular_name'      => ucfirst($singular),
@@ -234,7 +230,7 @@ function construirLabels($singular, $plural, $esMasculino = true, $slug = '') {
         'name_admin_bar'     => ucfirst($singular),
         'parent_item'        => ucfirst($singular) . ' padre',
         'parent_item_colon'  => ucfirst($singular) . ' padre:',
-        'update_item'        => 'Actualizar ' . $single,
+        'update_item'        => 'Actualizar ' . $singular,
         'new_item_name'      => 'Nombre de ' . _n('nuevo', 'nueva', $esMasculino) . ' ' . $singular,
     );
 }
