@@ -243,5 +243,6 @@ function mostrarFavicon() {
     ?>
     <link rel="shortcut icon" href="<?php echo THEME_URI ?>favicon.ico" type="image/x-icon" />
     <link rel="icon" href="<?php echo THEME_URI ?>favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="<?php echo THEME_URI ?>favicon.png" type="image/png" sizes="64x64" />
     <?php
 }
