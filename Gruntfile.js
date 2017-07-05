@@ -139,6 +139,19 @@ module.exports = function(grunt) {
                 }]
             }
         },
+        favicons: {
+            options: {
+                apple: false,
+                trueColor: true,
+                windowsTile: false,
+                tileBlackWhite: false,
+                // html: 'favicon.html',
+            },
+            iconos: {
+                src: 'source/favicon.png',
+                dest: '',
+            }
+        },
         watch: {
             sass: {
                 files: [    
@@ -185,7 +198,7 @@ module.exports = function(grunt) {
     grunt.registerTask('iconos', ['svgmin', 'svg_sprite']);
     grunt.registerTask('estaticos', ['copy:estaticos', 'newer:imagemin', 'iconos']);
 
-    grunt.registerTask('build', ['clean', 'sass:build', 'estaticos', 'copy:build']);
+    grunt.registerTask('build', ['clean', 'sass:build', 'estaticos', 'favicons', 'copy:build']);
     grunt.registerTask('rebuild', ['clean:prebuild', 'copy:build']);
 
     grunt.registerTask('default', ['sass:dist', 'estaticos', 'watch']);
