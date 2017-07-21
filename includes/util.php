@@ -1,6 +1,4 @@
 <?php
-if (!defined('ABSPATH')) exit;
-
 /**
  * Calcula la diferencia entre dos timestamps y retorna un array con las
  * unidades temporales más altas, en orden descendente (año, mes, semana, dia. etc).
@@ -97,46 +95,15 @@ function eliminarDuplicadosDeArray($array1 = array(), $array2 = array()) {
 }
 
 /**
- * Agrega el slug del post a las clases HTML.
+ * Agrega el slug del post a las clases HTML de body_class().
  */
 function theme_agregarSlugClase($classes) {
     global $post;
-    if (isset($post)) {
+    if (is_object($post)) {
         $classes[] = $post->post_type . '-' . $post->post_name;
         $classes[] = $post->post_name;
     }
     return $classes;
-}
-add_filter('body_class', 'theme_agregarSlugClase');
-
-/**
- * Retorna el nombre de la taxonomia dentro de una plantilla de taxonomía.
- * @return string  Nombre de la taxonomia
- */
-if (!function_exists('get_the_taxonomy_title')) {
-    function get_the_taxonomy_title() {
-        if(is_tax()) {
-            global $wp_query;
-            $term = $wp_query->get_queried_object();
-            return $term->name;
-        }
-    }
-}
-
-/**
- * Limpia el contenido de un textarea respetando las lineas nuevas.
- * @param  string $string Cadena a limpiar
- * @return string         Cadena limpia con lineas nuevas.
- */
-if (!function_exists('sanitize_textarea')) {
-    function sanitize_textarea($string = '') {
-        $fake_newline = '###_LINE_BREAK_###';
-        $escaped_newlines = str_replace("\n", $fake_newline, $string);
-        $sanitized = sanitize_text_field($escaped_newlines);
-        $restored = str_replace($fake_newline, "\n", $sanitized);
-
-        return $restored;
-    }
 }
 
 /**
@@ -208,6 +175,10 @@ function retornarHomeURL() {
     return HOME_URL;
 }
 
+/**
+ * Arma un array con los textos utilizados por register_post_type().
+ * Deben ser 
+ */
 function construirLabels($singular, $plural, $esMasculino = true) {
     return array(
         'name'               => ucfirst($plural),
@@ -280,4 +251,76 @@ function retornarPostsAnteriorSiguiente() {
 
 function mostrarPostsAnteriorSiguiente() {
     echo retornarPostsAnteriorSiguiente();
+}
+
+/**
+ * Funciones para extender WordPress
+ */
+
+/**
+ * Retorna el titulo de la página del blog
+ */
+if (!function_exists('get_the_blog_title')) {
+    function get_the_blog_title() {
+        $id = get_option('page_for_posts', true);
+        return get_the_title($id);
+    }
+}
+
+/**
+ * Muestra el retorno de get_the_blog_title()
+ */
+if (!function_exists('the_blog_title')) {
+    function the_blog_title() {
+        echo get_the_blog_title();
+    }
+}
+
+/**
+ * Retorna el permalink del blog
+ */
+if (!function_exists('get_the_blog_permalink')) {
+    function get_the_blog_permalink() {
+        $id = get_option('page_for_posts', true);
+        return get_permalink($id);
+    }
+}
+
+/**
+ * Retorna el permalink del blog
+ */
+if (!function_exists('the_blog_permalink')) {
+    function the_blog_permalink() {
+        echo get_the_blog_permalink();
+    }
+}
+
+/**
+ * Limpia el contenido de un textarea respetando las lineas nuevas.
+ * @param  string $string Cadena a limpiar
+ * @return string         Cadena limpia con lineas nuevas.
+ */
+if (!function_exists('sanitize_textarea')) {
+    function sanitize_textarea($string = '') {
+        $fake_newline = '###_LINE_BREAK_###';
+        $escaped_newlines = str_replace("\n", $fake_newline, $string);
+        $sanitized = sanitize_text_field($escaped_newlines);
+        $restored = str_replace($fake_newline, "\n", $sanitized);
+
+        return $restored;
+    }
+}
+
+/**
+ * Retorna el nombre de la taxonomia dentro de una plantilla de taxonomía.
+ * @return string  Nombre de la taxonomia
+ */
+if (!function_exists('get_the_taxonomy_title')) {
+    function get_the_taxonomy_title() {
+        if(is_tax()) {
+            global $wp_query;
+            $term = $wp_query->get_queried_object();
+            return $term->name;
+        }
+    }
 }

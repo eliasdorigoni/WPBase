@@ -24,6 +24,8 @@ get_template_part('includes/woocommerce/renombrar-checkout');
 get_template_part('includes/woocommerce/vaciar-carrito');
 get_template_part('includes/woocommerce/dni');
 
+add_filter('body_class', 'theme_agregarSlugClase');
+
 add_filter('login_headertitle', 'get_bloginfo');
 add_filter('login_headerurl', 'retornarHomeURL');
 
