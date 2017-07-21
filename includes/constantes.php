@@ -1,7 +1,6 @@
 <?php
 if (!defined('ABSPATH')) exit;
 
-
 $theme = wp_get_theme();
 if (is_child_theme()) {
     $theme = wp_get_theme($theme->parent_theme);
