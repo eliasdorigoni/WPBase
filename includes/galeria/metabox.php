@@ -31,7 +31,7 @@ function guardarMetaboxGaleria($post_id) {
     $galeria = array();
     if (!empty($_POST['galeria'])) {
         foreach ($_POST['galeria'] as $k => $id) {
-            if (!is_string($id) || !preg_match('/^\d+$/', $id)) {
+            if (!esEnteroPositivo($id)) {
                 unset($_POST['galeria'][$k]);
             }
         }

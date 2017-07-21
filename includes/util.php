@@ -253,6 +253,13 @@ function mostrarPostsAnteriorSiguiente() {
     echo retornarPostsAnteriorSiguiente();
 }
 
+function esEnteroPositivo($string = '') {
+    if (is_string($string) || is_int($string)) {
+        return preg_match('/^\d+$/', $string);
+    }
+    return false;
+}
+
 /**
  * Funciones para extender WordPress
  */
