@@ -10,5 +10,3 @@ function mostrarGaleria($atts, $content = '') {
     $galeria = $m[0];
     include 'templates/frontend-shortcode.phtml';
 }
-
-add_shortcode('galeria', 'mostrarGaleria');

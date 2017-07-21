@@ -1,6 +1,4 @@
 <?php
-if (!defined('ABSPATH')) exit;
-
 function registrarMetaboxGaleria() {
     $id       = 'galeria';
     $titulo   = 'Galería';
@@ -10,7 +8,6 @@ function registrarMetaboxGaleria() {
     $priority = 'high';
     add_meta_box($id, $titulo, $callback, $screen, $context, $priority);
 }
-add_action('add_meta_boxes', 'registrarMetaboxGaleria');
 
 function mostrarMetaboxGaleria($post) {
     $cantidadMaxima = -1; // Límite de imagenes.
@@ -42,4 +39,3 @@ function guardarMetaboxGaleria($post_id) {
     }
     update_post_meta($post_id, 'galeria', $galeria);
 }
-add_action('save_post', 'guardarMetaboxGaleria', 1, 1);
