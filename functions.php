@@ -24,7 +24,16 @@ get_template_part('includes/woocommerce/renombrar-checkout');
 get_template_part('includes/woocommerce/vaciar-carrito');
 get_template_part('includes/woocommerce/dni');
 
+// Utilidades
 add_filter('body_class', 'theme_agregarSlugClase');
+add_filter('post_thumbnail_html', 'ampliarPostThumbnail', 10, 5);
+
+// theme_setup
+add_action('after_setup_theme', 'themeSetup');
+add_action('after_setup_theme', 'themeNavMenu');
+add_action('after_setup_theme', 'permitirFondoPersonalizado');
+add_action('after_setup_theme', 'permitirLogoPersonalizado');
+add_action('after_setup_theme', 'agregarDimensionesImagenes');
 
 add_filter('login_headertitle', 'get_bloginfo');
 add_filter('login_headerurl', 'retornarHomeURL');
