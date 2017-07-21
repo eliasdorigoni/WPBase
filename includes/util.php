@@ -171,10 +171,6 @@ function cortarEnPalabra($string, $cantidadCaracteres) {
     return implode(array_slice($partes, 0, $ultimaParte));
 }
 
-function retornarHomeURL() {
-    return HOME_URL;
-}
-
 /**
  * Arma un array con los textos utilizados por register_post_type().
  * Deben ser 

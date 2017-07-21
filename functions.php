@@ -36,7 +36,7 @@ add_action('after_setup_theme', 'permitirLogoPersonalizado');
 add_action('after_setup_theme', 'agregarDimensionesImagenes');
 
 add_filter('login_headertitle', 'get_bloginfo');
-add_filter('login_headerurl', 'retornarHomeURL');
+add_filter('login_headerurl', 'home_url', 1, 0);
 
 // Permitir usar shortcodes en widgets.
 add_filter('widget_text','do_shortcode');
