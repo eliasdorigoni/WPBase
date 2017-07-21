@@ -25,7 +25,7 @@ function registrarNuevoCustomPostType() {
     );
     register_post_type($singular, $args);
 }
-add_action('registrarPropiedad');
+add_action('init', 'registrarNuevoCustomPostType');
 
 function registrarMetaboxCosa() {
     add_meta_box('id', 'Titulo', 'mostrarMetabox', 'cosa', 'normal', 'default');
@@ -42,16 +42,18 @@ function guardarMetabox($postID) {
         return $postID;
     }
 
-    if (!current_user_can('manage_options')) {
+    if (!current_user_can('edit_posts')) {
         return $postID;
     }
 
-    if (isset($_POST['metabox-nonce']) && wp_verify_nonce($_POST['metabox-nonce'], 'metabox')) {
+    if (!empty($_POST['metabox-nonce']) && wp_verify_nonce($_POST['metabox-nonce'], 'metabox')) {
+
         // Limpiar los datos de este metabox específico.
+
         update_post_meta($post_id, 'metabox', sanitize_text_field('fecha'));
     }
 
-    if (isset($_POST['metabox-2-nonce']) && wp_verify_nonce($_POST['metabox-2-nonce'], 'metabox-2')) {
+    if (!empty($_POST['metabox-2-nonce']) && wp_verify_nonce($_POST['metabox-2-nonce'], 'metabox-2')) {
         // Limpiar los datos de este metabox específico.
         update_post_meta($post_id, 'metabox-2', sanitize_text_field('fecha-2'));
     }
