@@ -242,3 +242,42 @@ function mostrarFavicon() {
     <link rel="icon" href="<?php echo THEME_URI ?>favicon.png" type="image/png" sizes="64x64" />
     <?php
 }
+
+function retornarPostsAnteriorSiguiente() {
+    $postAnterior = get_previous_post();
+    $postSiguiente = get_next_post();
+    $columnaAnterior = $columnaSiguiente = '';
+
+    if (is_object($postAnterior)) {
+        $clase = (is_object($postSiguiente)) ? 'medium-6' : '';
+        $columnaAnterior = '<div class="column text-left ' . $clase . '">'
+            . '<a class="anterior" href="' . get_permalink($postAnterior) . '">'
+                . '<em>Entrada anterior:</em><br>'
+                . ' &larr; ' . $postAnterior->post_title
+            . '</a>'
+         . '</div>';
+    }
+
+    if (is_object($postSiguiente)) {
+        $clase = (is_object($postAnterior)) ? 'medium-6' : '';
+        $columnaSiguiente = '<div class="column text-right ' . $clase . '">'
+            . '<a class="siguiente" href="' . get_permalink($postSiguiente) . '">'
+                . '<em>Entrada siguiente:</em><br>'
+                . $postSiguiente->post_title . ' &rarr;'
+            . '</a>'
+         . '</div>';
+    }
+
+    if (!empty($columnaAnterior) || !empty($columnaSiguiente)) {
+        return '<div class="enlacesNavegacion row">'
+                . $columnaAnterior
+                . $columnaSiguiente
+             . '</div>';
+    }
+
+    return '';
+}
+
+function mostrarPostsAnteriorSiguiente() {
+    echo retornarPostsAnteriorSiguiente();
+}
