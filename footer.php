@@ -8,11 +8,11 @@
             );
     ?>
 	<footer class="footer">
-        <div class="row large-up-3">
-            <?php if (is_active_sidebar('footer-1')) dynamic_sidebar('footer-1');?>
-            <?php if (is_active_sidebar('footer-2')) dynamic_sidebar('footer-2');?>
-            <?php if (is_active_sidebar('footer-3')) dynamic_sidebar('footer-3');?>
-        </div>
+        <?php if (is_active_sidebar('footer')): ?>
+            <div class="row large-up-3">
+                <?php dynamic_sidebar('footer');?>
+            </div>
+        <?php endif ?>
         <div class="row">
             <div class="column">
                 <p><?php echo bloginfo('name'); ?><br><?php echo date('Y') ?></p>
