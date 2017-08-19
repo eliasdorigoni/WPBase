@@ -1,3 +1,7 @@
+// uso:
+// .target { @include mixin(options); }
+
+
 /// Mixin to prefix a property
 /// @author Hugo Giraudel
 /// @param {String} $property - Property name
@@ -16,3 +20,33 @@
     // }
 }
 
+@mixin colorPlaceholder($color) {
+    // Los selectores deben ir separados para no cancelarse entre ellos.
+
+    // WebKit, Blink, Edge
+    &::-webkit-input-placeholder {
+        color: $color;
+    }
+
+    // Mozilla Firefox 4 a 18
+    &:-moz-placeholder {
+       color: $color;
+       opacity:  1;
+    }
+
+    // Mozilla Firefox 19+
+    &::-moz-placeholder {
+       color: $color;
+       opacity:  1;
+    }
+
+    // Internet Explorer 10-11
+    &:-ms-input-placeholder {
+       color: $color;
+    }
+
+    // Microsoft Edge
+    &::-ms-input-placeholder {
+       color: $color;
+    }
+}
