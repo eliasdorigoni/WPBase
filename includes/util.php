@@ -395,3 +395,10 @@ if (!function_exists('get_the_taxonomy_title')) {
         }
     }
 }
+
+if (!function_exists('change_action_priority')) {
+    function change_action_priority($tag, $func, $old_priority, $new_priority) {
+        remove_action($tag, $func, $old_priority);
+        add_action($tag, $func, $new_priority);
+    }
+}
