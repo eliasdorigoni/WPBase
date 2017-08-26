@@ -37,7 +37,6 @@ function themeSetup() {
         )
     );
 
-    set_post_thumbnail_size(320, 320, true);
 }
 
 function themeNavMenu() {
@@ -78,6 +77,12 @@ function permitirLogoPersonalizado() {
     ));
 }
 
-function agregarDimensionesImagenes() {
-    add_image_size('formato', '220', '220', true);
+
+/**
+ * Activa el hard crop en las dimensiones por defecto.
+ * Agregar a la acción 'after_setup_theme'
+ */
+function cortarDimensiones() {
+    add_image_size('medium', get_option('medium_size_w'), get_option('medium_size_h'), true);
+    add_image_size('large', get_option('large_size_w'), get_option('large_size_h'), true);
 }
