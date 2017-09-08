@@ -1,6 +1,4 @@
 <?php
-if (!defined('ABSPATH')) exit;
-
 // Copia del widget de texto que no muestra el título.
 class WP_Widget_Contenido extends WP_Widget
 {
@@ -65,4 +63,3 @@ class WP_Widget_Contenido extends WP_Widget
 function cargar_widget_contenido() {
     register_widget('WP_Widget_Contenido');
 }
-add_action( 'widgets_init', 'cargar_widget_contenido' );

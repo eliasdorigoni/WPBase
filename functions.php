@@ -14,10 +14,7 @@ add_action('after_setup_theme', 'themeNavMenu');
 add_action('after_setup_theme', 'permitirFondoPersonalizado');
 add_action('after_setup_theme', 'permitirLogoPersonalizado');
 
-get_template_part('includes/theme_widgets');
-add_action('widgets_init', 'theme_widgets');
-// add_filter('dynamic_sidebar_params', 'agregarClaseIncremental');
-// add_filter('dynamic_sidebar_params', 'agregarClasePorCantidad');
+get_template_part('includes/widgets/init');
 
 get_template_part('includes/theme_enqueue');
 get_template_part('includes/widget.contenido');
