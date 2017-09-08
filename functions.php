@@ -13,7 +13,6 @@ add_action('after_setup_theme', 'themeSetup');
 add_action('after_setup_theme', 'themeNavMenu');
 add_action('after_setup_theme', 'permitirFondoPersonalizado');
 add_action('after_setup_theme', 'permitirLogoPersonalizado');
-add_action('after_setup_theme', 'agregarDimensionesImagenes');
 
 get_template_part('includes/theme_widgets');
 add_action('widgets_init', 'theme_widgets');
