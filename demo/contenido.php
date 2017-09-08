@@ -1,4 +1,5 @@
 <hr>
+
 <h1>Todas las redes</h1>
 <?php echo do_shortcode('[redes-sociales]'); ?>
 

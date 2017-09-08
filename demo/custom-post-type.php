@@ -50,12 +50,12 @@ function guardarMetabox($postID) {
 
         // Limpiar los datos de este metabox específico.
 
-        update_post_meta($post_id, 'metabox', sanitize_text_field('fecha'));
+        update_post_meta($postID, 'metabox', sanitize_text_field($_POST['fecha']));
     }
 
     if (!empty($_POST['metabox-2-nonce']) && wp_verify_nonce($_POST['metabox-2-nonce'], 'metabox-2')) {
         // Limpiar los datos de este metabox específico.
-        update_post_meta($post_id, 'metabox-2', sanitize_text_field('fecha-2'));
+        update_post_meta($postID, 'metabox-2', sanitize_text_field($_POST['fecha-2']));
     }
 }
 add_action('save_post', 'guardarMetabox', 1, 1);
