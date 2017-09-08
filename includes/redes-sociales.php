@@ -2,79 +2,100 @@
 if (!defined('ABSPATH')) exit;
 
 function retornarConfiguracionRedesSociales() {
-    return array(
-        'twitter' => array(
-            'nombre' => 'Twitter',
-            'option' => 'url-twitter',
-            'icono' => 'twitter',
-            'customizer' => array(
-                'label' => 'URL de Twitter',
-            ),
-            'compartir' => array(
-                'url' => 'https://twitter.com/home?',
-                'query' => array(
-                    'status' => 'REEMPLAZAR_CON_ENLACE',
-                ),
-            ),
+    $retorno = array();
+
+    $retorno[] = array(
+        # Nombre de la red, para usar en el frontend
+        'nombre' => 'Facebook',
+        # Option donde guardar la URL de la página/twitter/etc del sitio
+        'option' => 'url-facebook',
+        # ID del icono SVG
+        'icono' => 'facebook',
+        'customizer' => array(
+            # Label en el customizer de WP
+            'label' => 'URL de Facebook',
         ),
-        'facebook' => array(
-            'nombre' => 'Facebook',
-            'option' => 'url-facebook',
-            'icono' => 'facebook',
-            'customizer' => array(
-                'label' => 'URL de Facebook',
-            ),
-            'compartir' => array(
-                'url' => 'https://www.facebook.com/sharer/sharer.php?',
-                'query' => array(
-                    'u' => 'REEMPLAZAR_CON_ENLACE',
-                    'display' => 'popup',
-                    'ref' => 'plugin',
-                    'src' => 'share_button',
-                ),
-            ),
-        ),
-        'google-plus' => array(
-            'nombre' => 'Google Plus',
-            'option' => 'url-google-plus',
-            'icono' => 'google-plus',
-            'customizer' => array(
-                'label' => 'URL de Google Plus',
-            ),
-            'compartir' => array(
-                'url' => 'https://plus.google.com/share?',
-                'query' => array(
-                    'url' => 'REEMPLAZAR_CON_ENLACE',
-                ),
-            ),
-        ),
-        'youtube' => array(
-            'nombre' => 'YouTube',
-            'option' => 'url-youtube',
-            'icono' => 'youtube',
-            'customizer' => array(
-                'label' => 'URL del canal de Youtube',
-            ),
-        ),
-        'instagram' => array(
-            'nombre' => 'Instagram',
-            'option' => 'url-instagram',
-            'icono' => 'instagram',
-            'customizer' => array(
-                'label' => 'URL de Instagram',
-            ),
-        ),
-        'whatsapp' => array(
-            'nombre' => 'WhatsApp',
-            'icono' => 'whatsapp',
-            'compartir' => array(
-                'url' => 'whatsapp://send?',
-                'query' => array(
-                    'text' => 'REEMPLAZAR_CON_ENLACE',
-                ),
+        # Datos para armar la URL para compartir
+        'compartir' => array(
+            'url' => 'https://www.facebook.com/sharer/sharer.php?',
+            'query' => array(
+                'u' => 'REEMPLAZAR_CON_ENLACE',
+                'display' => 'popup',
+                'ref' => 'plugin',
+                'src' => 'share_button',
             ),
         ),
     );
+
+    $retorno[] = array(
+        'nombre' => 'Google Plus',
+        'option' => 'url-google-plus',
+        'icono' => 'google-plus',
+        'customizer' => array(
+            'label' => 'URL de Google Plus',
+        ),
+        'compartir' => array(
+            'url' => 'https://plus.google.com/share?',
+            'query' => array(
+                'url' => 'REEMPLAZAR_CON_ENLACE',
+            ),
+        ),
+    );
+
+    $retorno[] = array(
+        'nombre' => 'Instagram',
+        'option' => 'url-instagram',
+        'icono' => 'instagram',
+        'customizer' => array(
+            'label' => 'URL de Instagram',
+        ),
+    );
+
+    $retorno[] = array(
+        'nombre' => 'Pinterest',
+        'option' => 'url-pinterest',
+        'icono' => 'pinterest',
+        'customizer' => array(
+            'label' => 'URL de Pinterest',
+        ),
+    );
+
+    $retorno[] = array(
+        'nombre' => 'Twitter',
+        'option' => 'url-twitter',
+        'icono' => 'twitter',
+        'customizer' => array(
+            'label' => 'URL de Twitter',
+        ),
+        'compartir' => array(
+            'url' => 'https://twitter.com/home?',
+            'query' => array(
+                'status' => 'REEMPLAZAR_CON_ENLACE',
+            ),
+        ),
+    );
+
+    $retorno[] = array(
+        'nombre' => 'YouTube',
+        'option' => 'url-youtube',
+        'icono' => 'youtube',
+        'customizer' => array(
+            'label' => 'URL del canal de Youtube',
+        ),
+    );
+
+    $retorno[] = array(
+        'nombre' => 'WhatsApp',
+        'icono' => 'whatsapp',
+        'compartir' => array(
+            'url' => 'whatsapp://send?',
+            'query' => array(
+                'text' => 'REEMPLAZAR_CON_ENLACE',
+            ),
+        ),
+    );
+
+    return $retorno;
 }
 
 function stringEsRedSocial($string) {
@@ -92,7 +113,7 @@ function registrarCustomizerRedesSociales($wp_customize) {
 
     $config = retornarConfiguracionRedesSociales();
 
-    foreach ($config as $slug => $item) {
+    foreach ($config as $k => $item) {
         if (empty($item['option'])) {
             continue;
         }
@@ -101,6 +122,7 @@ function registrarCustomizerRedesSociales($wp_customize) {
             'type' => 'option',
             'capability' => 'edit_theme_options',
         ));
+
         $wp_customize->add_control(
             new WP_Customize_Control(
                 $wp_customize,
