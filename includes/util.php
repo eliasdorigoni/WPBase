@@ -155,6 +155,7 @@ function retornarImagenesDeAttachments($ids = array(), $dimensiones = '') {
     return $retorno;
 }
 
+
 function cortarEnPalabra($string, $cantidadCaracteres) {
     $partes = preg_split('/([\s\n\r]+)/', $string, null, PREG_SPLIT_DELIM_CAPTURE);
     $cantidadPartes = count($partes);
@@ -202,6 +203,7 @@ function construirLabels($singular, $plural, $esMasculino = true) {
     );
 }
 
+
 function mostrarFavicon() {
     ?>
     <link rel="shortcut icon" href="<?php echo THEME_URI ?>favicon.ico" type="image/x-icon" />
@@ -209,6 +211,7 @@ function mostrarFavicon() {
     <link rel="icon" href="<?php echo THEME_URI ?>favicon.png" type="image/png" sizes="64x64" />
     <?php
 }
+
 
 function retornarPostsAnteriorSiguiente() {
     $postAnterior = get_previous_post();
@@ -245,9 +248,11 @@ function retornarPostsAnteriorSiguiente() {
     return '';
 }
 
+
 function mostrarPostsAnteriorSiguiente() {
     echo retornarPostsAnteriorSiguiente();
 }
+
 
 function esEnteroPositivo($string = '') {
     if (is_string($string) || is_int($string)) {
@@ -255,6 +260,7 @@ function esEnteroPositivo($string = '') {
     }
     return false;
 }
+
 
 function ampliarPostThumbnail($html, $post_id, $thumb_id, $size, $attr) {
     if ($attr != 'expandir') {
@@ -395,6 +401,7 @@ if (!function_exists('get_the_taxonomy_title')) {
         }
     }
 }
+
 
 if (!function_exists('change_action_priority')) {
     function change_action_priority($tag, $func, $old_priority, $new_priority) {
