@@ -3,9 +3,6 @@
 
 // @todo: crear una tarea para eliminar carpetas de ../../plugins/ que coincidan con ./plugins/
 
-
-// "grunt-favicons": "0.8.0"
-
 var gulp = require('gulp'),
     argv = require('yargs').argv,
     concat = require('gulp-concat'),
