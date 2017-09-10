@@ -3,3 +3,4 @@ _compilado.scss
 build/
 assets/
 favicon.*
+foundation.min.js
