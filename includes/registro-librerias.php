@@ -12,7 +12,7 @@ function registrarLibrerias() {
     wp_register_script('foundation', ASSETS_URI_JS . 'vendor/foundation.min.js', array('jquery'), '6.2.3', true);
 
     // Script principal del frontend
-    wp_register_script('app', ASSETS_URI_JS.'app.js', array('foundation'), VERSION_THEME, true);
+    wp_register_script('app', ASSETS_URI_JS.'app.min.js', array('foundation'), VERSION_THEME, true);
     
     // Slick - https://github.com/kenwheeler/slick/
     wp_register_script('slick', ASSETS_URI_JS . 'vendor/slick.min.js', array('jquery'), '1.6.0', true);
