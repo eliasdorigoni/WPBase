@@ -112,7 +112,10 @@ gulp.task('sass', function(cb) {
     return gulp.src('./source/sass/*.scss')
         .pipe(gulpif(!argv.prod, sourcemaps.init()))
         .pipe(sass({
-            includePaths: ['./node_modules/foundation-sites/scss'],
+            includePaths: [
+                './node_modules/foundation-sites/scss',
+                './node_modules/motion-ui/src',
+            ],
             outputStyle: 'compressed'
         }).on('error', sass.logError))
         .pipe(rename({suffix: '.min'}))
