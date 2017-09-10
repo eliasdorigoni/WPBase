@@ -5,6 +5,7 @@
 
 var gulp = require('gulp'),
     argv = require('yargs').argv,
+    autoprefixer = require('gulp-autoprefixer'),
     concat = require('gulp-concat'),
     del = require('del'),
     favicons = require('gulp-favicons'),
@@ -130,6 +131,10 @@ gulp.task('sass', function(cb) {
             ],
             outputStyle: 'compressed'
         }).on('error', sass.logError))
+        .pipe(autoprefixer({
+            browsers: ['last 5 versions'],
+            cascade: false
+        }))
         .pipe(rename({suffix: '.min'}))
         .pipe(gulpif(!argv.prod, sourcemaps.write()))
         .pipe(gulp.dest(dir.assets + 'css/'))
@@ -193,6 +198,8 @@ gulp.task('copiar-assets', function() {
         '!./source/js/app.js',
         '!./source/js/includes',
         '!./source/js/includes/**/',
+        '!./source/js/snippets',
+        '!./source/js/snippets/**/',
         // sass se compila
         '!./source/sass',
         '!./source/sass/**/',
@@ -221,6 +228,8 @@ gulp.task('watch', function() {
         '!./source/js/app.js',
         '!./source/js/includes',
         '!./source/js/includes/**/',
+        '!./source/js/snippets',
+        '!./source/js/snippets/**/',
         '!./source/sass',
         '!./source/sass/**/',
         '!./source/svg/',
@@ -249,6 +258,7 @@ gulp.task('build', function() {
     runSequence('clean', 'default', function() {
         gulp.src([
             './includes/',
+            './page-templates/',
             './plugins/',
             './templates/',
             './woocommerce/',

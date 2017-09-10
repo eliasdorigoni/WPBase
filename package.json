@@ -1,8 +1,9 @@
 {
   "devDependencies": {
     "del": "^3.0.0",
-    "foundation-sites": "6.2.4",
+    "foundation-sites": "6.4.3",
     "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.0.0",
     "gulp-concat": "^2.6.1",
     "gulp-if": "^2.0.2",
     "gulp-ignore": "^2.0.2",
