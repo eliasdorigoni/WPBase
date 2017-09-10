@@ -70,6 +70,44 @@ gulp.task('js', function() {
         .pipe(gulpif(!argv.prod, livereload()))
 })
 
+gulp.task('foundation-js', function() {
+    return gulp.src([
+            'foundation.core.js',
+            'foundation.util.mediaQuery.js',
+
+            'foundation.util.box.js', // reveal
+            'foundation.util.keyboard.js', // reveal
+            'foundation.util.motion.js', // offcanvas, toggler
+            // 'foundation.util.nest.js',
+            'foundation.util.timerAndImageLoader.js', // equalizer
+            // 'foundation.util.touch.js',
+            'foundation.util.triggers.js', // offcanvas, reveal, toggler
+
+            // 'foundation.abide.js',
+            // 'foundation.accordion.js',
+            // 'foundation.accordionMenu.js',
+            // 'foundation.drilldown.js',
+            // 'foundation.dropdown.js',
+            // 'foundation.dropdownMenu.js',
+            'foundation.equalizer.js',
+            // 'foundation.interchange.js',
+            // 'foundation.magellan.js',
+            'foundation.offcanvas.js',
+            // 'foundation.orbit.js',
+            // 'foundation.responsiveMenu.js',
+            // 'foundation.responsiveToggle.js',
+            'foundation.reveal.js',
+            // 'foundation.slider.js',
+            // 'foundation.sticky.js',
+            // 'foundation.tabs.js',
+            'foundation.toggler.js',
+            // 'foundation.tooltip.js',
+        ], {cwd: './node_modules/foundation-sites/dist/plugins/'})
+        .pipe(concat('foundation.min.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest('./source/js/vendor'))
+})
+
 gulp.task('sass', function(cb) {
     return gulp.src('./source/sass/*.scss')
         .pipe(gulpif(!argv.prod, sourcemaps.init()))
