@@ -13,6 +13,7 @@ var gulp = require('gulp'),
     gutil = require('gulp-util'),
     imagemin = require('gulp-imagemin'),
     livereload = require('gulp-livereload'),
+    newer = require('gulp-newer'),
     rename = require("gulp-rename"),
     sass = require('gulp-sass'),
     sourcemaps = require('gulp-sourcemaps'),
@@ -20,9 +21,15 @@ var gulp = require('gulp'),
     runSequence = require('run-sequence'),
     uglify = require('gulp-uglify')
 
-var opciones = {
-    dist: './assets/',
-    build: './build/' + __dirname.split('\\').pop() + '/'
+var dir = {
+    root: './',
+    assets: './assets/',
+}
+
+if (argv.prod) {
+    var rootDir = __dirname.split('\\').pop() + '/'
+    dir.root = './build/' + rootDir
+    dir.assets = './build/' + rootDir + 'assets/'
 }
 
 gulp.task('clean', function() {
@@ -31,14 +38,16 @@ gulp.task('clean', function() {
 
 gulp.task('images', function(cb) {
     gulp.src('./source/img/**/*')
+    .pipe(newer(dir.assets + 'img/'))
     .pipe(imagemin())
-    .pipe(gulp.dest(argv.prod ? opciones.build + 'img/' : opciones.dist + 'img/'))
+    .pipe(gulp.dest(dir.assets + 'img/'))
     .pipe(gulpif(!argv.prod, livereload()))
     .on('end', cb).on('error', cb);
 })
 
 gulp.task('favicon', function() {
     return gulp.src('./source/favicon.png')
+        .pipe(newer(dir.root + ''))
         .pipe(favicons({
             logging: false,
             online: false,
@@ -57,16 +66,17 @@ gulp.task('favicon', function() {
         }))
         .on("error", gutil.log)
         .pipe(gulpIgnore.include('*.ico'))
-        .pipe(gulp.dest(argv.prod ? opciones.build : './'))
+        .pipe(gulp.dest(dir.root + ''))
 })
 
 gulp.task('js', function() {
     return gulp.src(['./source/js/includes/*', './source/js/app.js'])
+        .pipe(newer(dir.assets + 'js/'))
         .pipe(gulpif(!argv.prod, sourcemaps.init()))
         .pipe(concat('app.min.js'))
         .pipe(uglify())
         .pipe(gulpif(!argv.prod, sourcemaps.write()))
-        .pipe(gulp.dest(argv.prod ? opciones.build + 'js/' : opciones.dist + 'js/'))
+        .pipe(gulp.dest(dir.assets + 'js/'))
         .pipe(gulpif(!argv.prod, livereload()))
 })
 
@@ -103,6 +113,7 @@ gulp.task('foundation-js', function() {
             'foundation.toggler.js',
             // 'foundation.tooltip.js',
         ], {cwd: './node_modules/foundation-sites/dist/plugins/'})
+        .pipe(newer('./source/js/vendor/foundation.min.js'))
         .pipe(concat('foundation.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest('./source/js/vendor'))
@@ -110,6 +121,7 @@ gulp.task('foundation-js', function() {
 
 gulp.task('sass', function(cb) {
     return gulp.src('./source/sass/*.scss')
+        .pipe(newer({dest: dir.assets + 'css/', ext: '.min.css'}))
         .pipe(gulpif(!argv.prod, sourcemaps.init()))
         .pipe(sass({
             includePaths: [
@@ -120,16 +132,17 @@ gulp.task('sass', function(cb) {
         }).on('error', sass.logError))
         .pipe(rename({suffix: '.min'}))
         .pipe(gulpif(!argv.prod, sourcemaps.write()))
-        .pipe(gulp.dest(argv.prod ? opciones.build + 'css/' : opciones.dist + 'css/'))
+        .pipe(gulp.dest(dir.assets + 'css/'))
         .pipe(gulpif(!argv.prod, livereload()))
 })
 
 gulp.task('svg', function(cb) {
     gulp.src('./source/svg/*.svg')
-    .pipe(imagemin())
-    .pipe(gulp.dest(argv.prod ? opciones.build + 'svg/' : opciones.dist + 'svg/'))
-    .pipe(gulpif(!argv.prod, livereload()))
-    .on('end', cb).on('error', cb);
+        .pipe(newer(dir.assets + 'svg/'))
+        .pipe(imagemin())
+        .pipe(gulp.dest(dir.assets + 'svg/'))
+        .pipe(gulpif(!argv.prod, livereload()))
+        .on('end', cb).on('error', cb);
 })
 
 gulp.task('svg-sprite', function(cb) {
@@ -154,11 +167,12 @@ gulp.task('svg-sprite', function(cb) {
                 sprite: 'sprite.svg'
             }
         }
-    } 
+    }
 
     return gulp.src('./source/svg/sprite/*.svg')
+        .pipe(newer(dir.assets + 'svg/sprite.svg'))
         .pipe(svgSprite(options))
-        .pipe(gulp.dest(argv.prod ? opciones.build + 'svg/' : opciones.dist + 'svg/'))
+        .pipe(gulp.dest(dir.assets + 'svg/'))
         .pipe(gulpif(!argv.prod, livereload()))
 })
 
@@ -186,7 +200,8 @@ gulp.task('copiar-assets', function() {
         '!./source/svg',
         '!./source/svg/**/',
         ])
-        .pipe(gulp.dest(argv.prod ? opciones.build : opciones.dist))
+        .pipe(newer(dir.assets))
+        .pipe(gulp.dest(dir.assets))
 })
 
 gulp.task('watch', function() {
@@ -215,7 +230,7 @@ gulp.task('watch', function() {
 
 gulp.task('default', function() {
     runSequence(
-        'clean',
+        'foundation-js',
         [
             'copiar-assets',
             // 'copiar-plugins', -> rara vez se usa
@@ -228,4 +243,25 @@ gulp.task('default', function() {
         ], 
         'watch'
     );
+})
+
+gulp.task('build', function() {
+    runSequence('clean', 'default', function() {
+        gulp.src([
+            './includes/',
+            './plugins/',
+            './templates/',
+            './woocommerce/',
+            '!*.{map,md}',
+            '!package.json',
+            '!LICENSE',
+            '!gulpfile.js',
+            '.htaccess',
+            '*.php',
+            'config.ini',
+            'favicon.ico',
+            'screenshot.png',
+            'style.css',
+        ]).pipe(gulp.dest(dir.root))
+    })
 })
