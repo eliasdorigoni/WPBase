@@ -50,7 +50,6 @@ navegacionResponsive: function(boton, demoraAnimacion) {
 
     $boton.on('click', '', {animar: true}, comprobarMenuPrincipal)
     $(window).on('changed.zf.mediaquery', '', {animar: false}, comprobarMenuPrincipal)
-    $menu.superfish();
 }
 
 });
