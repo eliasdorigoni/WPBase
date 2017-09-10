@@ -11,22 +11,28 @@ pre {
     text-transform: none !important;
 }
 
-.boton {
-    background: $colorPrincipal;
-    border: 1px solid $colorPrincipal;
-    color: #fff;
-    display: inline-block;
-    padding: 0.25em 0.5em;
-    &:hover {
-        background: darken($colorPrincipal, 15%);
-        border-color: darken($colorPrincipal, 15%);
+.icono {
+    width: 3em; height: 3em;
+    fill: #fff;
+    &-facebook {
+        background: $colorFacebook;
     }
-    &.boton-secundario {
-        background: $colorSecundario;
-        border-color: $colorSecundario;
-        &:hover {
-            background: darken($colorSecundario, 5%);
-            border-color: darken($colorSecundario, 15%);
-        }
+    &-google-plus {
+        background: $colorGooglePlus;
+    }
+    &-pinterest {
+        background: $colorPinterest;
+    }
+    &-twitter {
+        background: $colorTwitter;
+    }
+    &-instagram {
+        @include degradadoInstagram;
+    }
+    &-youtube {
+        background: $colorGooglePlus;
+    }
+    &-whatsapp {
+        background: $colorWhatsapp;
     }
 }
