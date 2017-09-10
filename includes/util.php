@@ -97,7 +97,7 @@ function eliminarDuplicadosDeArray($array1 = array(), $array2 = array()) {
 /**
  * Agrega el slug del post a las clases HTML de body_class().
  */
-function theme_agregarSlugClase($classes) {
+function theme_agregarNombreEnBody($classes) {
     global $post;
     if (is_object($post)) {
         $classes[] = $post->post_type . '-' . $post->post_name;
@@ -107,20 +107,16 @@ function theme_agregarSlugClase($classes) {
 }
 
 /**
- * Permite cargar información sensible en constantes, para dejarlas
- * fuera del backup.
- * @param  string $archivo               Ruta absoluta al archivo INI
+ * Define constantes usando información externa. Ideado para claves de API y similares.
  * @param  array  $constantesPorDefecto  Claves y valores para constantes por defecto.
+ * @param  string $archivo               Ruta absoluta al archivo INI
  */
-function cargarConstantesDesdeINI($archivo = '', $constantesPorDefecto = array()) {
+function cargarConstantesDesdeINI($constantesPorDefecto = array(), $archivo = THEME_DIR . 'config.ini') {
     $ini = (file_exists($archivo)) ? parse_ini_file($archivo) : array();
-    $constantesPorDefecto = array(
-        'claves_por_defecto' => 'valores_por_defecto',
-        );
     $data = wp_parse_args($ini, $constantesPorDefecto);
 
-    foreach ($data as $const => $valor) {
-        define(strtoupper($const), $valor);
+    foreach ($data as $nombre => $valor) {
+        if (!defined($nombre)) define($nombre, $valor);
     }
 }
 
@@ -174,7 +170,6 @@ function cortarEnPalabra($string, $cantidadCaracteres) {
 
 /**
  * Arma un array con los textos utilizados por register_post_type().
- * Deben ser 
  */
 function construirLabels($singular, $plural, $esMasculino = true) {
     return array(
@@ -329,6 +324,16 @@ function ampliarPostThumbnail($html, $post_id, $thumb_id, $size, $attr) {
 
     return $html;
 }
+
+/**
+ * Activa el hard crop en las dimensiones por defecto.
+ * Enganchar al hook 'after_setup_theme' para activar.
+ */
+function forzarCropEnDimensiones() {
+    add_image_size('medium', get_option('medium_size_w'), get_option('medium_size_h'), true);
+    add_image_size('large', get_option('large_size_w'), get_option('large_size_h'), true);
+}
+
 
 /**
  * Funciones para extender WordPress

@@ -27,3 +27,5 @@ define('ASSETS_URI_CSS',  ASSETS_URI . 'css/');
 define('ASSETS_URI_JS',   ASSETS_URI . 'js/');
 define('ASSETS_URI_IMG',  ASSETS_URI . 'img/');
 define('ASSETS_URI_SVG',  ASSETS_URI . 'svg/');
+
+cargarConstantesDesdeINI(array('WPBASE_GOOGLEMAPS_API_KEY' => ''));
