@@ -15,8 +15,8 @@ function registrarLibrerias() {
     wp_register_script('app', ASSETS_URI_JS.'app.min.js', array('foundation'), VERSION_THEME, true);
     
     // Slick - https://github.com/kenwheeler/slick/
-    wp_register_script('slick', ASSETS_URI_JS . 'vendor/slick.min.js', array('jquery'), '1.6.0', true);
-    wp_register_script('slick-cdn', '//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js', array('jquery'), '1.6.0', true);
+    wp_register_script('slick', ASSETS_URI_JS . 'vendor/slick.min.js', array('jquery'), '1.7.1', true);
+    wp_register_script('slick-cdn', '//cdn.jsdelivr.net/gh/kenwheeler/slick@1.7.1/slick/slick.min.js', array('jquery'), '1.7.1', true);
 
     // Lightbox - https://github.com/lokesh/lightbox2/
     wp_register_script('lightbox', ASSETS_URI_JS . 'vendor/lightbox.min.js', array('jquery'), '2.8.2', true);
