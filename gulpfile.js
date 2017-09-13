@@ -3,24 +3,24 @@
 
 // @todo: crear una tarea para eliminar carpetas de ../../plugins/ que coincidan con ./plugins/
 
-var gulp = require('gulp'),
-    argv = require('yargs').argv,
+var gulp         = require('gulp'),
+    argv         = require('yargs').argv,
     autoprefixer = require('gulp-autoprefixer'),
-    concat = require('gulp-concat'),
-    del = require('del'),
-    favicons = require('gulp-favicons'),
-    gulpif = require('gulp-if'),
-    gulpIgnore = require('gulp-ignore'),
-    gutil = require('gulp-util'),
-    imagemin = require('gulp-imagemin'),
-    livereload = require('gulp-livereload'),
-    newer = require('gulp-newer'),
-    rename = require("gulp-rename"),
-    sass = require('gulp-sass'),
-    sourcemaps = require('gulp-sourcemaps'),
-    svgSprite = require('gulp-svg-sprite'),
-    runSequence = require('run-sequence'),
-    uglify = require('gulp-uglify')
+    concat       = require('gulp-concat'),
+    del          = require('del'),
+    favicons     = require('gulp-favicons'),
+    gulpIgnore   = require('gulp-ignore'),
+    gulpif       = require('gulp-if'),
+    gutil        = require('gulp-util'),
+    imagemin     = require('gulp-imagemin'),
+    livereload   = require('gulp-livereload'),
+    newer        = require('gulp-newer'),
+    rename       = require("gulp-rename"),
+    runSequence  = require('run-sequence'),
+    sass         = require('gulp-sass'),
+    sourcemaps   = require('gulp-sourcemaps'),
+    svgSprite    = require('gulp-svg-sprite'),
+    uglify       = require('gulp-uglify')
 
 var dir = {
     root: './',
@@ -39,11 +39,11 @@ gulp.task('clean', function() {
 
 gulp.task('images', function(cb) {
     gulp.src('./source/img/**/*')
-    .pipe(newer(dir.assets + 'img/'))
-    .pipe(imagemin())
-    .pipe(gulp.dest(dir.assets + 'img/'))
-    .pipe(gulpif(!argv.prod, livereload()))
-    .on('end', cb).on('error', cb);
+        .pipe(newer(dir.assets + 'img/'))
+        .pipe(imagemin())
+        .pipe(gulp.dest(dir.assets + 'img/'))
+        .pipe(gulpif(!argv.prod, livereload()))
+        .on('end', cb).on('error', cb);
 })
 
 gulp.task('favicon', function() {
@@ -71,7 +71,7 @@ gulp.task('favicon', function() {
 })
 
 gulp.task('js', function() {
-    return gulp.src(['./source/js/includes/*', './source/js/app.js'])
+    return gulp.src(['./temp/js/foundation.js', './source/js/includes/*', './source/js/app.js'])
         .pipe(newer(dir.assets + 'js/'))
         .pipe(gulpif(!argv.prod, sourcemaps.init()))
         .pipe(concat('app.min.js'))
@@ -86,13 +86,13 @@ gulp.task('foundation-js', function() {
             'foundation.core.js',
             'foundation.util.mediaQuery.js',
 
-            'foundation.util.box.js', // reveal
+            'foundation.util.box.js',      // reveal
             'foundation.util.keyboard.js', // reveal
-            'foundation.util.motion.js', // offcanvas, toggler
+            'foundation.util.motion.js',   // offcanvas, toggler
             // 'foundation.util.nest.js',
             'foundation.util.timerAndImageLoader.js', // equalizer
             // 'foundation.util.touch.js',
-            'foundation.util.triggers.js', // offcanvas, reveal, toggler
+            'foundation.util.triggers.js',  // offcanvas, reveal, toggler
 
             // 'foundation.abide.js',
             // 'foundation.accordion.js',
@@ -113,11 +113,9 @@ gulp.task('foundation-js', function() {
             // 'foundation.tabs.js',
             'foundation.toggler.js',
             // 'foundation.tooltip.js',
-        ], {cwd: './node_modules/foundation-sites/dist/plugins/'})
-        .pipe(newer('./source/js/vendor/foundation.min.js'))
-        .pipe(concat('foundation.min.js'))
-        .pipe(uglify())
-        .pipe(gulp.dest('./source/js/vendor'))
+        ], {cwd: './node_modules/foundation-sites/dist/js/plugins/'})
+        .pipe(concat('foundation.js'))
+        .pipe(gulp.dest('./temp/js/'))
 })
 
 gulp.task('sass', function(cb) {
@@ -181,12 +179,12 @@ gulp.task('svg-sprite', function(cb) {
         .pipe(gulpif(!argv.prod, livereload()))
 })
 
-gulp.task('copiar-plugins', function() {
+gulp.task('actualizar-plugins', function() {
     return gulp.src('./plugins/**/*.*')
         .pipe(gulp.dest('../../plugins/'))
 })
 
-gulp.task('copiar-assets', function() {
+gulp.task('actualizar-assets', function() {
     return gulp.src([
         './source/**/*',
         // favicon se genera
@@ -211,6 +209,36 @@ gulp.task('copiar-assets', function() {
         .pipe(gulp.dest(dir.assets))
 })
 
+gulp.task('actualizar-carpetas', function() {
+    if (argv.prod) {
+        return gulp.src([
+                './includes/**',
+                './page-templates/**',
+                './plugins/**',
+                './templates/**',
+                './woocommerce/**',
+                './vendor/**',
+                '!*.map',
+                '!*.md',
+                '!package.json',
+                '!LICENSE',
+                '.htaccess',
+                '*.php',
+                './config.ini',
+                './favicon.ico',
+                './style.css',
+            ], {base: '.'}).pipe(gulp.dest(dir.root))
+    }
+})
+
+gulp.task('comprimir-screenshot', function() {
+    if (argv.prod) {
+        return gulp.src('./screenshot.png')
+                .pipe(imagemin())
+                .pipe(gulp.dest(dir.root))
+    }
+})
+
 gulp.task('watch', function() {
     livereload.listen()
     gulp.watch('./source/img/**/*', ['images'])
@@ -219,7 +247,7 @@ gulp.task('watch', function() {
     gulp.watch('./source/sass/**/*.scss', ['sass'])
     gulp.watch('./source/svg/*.svg', ['svg'])
     gulp.watch('./source/svg/sprite/*.svg', ['svg-sprite'])
-    gulp.watch('./plugins/**/*', ['copiar-plugins'])
+    gulp.watch('./plugins/**/*', ['actualizar-plugins'])
     gulp.watch([
         './source/**/*',
         '!./source/favicon.png',
@@ -234,44 +262,24 @@ gulp.task('watch', function() {
         '!./source/sass/**/',
         '!./source/svg/',
         '!./source/svg/**/',
-        ], ['copiar-assets'])
+        ], ['actualizar-assets'])
 })
 
 gulp.task('default', function() {
-    runSequence(
-        'foundation-js',
-        [
-            'copiar-assets',
-            // 'copiar-plugins', -> rara vez se usa
+    runSequence('foundation-js', [
+            'actualizar-assets',
+            // 'actualizar-plugins', -> rara vez se usa
+            'actualizar-carpetas',
             'sass',
             'js',
             'images',
             'svg',
             'svg-sprite',
-            'favicon'
-        ], 
-        'watch'
+            'favicon',
+        ], 'watch'
     );
 })
 
 gulp.task('build', function() {
-    runSequence('clean', 'default', function() {
-        gulp.src([
-            './includes/',
-            './page-templates/',
-            './plugins/',
-            './templates/',
-            './woocommerce/',
-            '!*.{map,md}',
-            '!package.json',
-            '!LICENSE',
-            '!gulpfile.js',
-            '.htaccess',
-            '*.php',
-            'config.ini',
-            'favicon.ico',
-            'screenshot.png',
-            'style.css',
-        ]).pipe(gulp.dest(dir.root))
-    })
+    runSequence('clean', 'foundation-js', 'default')
 })
