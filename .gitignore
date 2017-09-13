@@ -1,6 +1,6 @@
-node_modules
-_compilado.scss
-build/
 assets/
-favicon.*
+build/
+node_modules/
+temp/
+/favicon.ico
 foundation.min.js
