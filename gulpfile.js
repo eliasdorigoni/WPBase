@@ -22,15 +22,13 @@ var gulp         = require('gulp'),
     svgSprite    = require('gulp-svg-sprite'),
     uglify       = require('gulp-uglify')
 
-var dir = {
-    root: './',
-    assets: './assets/',
-}
+var dir = {}
+dir.root = './'
+dir.assets = dir.root + 'assets/'
 
 if (argv.prod) {
-    var rootDir = __dirname.split('\\').pop() + '/'
-    dir.root = './build/' + rootDir
-    dir.assets = './build/' + rootDir + 'assets/'
+    dir.root = './build/' + __dirname.split('\\').pop() + '/'
+    dir.assets = dir.root + 'assets/'
 }
 
 gulp.task('clean', function() {
@@ -48,7 +46,7 @@ gulp.task('images', function(cb) {
 
 gulp.task('favicon', function() {
     return gulp.src('./source/favicon.png')
-        .pipe(newer(dir.root + ''))
+        .pipe(newer({dest: dir.root, ext: '.ico'}))
         .pipe(favicons({
             logging: false,
             online: false,
@@ -67,7 +65,7 @@ gulp.task('favicon', function() {
         }))
         .on("error", gutil.log)
         .pipe(gulpIgnore.include('*.ico'))
-        .pipe(gulp.dest(dir.root + ''))
+        .pipe(gulp.dest(dir.root))
 })
 
 gulp.task('js', function() {
@@ -179,37 +177,21 @@ gulp.task('svg-sprite', function(cb) {
         .pipe(gulpif(!argv.prod, livereload()))
 })
 
-gulp.task('actualizar-plugins', function() {
-    return gulp.src('./plugins/**/*.*')
+gulp.task('copiar-plugins', function() {
+    return gulp.src('./plugins/**', {base: '.'})
         .pipe(gulp.dest('../../plugins/'))
 })
 
-gulp.task('actualizar-assets', function() {
+gulp.task('extraer-source', function() {
     return gulp.src([
-        './source/**/*',
-        // favicon se genera
-        '!./source/favicon.png',
-        // img se optimiza
-        '!./source/img',
-        '!./source/img/**/',
-        // js se uglifica
-        '!./source/js/app.js',
-        '!./source/js/includes',
-        '!./source/js/includes/**/',
-        '!./source/js/snippets',
-        '!./source/js/snippets/**/',
-        // sass se compila
-        '!./source/sass',
-        '!./source/sass/**/',
-        // svg se optimizan o arman en un sprite
-        '!./source/svg',
-        '!./source/svg/**/',
-        ])
+        './source/fonts/**',
+        './source/js/vendor/**',
+        ], {base: '.'})
         .pipe(newer(dir.assets))
         .pipe(gulp.dest(dir.assets))
 })
 
-gulp.task('actualizar-carpetas', function() {
+gulp.task('completar-build', function() {
     if (argv.prod) {
         return gulp.src([
                 './includes/**',
@@ -227,59 +209,49 @@ gulp.task('actualizar-carpetas', function() {
                 './config.ini',
                 './favicon.ico',
                 './style.css',
-            ], {base: '.'}).pipe(gulp.dest(dir.root))
+            ], {base: '.'})
+            .pipe(gulp.dest(dir.root))
     }
 })
 
 gulp.task('comprimir-screenshot', function() {
     if (argv.prod) {
         return gulp.src('./screenshot.png')
-                .pipe(imagemin())
-                .pipe(gulp.dest(dir.root))
+            .pipe(imagemin())
+            .pipe(gulp.dest(dir.root))
     }
 })
 
 gulp.task('watch', function() {
     livereload.listen()
-    gulp.watch('./source/img/**/*', ['images'])
+    gulp.watch('./source/img/**', ['images'])
     gulp.watch('./source/favicon.png', ['favicon'])
-    gulp.watch(['./source/js/app.js', './source/js/includes/*'], ['js'])
+    gulp.watch(['./source/js/app.js', './source/js/includes/**'], ['js'])
     gulp.watch('./source/sass/**/*.scss', ['sass'])
     gulp.watch('./source/svg/*.svg', ['svg'])
     gulp.watch('./source/svg/sprite/*.svg', ['svg-sprite'])
-    gulp.watch('./plugins/**/*', ['actualizar-plugins'])
-    gulp.watch([
-        './source/**/*',
-        '!./source/favicon.png',
-        '!./source/img',
-        '!./source/img/**/',
-        '!./source/js/app.js',
-        '!./source/js/includes',
-        '!./source/js/includes/**/',
-        '!./source/js/snippets',
-        '!./source/js/snippets/**/',
-        '!./source/sass',
-        '!./source/sass/**/',
-        '!./source/svg/',
-        '!./source/svg/**/',
-        ], ['actualizar-assets'])
+    gulp.watch('./plugins/**', ['copiar-plugins'])
+    gulp.watch(['./source/fonts/**', './source/js/vendor/**'], ['extraer-source'])
 })
 
 gulp.task('default', function() {
-    runSequence('foundation-js', [
-            'actualizar-assets',
-            // 'actualizar-plugins', -> rara vez se usa
-            'actualizar-carpetas',
+    runSequence(['foundation-js', 'favicon'], [
+            'extraer-source',
+            // 'copiar-plugins',
+            'completar-build',
+            'comprimir-screenshot',
             'sass',
             'js',
             'images',
             'svg',
             'svg-sprite',
-            'favicon',
-        ], 'watch'
+            ,
+        ]
     );
 })
 
 gulp.task('build', function() {
-    runSequence('clean', 'foundation-js', 'default')
+    dir.root = './build/' + __dirname.split('\\').pop() + '/'
+    dir.assets = dir.root + 'assets/'
+    runSequence('clean', 'default')
 })
