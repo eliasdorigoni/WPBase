@@ -1,6 +1,3 @@
-// Usar "gulp" para iniciar la tarea watch.
-// Agregar la bandera "--prod" para guardar el build.
-
 // @todo: crear una tarea para eliminar carpetas de ../../plugins/ que coincidan con ./plugins/
 
 var gulp         = require('gulp'),
@@ -22,17 +19,27 @@ var gulp         = require('gulp'),
     svgSprite    = require('gulp-svg-sprite'),
     uglify       = require('gulp-uglify')
 
-var dir = {}
-dir.root = './'
-dir.assets = dir.root + 'assets/'
+// Agregar la bandera "--prod" para usar rutas de build en cualquier tarea.
+var dir = {},
+    esBuild = argv.prod
 
-if (argv.prod) {
-    dir.root = './build/' + __dirname.split('\\').pop() + '/'
+function definirDirectorios(usarBuild) {
+    if (usarBuild) {
+        dir.root = './build/' + __dirname.split('\\').pop() + '/'
+    } else {
+        dir.root = './'
+    }
     dir.assets = dir.root + 'assets/'
 }
 
+definirDirectorios(esBuild)
+
 gulp.task('clean', function() {
-    return del(['assets/', 'build/'])
+    return del([
+        './assets/',
+        './build/',
+        './temp/',
+    ])
 })
 
 gulp.task('images', function(cb) {
@@ -40,7 +47,7 @@ gulp.task('images', function(cb) {
         .pipe(newer(dir.assets + 'img/'))
         .pipe(imagemin())
         .pipe(gulp.dest(dir.assets + 'img/'))
-        .pipe(gulpif(!argv.prod, livereload()))
+        .pipe(gulpif(!esBuild, livereload()))
         .on('end', cb).on('error', cb);
 })
 
@@ -68,19 +75,23 @@ gulp.task('favicon', function() {
         .pipe(gulp.dest(dir.root))
 })
 
-gulp.task('js', function() {
-    return gulp.src(['./temp/js/foundation.js', './source/js/includes/*', './source/js/app.js'])
+gulp.task('js', ['foundation-js'], function() {
+    return gulp.src([
+            './temp/js/foundation.js',
+            './source/js/includes/*',
+            './source/js/app.js'
+        ])
         .pipe(newer(dir.assets + 'js/'))
-        .pipe(gulpif(!argv.prod, sourcemaps.init()))
+        .pipe(gulpif(!esBuild, sourcemaps.init()))
         .pipe(concat('app.min.js'))
         .pipe(uglify())
-        .pipe(gulpif(!argv.prod, sourcemaps.write()))
+        .pipe(gulpif(!esBuild, sourcemaps.write()))
         .pipe(gulp.dest(dir.assets + 'js/'))
-        .pipe(gulpif(!argv.prod, livereload()))
+        .pipe(gulpif(!esBuild, livereload()))
 })
 
-gulp.task('foundation-js', function() {
-    return gulp.src([
+gulp.task('foundation-js', function(cb) {
+    gulp.src([
             'foundation.core.js',
             'foundation.util.mediaQuery.js',
 
@@ -112,14 +123,16 @@ gulp.task('foundation-js', function() {
             'foundation.toggler.js',
             // 'foundation.tooltip.js',
         ], {cwd: './node_modules/foundation-sites/dist/js/plugins/'})
+        .pipe(newer('./temp/js/foundation.js'))
         .pipe(concat('foundation.js'))
         .pipe(gulp.dest('./temp/js/'))
+        .on('end', cb).on('error', cb);
 })
 
 gulp.task('sass', function(cb) {
     return gulp.src('./source/sass/*.scss')
         .pipe(newer({dest: dir.assets + 'css/', ext: '.min.css'}))
-        .pipe(gulpif(!argv.prod, sourcemaps.init()))
+        .pipe(gulpif(!esBuild, sourcemaps.init()))
         .pipe(sass({
             includePaths: [
                 './node_modules/foundation-sites/scss',
@@ -132,17 +145,17 @@ gulp.task('sass', function(cb) {
             cascade: false
         }))
         .pipe(rename({suffix: '.min'}))
-        .pipe(gulpif(!argv.prod, sourcemaps.write()))
+        .pipe(gulpif(!esBuild, sourcemaps.write()))
         .pipe(gulp.dest(dir.assets + 'css/'))
-        .pipe(gulpif(!argv.prod, livereload()))
+        .pipe(gulpif(!esBuild, livereload()))
 })
 
 gulp.task('svg', function(cb) {
     gulp.src('./source/svg/*.svg')
-        .pipe(newer(dir.assets + 'svg/'))
+        .pipe(newer(dir.assets + 'svg'))
         .pipe(imagemin())
         .pipe(gulp.dest(dir.assets + 'svg/'))
-        .pipe(gulpif(!argv.prod, livereload()))
+        .pipe(gulpif(!esBuild, livereload()))
         .on('end', cb).on('error', cb);
 })
 
@@ -174,7 +187,7 @@ gulp.task('svg-sprite', function(cb) {
         .pipe(newer(dir.assets + 'svg/sprite.svg'))
         .pipe(svgSprite(options))
         .pipe(gulp.dest(dir.assets + 'svg/'))
-        .pipe(gulpif(!argv.prod, livereload()))
+        .pipe(gulpif(!esBuild, livereload()))
 })
 
 gulp.task('copiar-plugins', function() {
@@ -192,7 +205,7 @@ gulp.task('extraer-source', function() {
 })
 
 gulp.task('completar-build', function() {
-    if (argv.prod) {
+    if (esBuild) {
         return gulp.src([
                 './includes/**',
                 './page-templates/**',
@@ -215,7 +228,7 @@ gulp.task('completar-build', function() {
 })
 
 gulp.task('comprimir-screenshot', function() {
-    if (argv.prod) {
+    if (esBuild) {
         return gulp.src('./screenshot.png')
             .pipe(imagemin())
             .pipe(gulp.dest(dir.root))
@@ -245,13 +258,11 @@ gulp.task('default', function() {
             'images',
             'svg',
             'svg-sprite',
-            ,
         ]
     );
 })
 
 gulp.task('build', function() {
-    dir.root = './build/' + __dirname.split('\\').pop() + '/'
-    dir.assets = dir.root + 'assets/'
+    definirDirectorios(true)
     runSequence('clean', 'default')
 })
