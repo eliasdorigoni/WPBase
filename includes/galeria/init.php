@@ -16,10 +16,10 @@ function theme_enqueueGaleriaBackend() {
 add_action('admin_enqueue_scripts', 'theme_enqueueGaleriaBackend');
 
 function theme_enqueueWidgetGaleria() {
-    wp_register_style('backend-widget-galeria', ASSETS_URI_CSS . 'backend-widget-galeria.min.css', array(), VERSION_THEME);
+    wp_enqueue_style('backend-widget-galeria', ASSETS_URI_CSS . 'backend-widget-galeria.min.css', array(), VERSION_THEME);
 
-    wp_register_script('jquery');
-    wp_register_media();
-    wp_register_script('backend-widget-galeria', ASSETS_URI_JS . 'widget-galeria.js', array('jquery'), VERSION_THEME);
+    wp_enqueue_script('jquery');
+    wp_enqueue_media();
+    wp_enqueue_script('backend-widget-galeria', ASSETS_URI_JS . 'widget-galeria.js', array('jquery'), VERSION_THEME);
 }
 add_action('admin_enqueue_scripts', 'theme_enqueueWidgetGaleria');
