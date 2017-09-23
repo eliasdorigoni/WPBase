@@ -5,7 +5,7 @@ if (!isset($content_width)) $content_width = 625;
 get_template_part('includes/util');
 get_template_part('includes/constantes');
 
-get_template_part('includes/registro-librerias');
+get_template_part('includes/librerias');
 get_template_part('includes/widgets/init');
 get_template_part('includes/svg');
 
