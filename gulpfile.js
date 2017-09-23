@@ -12,6 +12,7 @@ var gulp         = require('gulp'),
     imagemin     = require('gulp-imagemin'),
     livereload   = require('gulp-livereload'),
     newer        = require('gulp-newer'),
+    phplint      = require('gulp-phplint'),
     rename       = require("gulp-rename"),
     runSequence  = require('run-sequence'),
     sass         = require('gulp-sass'),
@@ -263,7 +264,7 @@ gulp.task('watch', function() {
 })
 
 gulp.task('default', function() {
-    runSequence(['foundation-js', 'favicon'], [
+    runSequence(['foundation-js', 'favicon', 'phplint'], [
             'extraer-source',
             // 'copiar-plugins',
             'completar-build',
@@ -279,5 +280,13 @@ gulp.task('default', function() {
 
 gulp.task('build', function() {
     definirDirectorios(true)
-    runSequence('clean', 'default')
+    runSequence('clean', 'phplint', 'default')
 })
+
+gulp.task('phplint', function() {
+    return gulp.src(['./*.php'])
+        .pipe(phplint('', {
+            skipPassedFiles: true
+        }))
+        .pipe(phplint.reporter('fail'));
+});
