@@ -15,6 +15,7 @@ var gulp         = require('gulp'),
     rename       = require("gulp-rename"),
     runSequence  = require('run-sequence'),
     sass         = require('gulp-sass'),
+    sassLint     = require('gulp-sass-lint'),
     sourcemaps   = require('gulp-sourcemaps'),
     svgSprite    = require('gulp-svg-sprite'),
     uglify       = require('gulp-uglify')
@@ -129,7 +130,7 @@ gulp.task('foundation-js', function(cb) {
         .on('end', cb).on('error', cb);
 })
 
-gulp.task('sass', function(cb) {
+gulp.task('sass', ['sasslint'], function(cb) {
     return gulp.src('./source/sass/*.scss')
         .pipe(newer({dest: dir.assets + 'css/', ext: '.min.css'}))
         .pipe(gulpif(!esBuild, sourcemaps.init()))
@@ -148,6 +149,20 @@ gulp.task('sass', function(cb) {
         .pipe(gulpif(!esBuild, sourcemaps.write()))
         .pipe(gulp.dest(dir.assets + 'css/'))
         .pipe(gulpif(!esBuild, livereload()))
+})
+
+gulp.task('sasslint', function() {
+    return gulp.src('./source/sass/**/*.scss')
+        .pipe(sassLint({
+            options: {
+                configFile: '.sass-lint.yml',
+            },
+            files: {
+                ignore: ['source/sass/foundation/*.scss', 'source/sass/modulos/*.scss'],
+            },
+        }))
+        .pipe(sassLint.format())
+        .pipe(sassLint.failOnError())
 })
 
 gulp.task('svg', function(cb) {
