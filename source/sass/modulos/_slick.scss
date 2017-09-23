@@ -1,4 +1,5 @@
 // Slick 1.7.1
+// sass-lint:disable property-sort-order,no-vendor-prefixes
 
 .slick-slider {
     position: relative;
@@ -6,10 +7,16 @@
     box-sizing: border-box;
     -webkit-touch-callout: none;
     user-select: none;
-    -ms-touch-action: pan-y;
     touch-action: pan-y;
     -webkit-tap-highlight-color: transparent;
+
+    & .slick-track,
+    & .slick-list {
+        transform: translate3d(0, 0, 0);
+    }
+
 }
+
 .slick-list {
     position: relative;
     overflow: hidden;
@@ -25,30 +32,22 @@
         cursor: hand;
     }
 }
-.slick-slider .slick-track,
-.slick-slider .slick-list {
-    -webkit-transform: translate3d(0, 0, 0);
-    -moz-transform: translate3d(0, 0, 0);
-    -ms-transform: translate3d(0, 0, 0);
-    -o-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-}
 
 .slick-track {
-    position: relative;
-    left: 0;
-    top: 0;
     display: block;
+    left: 0;
     margin-left: auto;
     margin-right: auto;
+    position: relative;
+    top: 0;
 
-    &:before,
-    &:after {
-        content: "";
+    &::before,
+    &::after {
+        content: '';
         display: table;
     }
 
-    &:after {
+    &::after {
         clear: both;
     }
 
@@ -56,24 +55,31 @@
         visibility: hidden;
     }
 }
+
 .slick-slide {
+    display: none;
     float: left;
     height: 100%;
     min-height: 1px;
-    [dir="rtl"] & {
+
+    [dir='rtl'] & {
         float: right;
     }
+
     img {
         display: block;
     }
-    &.slick-loading img {
-        display: none;
+
+    &.slick-loading {
+        img {
+            display: none;
+        }
     }
 
-    display: none;
-
-    &.dragging img {
-        pointer-events: none;
+    &.dragging {
+        img {
+            pointer-events: none;
+        }
     }
 
     .slick-initialized & {
@@ -90,6 +96,9 @@
         border: 1px solid transparent;
     }
 }
-.slick-arrow.slick-hidden {
-    display: none;
+
+.slick-arrow {
+    &.slick-hidden {
+        display: none;
+    }
 }

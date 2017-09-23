@@ -1,8 +1,14 @@
-@import "base/variables";
-@import "base/mixins";
+@import 'base/variables';
+@import 'base/mixins';
 
+$fondo: #f1f1f1;
+$ancho: 250px;
+$alto: 150px;
+$colorLinks: #00a0d2;
+
+// sass-lint:disable no-ids
 body {
-    background: #f1f1f1;
+    background: $fondo;
 }
 
 #login {
@@ -10,17 +16,22 @@ body {
 }
 
 .login {
-    h1 a {
-        background-image: url(../img/logo-login.png);
-        width: 250px;
-        height: 150px;
-        background-size: 250px;
-        outline: 1px solid #ddd;
+    h1 {
+        a {
+            background-image: url('../img/logo-login.png');
+            background-size: $ancho $alto;
+            height: $alto;
+            width: $ancho;
+        }
     }
+
     #nav,
     #backtoblog {
-        a, a:focus {
-            color: #00a0d2;
+        a {
+            &,
+            &:focus {
+                color: $colorLinks;
+            }
         }
     }
 }

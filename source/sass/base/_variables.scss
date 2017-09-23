@@ -1,4 +1,4 @@
-$small: 0em;
+$small: 0;
 $medium: 40em;
 $large: 64em;
 $xlarge: 75em;
@@ -18,7 +18,7 @@ $colorInstagram: #DB3075;
 // http://colorzilla.com/gradient-editor/#f9ed32+0,ee2a7b+75,002aff+100
 @mixin degradadoInstagram {
     background: #ee2a7b;
-    background: linear-gradient(45deg, #f9ed32 0%, #ee2a7b 75%, #002aff 100%);
+    background: linear-gradient(45deg, #f9ed32 0%, #ee2a7b 75%, #002aff 100%); //sass-lint:disable-line no-duplicate-properties
 }
 
 $stackPrincipal: Open Sans, Verdana, Arial, sans-serif;

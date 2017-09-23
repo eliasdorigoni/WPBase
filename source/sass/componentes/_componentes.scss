@@ -1,19 +1,28 @@
-body, html, h1, h2, h3, h4, h5, h6 {
+body,
+html,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: $stackPrincipal;
     font-weight: 400;
 }
 
-.screen-reader-text {
+.screen-reader-text { //sass-lint:disable-line class-name-format
     display: none;
 }
 
 pre {
-    text-transform: none !important;
+    text-transform: none !important; //sass-lint:disable-line no-important
 }
 
 .icono {
-    width: 3em; height: 3em;
     fill: #fff;
+    height: 3em;
+    width: 3em;
+    //sass-lint:disable-block class-name-format
     &-facebook {
         background: $colorFacebook;
     }
