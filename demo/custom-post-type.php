@@ -3,7 +3,7 @@ if (!defined('ABSPATH')) exit;
 
 function registrarNuevoCustomPostType() {
     $args = array(
-        'labels'               => construirLabels('cosa', 'cosas', false);,
+        'labels'               => construirLabels('cosa', 'cosas', false),
         'public'               => true,
         'menu_position'        => 30,
         'menu_icon'            => 'dashicons-building',
@@ -57,5 +57,7 @@ function guardarMetabox($postID) {
         // Limpiar los datos de este metabox específico.
         update_post_meta($postID, 'metabox-2', sanitize_text_field($_POST['fecha-2']));
     }
+
+    return $postID;
 }
 add_action('save_post', 'guardarMetabox', 1, 1);

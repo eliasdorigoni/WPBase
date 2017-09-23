@@ -38,4 +38,5 @@ function guardarMetaboxGaleria($post_id) {
         $galeria = array_values($_POST['galeria']);
     }
     update_post_meta($post_id, 'galeria', $galeria);
+    return $post_id;
 }

@@ -1,6 +1,9 @@
 <?php
 if (!defined('ABSPATH')) exit;
 
+/*
+ * @const WPBASE_GOOGLEMAPS_API_KEY string
+ */
 function registrarLibrerias() {
     // Fuentes
     wp_register_style('google-fonts', 'http://fonts.googleapis.com/css?family=Open+Sans:400,600,700', array(), null);

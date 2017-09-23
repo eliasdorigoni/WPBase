@@ -23,7 +23,7 @@ jQuery(function($) {
     }).on('click', '.componente-galeria .cargarImagenJS', function(e) {
         var $widget = $(this).parents('.componente-galeria')
         var cantidad = $widget.attr('data-maximo')
-        var limitarCantidad = (cantidad > '0') ? true : false
+        var limitarCantidad = (cantidad > '0')
 
         var uploader = wp.media({
             title: 'Agregar imágenes a la galería',
@@ -34,7 +34,7 @@ jQuery(function($) {
         uploader.on('select', function() {
             var models = uploader.state().get('selection').models
             for(i in models) {
-                if (limitarCantidad && $widget.find('.thumb').length == cantidad) {
+                if (limitarCantidad && $widget.find('.thumb').length === cantidad) {
                     break
                 }
                 var attachment = models[i].toJSON()

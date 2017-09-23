@@ -156,7 +156,7 @@ class WC_Gateway_BACS_ARGENTINA extends WC_Gateway_BACS
      *
      * @param int $order_id
      */
-    private function bank_details( $order_id = '' ) {
+    private function bank_details( $order_id = 0 ) {
 
         if ( empty( $this->account_details ) ) {
             return;

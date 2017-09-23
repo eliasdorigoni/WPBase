@@ -8,16 +8,15 @@
 jQuery.fn.extend({
   
 navegacionResponsive: function(boton, demoraAnimacion) {
-    $ = jQuery
-    if (typeof boton == 'undefined')
+    var $ = jQuery
+    if (typeof boton === 'undefined')
         console.error('Se debe pasar un objeto jQuery que controle el menú.');
 
-    var demoraAnimacion = typeof demoraAnimacion !== 'undefined' ? demoraAnimacion : 400;
+    demoraAnimacion = typeof demoraAnimacion !== 'undefined' ? demoraAnimacion : 400;
 
     var $menu = this,
-        $boton = boton,
-        $boton = $(boton),
-        IDPermitirClic = ''
+        $boton = $(boton)
+
 
     function cerrarMenu(menu) {
         menu.removeClass('visible').removeAttr('style')
@@ -28,7 +27,7 @@ navegacionResponsive: function(boton, demoraAnimacion) {
     }
 
     function comprobarMenuPrincipal(e) {
-        animarMovimiento = e.data.animar
+        var animarMovimiento = e.data.animar
 
         if ($menu.hasClass('visible')) {
             $boton.removeClass('activo');

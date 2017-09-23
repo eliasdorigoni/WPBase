@@ -142,7 +142,10 @@ add_action('customize_register', 'registrarCustomizerRedesSociales');
 function retornarRedesSociales($atts = array()) {
     $default = array('mostrar' => 'todos');
     extract(shortcode_atts($default, $atts));
+    /** @var $mostrar string */
+
     $mostrar = explode(',', strtolower($mostrar));
+    /** @var $mostrar array */
 
     $config = retornarConfiguracionRedesSociales();
 
@@ -179,7 +182,9 @@ function retornarRedesSociales($atts = array()) {
         );
     }
 
-    if (!$retorno) return;
+    if (!$retorno) {
+        return array();
+    }
 
     ob_start();
     foreach ($retorno as $item) {
@@ -206,6 +211,11 @@ function retornarBotonesCompartir($atts = array()) {
         'shorturl' => wp_get_shortlink(),
     );
     extract(shortcode_atts($default, $atts));
+    /**
+     * @var $mostrar string
+     * @var $url string
+     * @var $shorturl string
+     */
 
     $retorno = array();
     foreach ($config as $slug => $array) {

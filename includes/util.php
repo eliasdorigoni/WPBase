@@ -96,8 +96,10 @@ function eliminarDuplicadosDeArray($array1 = array(), $array2 = array()) {
 
 /**
  * Agrega el slug del post a las clases HTML de body_class().
+ * @param $classes array
+ * @return array
  */
-function theme_agregarNombreEnBody($classes) {
+function theme_agregarNombreEnBody($classes = array()) {
     global $post;
     if (is_object($post)) {
         $classes[] = $post->post_type . '-' . $post->post_name;
@@ -404,6 +406,7 @@ if (!function_exists('get_the_taxonomy_title')) {
             $term = $wp_query->get_queried_object();
             return $term->name;
         }
+        return '';
     }
 }
 

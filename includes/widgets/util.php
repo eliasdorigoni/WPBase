@@ -1,11 +1,13 @@
 <?php
 
 /**
- * Agrega una clase que incrementa en 1 por cada widget existente (item-1, item-2, 
+ * Agrega una clase que incrementa en 1 por cada widget existente (item-1, item-2,
  * item-3, etc...) dentro de sidebars especificados.
  * Se debe enganchar al filtro 'dynamic_sidebar_params'.
+ * @param array $params
+ * @return array
  */
-function agregarClaseIncremental($params) {
+function agregarClaseIncremental($params = array()) {
     $sidebars = array('footer');
     $formatoClase = 'item-%s';
 
