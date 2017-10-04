@@ -36,29 +36,7 @@ gulp.task('clean', function() {
 })
 
 /*
-gulp.task('favicon', function() {
-    return gulp.src('./source/favicon.png')
-        .pipe(newer({dest: dir.root, ext: '.ico'}))
-        .pipe(favicons({
-            logging: false,
-            online: false,
-            html: false,
-            replace: true,
-            icons: {
-                android: false,
-                appleIcon: false,
-                appleStartup: false,
-                coast: false,
-                favicons: true,
-                firefox: false,
-                windows: false,
-                yandex: false
-            },
-        }))
-        .on("error", gutil.log)
-        .pipe(gulpIgnore.include('*.ico'))
-        .pipe(gulp.dest(dir.root))
-})
+
 
 gulp.task('otro-js', function() {
     return gulp.src('./source/js/*.js')
