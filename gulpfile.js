@@ -104,46 +104,6 @@ gulp.task('foundation-js', function(cb) {
         .on('end', cb).on('error', cb);
 })
 
-gulp.task('svg', function(cb) {
-    gulp.src('./source/svg/*.svg')
-        .pipe(newer(dir.assets + 'svg'))
-        .pipe(imagemin())
-        .pipe(gulp.dest(dir.assets + 'svg/'))
-        .pipe(gulpif(!esBuild, livereload()))
-        .on('end', cb).on('error', cb);
-})
-
-gulp.task('svg-sprite', function(cb) {
-    var options = {
-        shape: {
-            dimension: {
-                maxWidth: 100,
-                maxHeight: 100
-            },
-            id: {
-                whitespace: '_',
-            },
-        },
-        svg: {
-            namespaceClassnames: false,
-        },
-        mode: {
-            symbol: {
-                dest: '',
-                prefix: '',
-                bust: false,
-                sprite: 'sprite.svg'
-            }
-        }
-    }
-
-    return gulp.src('./source/svg/sprite/*.svg')
-        .pipe(newer(dir.assets + 'svg/sprite.svg'))
-        .pipe(svgSprite(options))
-        .pipe(gulp.dest(dir.assets + 'svg/'))
-        .pipe(gulpif(!esBuild, livereload()))
-})
-
 gulp.task('copiar-plugins', function() {
     return gulp.src('./plugins/**', {base: '.'})
         .pipe(gulp.dest('../../plugins/'))
