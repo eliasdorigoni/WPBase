@@ -1,3 +1,4 @@
+# Debe estar en el mismo directorio de gulpfile.js para no tener que parsear este .yml
 rules:
   empty-line-between-blocks: 0
   hex-notation: 0

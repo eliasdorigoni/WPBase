@@ -1,4 +1,9 @@
-// @todo: crear una tarea para eliminar carpetas de ../../plugins/ que coincidan con ./plugins/
+// Version 1
+
+var CONFIG = require('./gulp/config.js');
+
+// @TODO: crear una tarea para eliminar carpetas de ../../plugins/ que coincidan con ./plugins/
+// @TODO: permitir minificar SVGs de la raiz de source/svg/, y los que esten en carpetas convertirlos en sprites agrupados.
 
 var gulp         = require('gulp'),
     argv         = require('yargs').argv,
@@ -15,27 +20,13 @@ var gulp         = require('gulp'),
     phplint      = require('gulp-phplint'),
     rename       = require("gulp-rename"),
     runSequence  = require('run-sequence'),
-    sass         = require('gulp-sass'),
-    sassLint     = require('gulp-sass-lint'),
     sourcemaps   = require('gulp-sourcemaps'),
     svgSprite    = require('gulp-svg-sprite'),
-    uglify       = require('gulp-uglify')
+    uglify       = require('gulp-uglify'),
+    requireDir   = require('require-dir')
 
-// Agregar la bandera "--prod" para usar rutas de build en cualquier tarea.
-var dir = {},
-    esBuild = argv.prod
-
-function definirDirectorios(usarBuild) {
-    if (usarBuild) {
-        dir.root = './build/' + __dirname.split('\\').pop() + '/'
-    } else {
-        dir.root = './'
-    }
-    dir.assets = dir.root + 'assets/'
-}
-
-definirDirectorios(esBuild)
-
+requireDir('./gulp/tasks');
+/*
 gulp.task('clean', function() {
     return del([
         './assets/',
@@ -45,7 +36,7 @@ gulp.task('clean', function() {
 })
 
 gulp.task('images', function(cb) {
-    gulp.src('./source/img/**/*')
+    gulp.src('./source/img/** /*')
         .pipe(newer(dir.assets + 'img/'))
         .pipe(imagemin())
         .pipe(gulp.dest(dir.assets + 'img/'))
@@ -77,16 +68,30 @@ gulp.task('favicon', function() {
         .pipe(gulp.dest(dir.root))
 })
 
-gulp.task('js', ['foundation-js'], function() {
+gulp.task('otro-js', function() {
+    return gulp.src('./source/js/*.js')
+        .pipe(gulpif(!esBuild, sourcemaps.init()))
+        .pipe(uglify())
+        .on('error', function(err) {
+            console.error(err.toString())
+        })
+        .pipe(gulpif(!esBuild, sourcemaps.write()))
+        .pipe(gulp.dest(dir.assets + 'js/'))
+        .pipe(gulpif(!esBuild, livereload()))
+})
+
+gulp.task('js', ['foundation-js', 'otro-js'], function() {
     return gulp.src([
             './temp/js/foundation.js',
             './source/js/includes/*',
             './source/js/app.js'
         ])
-        .pipe(newer(dir.assets + 'js/'))
         .pipe(gulpif(!esBuild, sourcemaps.init()))
         .pipe(concat('app.min.js'))
         .pipe(uglify())
+        .on('error', function(err) {
+            console.error(err.toString())
+        })
         .pipe(gulpif(!esBuild, sourcemaps.write()))
         .pipe(gulp.dest(dir.assets + 'js/'))
         .pipe(gulpif(!esBuild, livereload()))
@@ -129,41 +134,6 @@ gulp.task('foundation-js', function(cb) {
         .pipe(concat('foundation.js'))
         .pipe(gulp.dest('./temp/js/'))
         .on('end', cb).on('error', cb);
-})
-
-gulp.task('sass', ['sasslint'], function(cb) {
-    return gulp.src('./source/sass/*.scss')
-        .pipe(newer({dest: dir.assets + 'css/', ext: '.min.css'}))
-        .pipe(gulpif(!esBuild, sourcemaps.init()))
-        .pipe(sass({
-            includePaths: [
-                './node_modules/foundation-sites/scss',
-                './node_modules/motion-ui/src',
-            ],
-            outputStyle: 'compressed'
-        }).on('error', sass.logError))
-        .pipe(autoprefixer({
-            browsers: ['last 5 versions'],
-            cascade: false
-        }))
-        .pipe(rename({suffix: '.min'}))
-        .pipe(gulpif(!esBuild, sourcemaps.write()))
-        .pipe(gulp.dest(dir.assets + 'css/'))
-        .pipe(gulpif(!esBuild, livereload()))
-})
-
-gulp.task('sasslint', function() {
-    return gulp.src('./source/sass/**/*.scss')
-        .pipe(sassLint({
-            options: {
-                configFile: '.sass-lint.yml',
-            },
-            files: {
-                ignore: ['source/sass/foundation/*.scss', 'source/sass/modulos/*.scss'],
-            },
-        }))
-        .pipe(sassLint.format())
-        .pipe(sassLint.failOnError())
 })
 
 gulp.task('svg', function(cb) {
@@ -215,7 +185,9 @@ gulp.task('extraer-source', function() {
     return gulp.src([
         './source/fonts/**',
         './source/js/vendor/**',
-        ], {base: '.'})
+        './source/js/backend/**',
+        './source/js/admin/**',
+        ], {base: './source/'})
         .pipe(newer(dir.assets))
         .pipe(gulp.dest(dir.assets))
 })
@@ -251,12 +223,16 @@ gulp.task('comprimir-screenshot', function() {
     }
 })
 
+gulp.task('livereload-php', function() {
+    return livereload.reload()
+})
+
 gulp.task('watch', function() {
     livereload.listen()
     gulp.watch('./source/img/**', ['images'])
     gulp.watch('./source/favicon.png', ['favicon'])
     gulp.watch(['./source/js/app.js', './source/js/includes/**'], ['js'])
-    gulp.watch('./source/sass/**/*.scss', ['sass'])
+    gulp.watch('./source/sass/** /*.scss', ['sass'])
     gulp.watch('./source/svg/*.svg', ['svg'])
     gulp.watch('./source/svg/sprite/*.svg', ['svg-sprite'])
     gulp.watch('./plugins/**', ['copiar-plugins'])
@@ -278,9 +254,14 @@ gulp.task('default', function() {
     );
 })
 
+gulp.task('init', function() {
+    runSequence('default', 'watch')
+})
+
 gulp.task('build', function() {
+    esBuild = true
     definirDirectorios(true)
-    runSequence('clean', 'phplint', 'default')
+    runSequence('clean', 'default')
 })
 
 gulp.task('phplint', function() {
@@ -290,3 +271,5 @@ gulp.task('phplint', function() {
         }))
         .pipe(phplint.reporter('fail'));
 });
+
+*/
