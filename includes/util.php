@@ -74,6 +74,11 @@ function fechaTextual($timestamp = 0, $unidades = 2, $comparar = 0) {
     return $retorno;
 }
 
+function fechaEsCorrecta($fecha = 0, $formato = 'Y-m-d H:i:s') {
+    $d = \Datetime::createFromFormat($formato, $input);
+    return $d && $d->format($formato) === $fecha;
+}
+
 /**
  * Elimina los valores de $array1 que estén en $array2 y reordena las
  * claves. Retorna $array1 sin las claves que coincidan en $array2.
