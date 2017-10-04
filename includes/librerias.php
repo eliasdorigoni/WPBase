@@ -4,7 +4,7 @@ if (!defined('ABSPATH')) exit;
 /*
  * @const WPBASE_GOOGLEMAPS_API_KEY string
  */
-function registrarLibrerias() {
+function registrarLibreriasFrontend() {
     // Fuentes
     wp_register_style('google-fonts', 'http://fonts.googleapis.com/css?family=Open+Sans:400,600,700', array(), null);
 
@@ -36,11 +36,15 @@ function registrarLibrerias() {
         'home_url'  => HOME_URL,
         'theme_uri' => THEME_URI,
     ));
+}
+add_action('wp_enqueue_scripts', 'registrarLibreriasFrontend', 1);
 
-    // Estilos del backend (galeria, etc.)
+function registrarLibreriasBackend() {
     wp_register_style('backend', ASSETS_URI_CSS . 'backend.min.css', array(), VERSION_THEME);
+}
+add_action('admin_enqueue_scripts', 'registrarLibreriasBackend', 1);
 
-    // Estilos del login
+function registrarLibreriasLogin() {
     wp_register_style('custom-login', ASSETS_URI_CSS . 'login.min.css');
 }
-add_action('wp_enqueue_scripts', 'registrarLibrerias', 1);
+add_action('login_enqueue_scripts', 'registrarLibreriasLogin', 1);
