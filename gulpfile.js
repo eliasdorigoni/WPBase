@@ -36,8 +36,6 @@ gulp.task('clean', function() {
 })
 
 /*
-
-
 gulp.task('otro-js', function() {
     return gulp.src('./source/js/*.js')
         .pipe(gulpif(!esBuild, sourcemaps.init()))
@@ -199,7 +197,7 @@ gulp.task('livereload-php', function() {
 
 gulp.task('watch', function() {
     livereload.listen()
-    gulp.watch('./source/img/**', ['images'])
+    gulp.watch('./source/img/**', ['comprimir-imagenes'])
     gulp.watch('./source/favicon.png', ['favicon'])
     gulp.watch(['./source/js/app.js', './source/js/includes/**'], ['js'])
     gulp.watch('./source/sass/** /*.scss', ['sass'])
@@ -217,7 +215,7 @@ gulp.task('default', function() {
             'comprimir-screenshot',
             'sass',
             'js',
-            'images',
+            'comprimir-imagenes',
             'svg',
             'svg-sprite',
         ]
