@@ -1,6 +1,5 @@
 // Version 1
 
-var CONFIG = require('./gulp/config.js');
 
 // @TODO: crear una tarea para eliminar carpetas de ../../plugins/ que coincidan con ./plugins/
 // @TODO: permitir minificar SVGs de la raiz de source/svg/, y los que esten en carpetas convertirlos en sprites agrupados.
@@ -23,10 +22,11 @@ var gulp         = require('gulp'),
     sourcemaps   = require('gulp-sourcemaps'),
     svgSprite    = require('gulp-svg-sprite'),
     uglify       = require('gulp-uglify'),
-    requireDir   = require('require-dir')
+    requireDir   = require('require-dir'),
+    CONFIG = require('./gulp/config.js')
 
 requireDir('./gulp/tasks');
-/*
+
 gulp.task('clean', function() {
     return del([
         './assets/',
@@ -35,15 +35,7 @@ gulp.task('clean', function() {
     ])
 })
 
-gulp.task('images', function(cb) {
-    gulp.src('./source/img/** /*')
-        .pipe(newer(dir.assets + 'img/'))
-        .pipe(imagemin())
-        .pipe(gulp.dest(dir.assets + 'img/'))
-        .pipe(gulpif(!esBuild, livereload()))
-        .on('end', cb).on('error', cb);
-})
-
+/*
 gulp.task('favicon', function() {
     return gulp.src('./source/favicon.png')
         .pipe(newer({dest: dir.root, ext: '.ico'}))

@@ -1,6 +1,5 @@
 assets/
 build/
-gulp/
 node_modules/
 temp/
 /favicon.ico
