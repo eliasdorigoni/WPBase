@@ -113,12 +113,4 @@ gulp.task('build', function() {
     runSequence('clean', 'default')
 })
 
-gulp.task('phplint', function() {
-    return gulp.src(['./*.php'])
-        .pipe(phplint('', {
-            skipPassedFiles: true
-        }))
-        .pipe(phplint.reporter('fail'));
-});
-
 */
