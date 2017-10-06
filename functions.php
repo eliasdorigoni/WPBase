@@ -8,6 +8,7 @@ get_template_part('includes/constantes');
 get_template_part('includes/librerias');
 get_template_part('includes/widgets/init');
 get_template_part('includes/svg');
+get_template_part('includes/templates');
 
 get_template_part('includes/analytics');
 
