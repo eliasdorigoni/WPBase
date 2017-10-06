@@ -1,6 +1,3 @@
-// Version 1
-
-
 // @TODO: crear una tarea para eliminar carpetas de ../../plugins/ que coincidan con ./plugins/
 // @TODO: permitir minificar SVGs de la raiz de source/svg/, y los que esten en carpetas convertirlos en sprites agrupados.
 
@@ -23,7 +20,7 @@ var gulp         = require('gulp'),
     svgSprite    = require('gulp-svg-sprite'),
     uglify       = require('gulp-uglify'),
     requireDir   = require('require-dir'),
-    CONFIG = require('./gulp/config.js')
+    CONFIG       = require('./gulp/config.js')
 
 requireDir('./gulp/tasks');
 
@@ -36,74 +33,6 @@ gulp.task('clean', function() {
 })
 
 /*
-gulp.task('otro-js', function() {
-    return gulp.src('./source/js/*.js')
-        .pipe(gulpif(!esBuild, sourcemaps.init()))
-        .pipe(uglify())
-        .on('error', function(err) {
-            console.error(err.toString())
-        })
-        .pipe(gulpif(!esBuild, sourcemaps.write()))
-        .pipe(gulp.dest(dir.assets + 'js/'))
-        .pipe(gulpif(!esBuild, livereload()))
-})
-
-gulp.task('js', ['foundation-js', 'otro-js'], function() {
-    return gulp.src([
-            './temp/js/foundation.js',
-            './source/js/includes/*',
-            './source/js/app.js'
-        ])
-        .pipe(gulpif(!esBuild, sourcemaps.init()))
-        .pipe(concat('app.min.js'))
-        .pipe(uglify())
-        .on('error', function(err) {
-            console.error(err.toString())
-        })
-        .pipe(gulpif(!esBuild, sourcemaps.write()))
-        .pipe(gulp.dest(dir.assets + 'js/'))
-        .pipe(gulpif(!esBuild, livereload()))
-})
-
-gulp.task('foundation-js', function(cb) {
-    gulp.src([
-            'foundation.core.js',
-            'foundation.util.mediaQuery.js',
-
-            'foundation.util.box.js',      // reveal
-            'foundation.util.keyboard.js', // reveal
-            'foundation.util.motion.js',   // offcanvas, toggler
-            // 'foundation.util.nest.js',
-            'foundation.util.timerAndImageLoader.js', // equalizer
-            // 'foundation.util.touch.js',
-            'foundation.util.triggers.js',  // offcanvas, reveal, toggler
-
-            // 'foundation.abide.js',
-            // 'foundation.accordion.js',
-            // 'foundation.accordionMenu.js',
-            // 'foundation.drilldown.js',
-            // 'foundation.dropdown.js',
-            // 'foundation.dropdownMenu.js',
-            'foundation.equalizer.js',
-            // 'foundation.interchange.js',
-            // 'foundation.magellan.js',
-            'foundation.offcanvas.js',
-            // 'foundation.orbit.js',
-            // 'foundation.responsiveMenu.js',
-            // 'foundation.responsiveToggle.js',
-            'foundation.reveal.js',
-            // 'foundation.slider.js',
-            // 'foundation.sticky.js',
-            // 'foundation.tabs.js',
-            'foundation.toggler.js',
-            // 'foundation.tooltip.js',
-        ], {cwd: './node_modules/foundation-sites/dist/js/plugins/'})
-        .pipe(newer('./temp/js/foundation.js'))
-        .pipe(concat('foundation.js'))
-        .pipe(gulp.dest('./temp/js/'))
-        .on('end', cb).on('error', cb);
-})
-
 gulp.task('copiar-plugins', function() {
     return gulp.src('./plugins/**', {base: '.'})
         .pipe(gulp.dest('../../plugins/'))
