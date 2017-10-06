@@ -1,6 +1,6 @@
 var gulp         = require('gulp'),
     livereload   = require('gulp-livereload'),
-    CONFIG       = require('./gulp/config.js')
+    CONFIG       = require('../config.js')
 
 gulp.task('watch', function() {
     livereload.listen()
