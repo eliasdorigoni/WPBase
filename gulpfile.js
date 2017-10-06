@@ -24,32 +24,6 @@ var gulp         = require('gulp'),
 
 requireDir('./gulp/tasks');
 
-gulp.task('clean', function() {
-    return del([
-        './assets/',
-        './build/',
-        './temp/',
-    ])
-})
-
-/*
-
-gulp.task('livereload-php', function() {
-    return livereload.reload()
-})
-
-gulp.task('watch', function() {
-    livereload.listen()
-    gulp.watch('./source/img/**', ['comprimir-imagenes'])
-    gulp.watch('./source/favicon.png', ['favicon'])
-    gulp.watch(['./source/js/app.js', './source/js/includes/**'], ['js'])
-    gulp.watch('./source/sass/** /*.scss', ['sass'])
-    gulp.watch('./source/svg/*.svg', ['svg'])
-    gulp.watch('./source/svg/sprite/*.svg', ['svg-sprite'])
-    gulp.watch('./plugins/**', ['copiar-plugins'])
-    gulp.watch(['./source/fonts/**', './source/js/vendor/**'], ['extraer-source'])
-})
-
 gulp.task('default', function() {
     runSequence(['foundation-js', 'favicon', 'phplint'], [
             'extraer-source',
@@ -70,9 +44,6 @@ gulp.task('init', function() {
 })
 
 gulp.task('build', function() {
-    esBuild = true
-    definirDirectorios(true)
+    CONFIG.esBuild(true)
     runSequence('clean', 'default')
 })
-
-*/
