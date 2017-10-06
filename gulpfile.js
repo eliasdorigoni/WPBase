@@ -33,44 +33,6 @@ gulp.task('clean', function() {
 })
 
 /*
-gulp.task('copiar-plugins', function() {
-    return gulp.src('./plugins/**', {base: '.'})
-        .pipe(gulp.dest('../../plugins/'))
-})
-
-gulp.task('extraer-source', function() {
-    return gulp.src([
-        './source/fonts/**',
-        './source/js/vendor/**',
-        './source/js/backend/**',
-        './source/js/admin/**',
-        ], {base: './source/'})
-        .pipe(newer(dir.assets))
-        .pipe(gulp.dest(dir.assets))
-})
-
-gulp.task('completar-build', function() {
-    if (esBuild) {
-        return gulp.src([
-                './includes/**',
-                './page-templates/**',
-                './plugins/**',
-                './templates/**',
-                './woocommerce/**',
-                './vendor/**',
-                '!*.map',
-                '!*.md',
-                '!package.json',
-                '!LICENSE',
-                '.htaccess',
-                '*.php',
-                './config.ini',
-                './favicon.ico',
-                './style.css',
-            ], {base: '.'})
-            .pipe(gulp.dest(dir.root))
-    }
-})
 
 gulp.task('livereload-php', function() {
     return livereload.reload()

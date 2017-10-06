@@ -7,14 +7,18 @@ var gulp         = require('gulp'),
     CONFIG       = require('../config.js')
 
 gulp.task('includes-js', function() {
-    return gulp.src('./source/js/includes/*.js')
+    return gulp.src([
+            './source/js/includes/**',
+            './source/js/backend/**',
+            './source/js/admin/**',
+            ], {base: './source/js/'})
         .pipe(gulpif(!CONFIG.esBuild(), sourcemaps.init()))
         .pipe(uglify())
         .on('error', function(err) {
             console.error(err.toString())
         })
         .pipe(gulpif(!CONFIG.esBuild(), sourcemaps.write()))
-        .pipe(gulp.dest(CONFIG.dir.assets + 'js/includes/'))
+        .pipe(gulp.dest(CONFIG.dir.assets + 'js/'))
         .pipe(gulpif(!CONFIG.esBuild(), livereload()))
 })
 
