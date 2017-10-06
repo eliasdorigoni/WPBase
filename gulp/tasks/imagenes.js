@@ -13,3 +13,11 @@ gulp.task('comprimir-imagenes', function(cb) {
         .pipe(gulpif(!CONFIG.esBuild(), livereload()))
         .on('end', cb).on('error', cb);
 })
+
+gulp.task('comprimir-screenshot', function() {
+    if (CONFIG.esBuild()) {
+        return gulp.src('./screenshot.png')
+            .pipe(imagemin())
+            .pipe(gulp.dest(CONFIG.dir.root))
+    }
+})

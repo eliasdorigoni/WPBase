@@ -72,14 +72,6 @@ gulp.task('completar-build', function() {
     }
 })
 
-gulp.task('comprimir-screenshot', function() {
-    if (esBuild) {
-        return gulp.src('./screenshot.png')
-            .pipe(imagemin())
-            .pipe(gulp.dest(dir.root))
-    }
-})
-
 gulp.task('livereload-php', function() {
     return livereload.reload()
 })
