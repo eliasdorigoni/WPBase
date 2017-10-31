@@ -19,20 +19,22 @@ gulp.task('default', function() {
         'includes-js',
         'favicon',
         'extraer-source',
-        'copiar-plugins',
+        // 'copiar-plugins',
     ]
+
+    if (argv.build) {
+        secuencia.push('comprimir-screenshot', 'completar-build')
+    }
+
     if (argv.watch) {
         runSequence(secuencia, 'watch')
     } else {
         runSequence(secuencia)
     }
+
 })
 
 gulp.task('init', function() {
-    runSequence('clean-assets', 'default');
-})
-
-gulp.task('build', function() {
-    CONFIG.esBuild(true)
-    runSequence('clean-build', ['default', 'comprimir-screenshot', 'completar-build'])
+    var tareaLimpieza = (argv.build) ? 'clean-build' : 'clean-assets';
+    runSequence(tareaLimpieza, 'default');
 })
