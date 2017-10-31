@@ -62,4 +62,4 @@ function mostrarSpriteSVG()
         );
     }
 }
-add_action('post_body', 'mostrarSpriteSVG');
+add_action('pre_header', 'mostrarSpriteSVG');

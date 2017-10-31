@@ -90,7 +90,7 @@ function mostrarScriptGoogleSiteTag() {
     </script>
     <?php endif;
 }
-add_action('post_body', 'mostrarScriptGoogleSiteTag');
+add_action('pre_header', 'mostrarScriptGoogleSiteTag');
 
 function personalizarPixelFacebook($wp_customize) {
     $wp_customize->add_setting('pixel-facebook', array(
@@ -133,4 +133,4 @@ function mostrarScriptPixelFacebook() {
     <!-- End Facebook Pixel Code -->
     <?php endif;
 }
-add_action('post_body', 'mostrarScriptPixelFacebook');
+add_action('pre_header', 'mostrarScriptPixelFacebook');

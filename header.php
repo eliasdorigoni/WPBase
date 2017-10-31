@@ -11,7 +11,7 @@
     <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
-    <?php do_action('post_body'); ?>
+    <?php do_action('pre_header'); ?>
     <a class="skip-link screen-reader-text" href="#contenido">Ir al contenido</a>
 
     <header class="header">
