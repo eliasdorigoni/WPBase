@@ -25,7 +25,7 @@ gulp.task('sasslint', function() {
 
 gulp.task('sass', ['sasslint'], function(cb) {
     return gulp.src('./source/sass/*.scss')
-        .pipe(gulpif(!CONFIG.esBuild(), sourcemaps.init()))
+        .pipe(gulpif(CONFIG.noEsBuild, sourcemaps.init()))
         .pipe(sass({
             includePaths: [
                 './node_modules/foundation-sites/scss',
@@ -38,8 +38,8 @@ gulp.task('sass', ['sasslint'], function(cb) {
             cascade: false
         }))
         .pipe(rename({suffix: '.min'}))
-        .pipe(gulpif(!CONFIG.esBuild(), sourcemaps.write()))
+        .pipe(gulpif(CONFIG.noEsBuild, sourcemaps.write()))
         .pipe(gulp.dest(CONFIG.dir.assets + 'css/'))
-        .pipe(gulpif(!CONFIG.esBuild(), livereload()))
+        .pipe(gulpif(CONFIG.noEsBuild, livereload()))
 })
 

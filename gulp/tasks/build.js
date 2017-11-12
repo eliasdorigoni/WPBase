@@ -17,7 +17,7 @@ gulp.task('copiar-plugins', function() {
 })
 
 gulp.task('completar-build', function() {
-    if (CONFIG.esBuild()) {
+    if (CONFIG.esBuild) {
         return gulp.src([
             '!*.map',
             '!*.md',

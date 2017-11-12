@@ -12,14 +12,14 @@ gulp.task('includes-js', function() {
             './source/js/backend/**',
             './source/js/admin/**',
             ], {base: './source/js/'})
-        .pipe(gulpif(!CONFIG.esBuild(), sourcemaps.init()))
+        .pipe(gulpif(CONFIG.noEsBuild, sourcemaps.init()))
         .pipe(uglify())
         .on('error', function(err) {
             console.error(err.toString())
         })
-        .pipe(gulpif(!CONFIG.esBuild(), sourcemaps.write()))
+        .pipe(gulpif(CONFIG.noEsBuild, sourcemaps.write()))
         .pipe(gulp.dest(CONFIG.dir.assets + 'js/'))
-        .pipe(gulpif(!CONFIG.esBuild(), livereload()))
+        .pipe(gulpif(CONFIG.noEsBuild, livereload()))
 })
 
 gulp.task('js', function() {
@@ -35,13 +35,13 @@ gulp.task('js', function() {
     }
 
     return gulp.src(src)
-        .pipe(gulpif(!CONFIG.esBuild(), sourcemaps.init()))
+        .pipe(gulpif(CONFIG.noEsBuild, sourcemaps.init()))
         .pipe(concat('app.min.js'))
         .pipe(uglify())
         .on('error', function(err) {
             console.error(err.toString())
         })
-        .pipe(gulpif(!CONFIG.esBuild(), sourcemaps.write()))
+        .pipe(gulpif(CONFIG.noEsBuild, sourcemaps.write()))
         .pipe(gulp.dest(CONFIG.dir.assets + 'js/'))
-        .pipe(gulpif(!CONFIG.esBuild(), livereload()))
+        .pipe(gulpif(CONFIG.noEsBuild, livereload()))
 })
