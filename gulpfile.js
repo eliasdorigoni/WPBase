@@ -8,45 +8,33 @@ var gulp         = require('gulp'),
     runSequence  = require('run-sequence'),
     CONFIG       = require('./gulp/config.js')
 
-requireDir('./gulp/tasks');
+requireDir('./gulp/tasks')
 
 gulp.task('watch', function() {
     livereload.listen()
-    gulp.watch('./source/img/**/*', ['comprimir-imagenes'])
-    gulp.watch('./source/js/*.js', ['js'])
-    gulp.watch(['./source/js/includes/**/*', './source/js/backend/**/*', './source/js/admin/**/*', ], ['includes-js'])
-    gulp.watch('./source/sass/**/*.scss', ['sass'])
-    gulp.watch('./source/svg/*.svg', ['svg'])
-    gulp.watch('./source/svg/sprite/*.svg', ['svg-sprite'])
-    gulp.watch('./plugins/**', ['copiar-plugins'])
-    gulp.watch(['./source/fonts/**', './source/js/vendor/**'], ['extraer-source'])
+    gulp.watch('source/img/**', ['comprimir-imagenes'])
+    gulp.watch('source/js/*.js', ['js'])
+    gulp.watch(['source/js/includes/**/*', 'source/js/backend/**/*', 'source/js/admin/**/*', ], ['includes-js'])
+    gulp.watch('source/sass/**/*.scss', ['sass'])
+    gulp.watch('source/svg/*.svg', ['svg'])
+    gulp.watch('source/svg/sprite/*.svg', ['svg-sprite'])
+    gulp.watch('plugins/**', ['copiar-plugins'])
+    gulp.watch(['source/fonts/**', 'source/js/vendor/**'], ['extraer-source'])
 })
 
-gulp.task('default', function() {
-    var secuencia = [
-        'phplint',
-        'js',
-        'sass',
-        'comprimir-imagenes',
-        'svg',
-        'includes-js',
-        'favicon',
-        'extraer-source',
-        // 'copiar-plugins',
-    ]
-
+gulp.task('default', ['js', 'sass', 'comprimir-imagenes', 'svg', 'includes-js', 'favicon', 'extraer-source', /* 'phplint', 'copiar-plugins' */ ], function() {
+    var tareas = []
     if (argv.build) {
-        secuencia.push('comprimir-screenshot', 'completar-build')
+        tareas.push('comprimir-screenshot', 'completar-build')
     }
 
     if (argv.watch) {
-        runSequence(secuencia, 'watch')
-    } else {
-        runSequence(secuencia)
+        tareas.push('watch')
     }
+
+    if (tareas.length > 0) runSequence(tareas)
 })
 
 gulp.task('init', function() {
-    var tareaLimpieza = (argv.build) ? 'clean-build' : 'clean-assets';
-    runSequence(tareaLimpieza, 'default');
+    runSequence('clean', 'default');
 })
