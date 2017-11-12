@@ -3,11 +3,24 @@
 
 var gulp         = require('gulp'),
     argv         = require('yargs').argv,
-    runSequence  = require('run-sequence'),
+    livereload   = require('gulp-livereload'),
     requireDir   = require('require-dir'),
+    runSequence  = require('run-sequence'),
     CONFIG       = require('./gulp/config.js')
 
 requireDir('./gulp/tasks');
+
+gulp.task('watch', function() {
+    livereload.listen()
+    gulp.watch('./source/img/**/*', ['comprimir-imagenes'])
+    gulp.watch('./source/js/*.js', ['js'])
+    gulp.watch(['./source/js/includes/**/*', './source/js/backend/**/*', './source/js/admin/**/*', ], ['includes-js'])
+    gulp.watch('./source/sass/**/*.scss', ['sass'])
+    gulp.watch('./source/svg/*.svg', ['svg'])
+    gulp.watch('./source/svg/sprite/*.svg', ['svg-sprite'])
+    gulp.watch('./plugins/**', ['copiar-plugins'])
+    gulp.watch(['./source/fonts/**', './source/js/vendor/**'], ['extraer-source'])
+})
 
 gulp.task('default', function() {
     var secuencia = [
@@ -31,7 +44,6 @@ gulp.task('default', function() {
     } else {
         runSequence(secuencia)
     }
-
 })
 
 gulp.task('init', function() {
