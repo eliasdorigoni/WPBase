@@ -1,6 +1,7 @@
 var gulp         = require('gulp'),
     concat       = require('gulp-concat'),
     gulpif       = require('gulp-if'),
+    jsValidate   = require('gulp-jsvalidate'),
     livereload   = require('gulp-livereload'),
     sourcemaps   = require('gulp-sourcemaps'),
     uglify       = require('gulp-uglify'),
@@ -22,7 +23,16 @@ gulp.task('includes-js', function() {
         .pipe(gulpif(CONFIG.noEsBuild, livereload()))
 })
 
-gulp.task('js', function() {
+gulp.task('jsValidate', function() {
+    var src = [
+        './source/js/extend-app/*',
+        './source/js/app.js',
+    ]
+    return gulp.src(src).pipe(jsValidate())
+
+})
+
+gulp.task('js', ['jsValidate'], function() {
     var src = [
         './source/js/extend-app/*',
         './source/js/app.js',
