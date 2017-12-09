@@ -28,11 +28,13 @@ gulp.task('default', ['js', 'sass', 'comprimir-imagenes', 'svg', 'includes-js', 
         tareas.push('comprimir-screenshot', 'completar-build')
     }
 
-    if (argv.watch) {
-        tareas.push('watch')
+    if (tareas.length > 0 && argv.watch) {
+        runSequence(tareas, 'watch')
+    } else if (tareas.length > 0) {
+        runSequence(tareas)
+    } else if (argv.watch) {
+        runSequence('watch')
     }
-
-    if (tareas.length > 0) runSequence(tareas)
 })
 
 gulp.task('init', function() {
