@@ -63,3 +63,12 @@
         }
     }
 }
+
+.toggleNavegacionPrincipal {
+    .icono {
+        @include hamburger(#000, #222, 14px, 12px, 1px, 3);
+        margin-right: 0.3em;
+        position: relative;
+        top: -1px;
+    }
+}

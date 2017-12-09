@@ -21,7 +21,7 @@
                 <?php if (has_custom_logo()): ?>
                     <?php the_custom_logo(); ?>
                 <?php elseif (is_file(ASSETS_DIR_IMG . 'logo.png')): ?>
-                    <img src="<?php echo ASSETS_URI_IMG . 'logo.png'; ?>">
+                    <img srcset="<?= ASSETS_URI_IMG ?>logo.png 1x, <?= ASSETS_URI_IMG ?>logo@2x.png 2x" src="<?= ASSETS_URI_IMG ?>logo.png">
                 <?php else: ?>
                     <?php echo bloginfo('name'); ?>
                 <?php endif ?>
@@ -29,11 +29,11 @@
             </div>
             <div class="column large-8">
                 <?php if (has_nav_menu('principal')): ?>
-                    <button class="toggle toggleNavCabecera">Menú</button>
+                    <button class="toggle toggleNavegacionPrincipal"><i class="icono"></i> Menú</button>
                 <nav role="navigation">
                 <?php
                     $args = array(
-                        'menu_class'     => 'nav-cabecera',
+                        'menu_class'     => 'navegacionPrincipal',
                         'theme_location' => 'principal',
                     );
                     wp_nav_menu($args);

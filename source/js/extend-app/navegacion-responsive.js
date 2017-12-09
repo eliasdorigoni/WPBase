@@ -1,54 +1,52 @@
 /**
- * Permite usar un botón para mostrar/ocultar un menú, y permite usar
+ * Permite usar un botón para mostrar/ocultar una navegacion
  * 
- * El menú agrega la clase .visible cuando está visible y la elimina cuando
- * está escondido.
+ * La navegacion agrega la clase .visible cuando está visible y la elimina cuando está escondido.
  * El botón agrega la clase .activo cuando el menú esta visible.
  */
-jQuery.fn.extend({
-  
-navegacionResponsive: function(boton, demoraAnimacion) {
-    var $ = jQuery
-    if (typeof boton === 'undefined')
-        console.error('Se debe pasar un objeto jQuery que controle el menú.');
 
-    demoraAnimacion = typeof demoraAnimacion !== 'undefined' ? demoraAnimacion : 400;
+jQuery(function($) {
+    var $boton = $('.toggleNavegacionPrincipal'),
+        $navegacion = $('.navegacionPrincipal'),
+        demoraAnimacion = 400,
+        elementoEsVisible = false,
+        claseBotonVisible = 'activo',
+        claseNavegacionVisible = 'visible'
 
-    var $menu = this,
-        $boton = $(boton)
-
-
-    function cerrarMenu(menu) {
-        menu.removeClass('visible').removeAttr('style')
+    function ocultarElemento() {
+        $navegacion.removeClass(claseNavegacionVisible).removeAttr('style')
     }
 
-    function abrirMenu(menu) {
-        menu.addClass('visible').removeAttr('style')
+    function mostrarElemento() {
+        $navegacion.addClass(claseNavegacionVisible).removeAttr('style')
     }
 
     function comprobarMenuPrincipal(e) {
         var animarMovimiento = e.data.animar
 
-        if ($menu.hasClass('visible')) {
-            $boton.removeClass('activo');
+        if (elementoEsVisible) {
             if (animarMovimiento) {
-                $menu.slideUp(demoraAnimacion, function() {cerrarMenu($menu)})
+                $navegacion.slideUp(demoraAnimacion, ocultarElemento)
             } else {
-                cerrarMenu($menu)
+                ocultarElemento()
             }
+            $boton.removeClass(claseBotonVisible)
+            elementoEsVisible = false
 
         } else {
-            $boton.addClass('activo');
             if (animarMovimiento) {
-                $menu.slideDown(demoraAnimacion, function() {abrirMenu($menu)})
+                $navegacion.slideDown(demoraAnimacion, mostrarElemento)
             } else {
-                abrirMenu($menu)
+                mostrarElemento($menu)
             }
+            $boton.addClass(claseBotonVisible)
+            elementoEsVisible = true
         }
     }
 
+    elementoEsVisible = $navegacion.hasClass(claseNavegacionVisible)
+
+    // Va animado cuando el usuario le hace clic. Si se redimensiona la ventana,
     $boton.on('click', '', {animar: true}, comprobarMenuPrincipal)
     $(window).on('changed.zf.mediaquery', '', {animar: false}, comprobarMenuPrincipal)
-}
-
-});
+})
