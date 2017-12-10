@@ -11,11 +11,8 @@ function registrarLibreriasFrontend() {
     // Estilo principal del frontend. Incluye foundation.
     wp_register_style('app', ASSETS_URI_CSS . 'app.min.css', array('google-fonts'), VERSION_THEME);
 
-    // Foundation custom
-    wp_register_script('foundation', ASSETS_URI_JS . 'vendor/foundation.min.js', array('jquery'), '6.2.3', true);
-
     // Script principal del frontend
-    wp_register_script('app', ASSETS_URI_JS.'app.min.js', array('foundation'), VERSION_THEME, true);
+    wp_register_script('app', ASSETS_URI_JS.'app.min.js', array(), VERSION_THEME, true);
     
     // Slick - https://github.com/kenwheeler/slick/
     wp_register_script('slick', ASSETS_URI_JS . 'vendor/slick.min.js', array('jquery'), '1.7.1', true);
