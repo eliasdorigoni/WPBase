@@ -1,26 +1,7 @@
 jQuery(function($) {
-    $('body').on('click', '.componente-galeria .eliminar', function() {
-        var $widget = $(this).parents('.componente-galeria')
-        var cantidad = $widget.find('.thumb').length - 1
-        $widget.find('.cantidadActual').html(cantidad)
-        $(this).parents('li').remove()
-    }).on('click', '.componente-galeria .reemplazar', function(e) {
-        var $thumb = $(this).parents('.thumb')
+    var $galeria = $('#galeria')
 
-        var uploader = wp.media({
-            title: 'Reemplazar imagen',
-            button: {text: 'Reemplazar'},
-            multiple: false,
-        })
-
-        uploader.on('select', function() {
-            var attachment = uploader.state().get('selection').first().toJSON()
-            $thumb.find('input').val(attachment.id)
-            $thumb.find('img').attr('src', attachment.sizes.thumbnail.url)
-        })
-
-        uploader.open()
-    }).on('click', '.componente-galeria .cargarImagenJS', function(e) {
+    function cargarItemGaleria(e) {
         var $widget = $(this).parents('.componente-galeria')
         var cantidad = $widget.attr('data-maximo')
         var limitarCantidad = (cantidad > '0')
@@ -47,5 +28,35 @@ jQuery(function($) {
         })
 
         uploader.open()
-    })
+    }
+    $galeria.on('click', '.componente-galeria .cargarImagenJS', cargarItemGaleria)
+
+    function eliminarItemGaleria(e) {
+        var $widget = $(this).parents('.componente-galeria')
+        var cantidad = $widget.find('.thumb').length - 1
+        $widget.find('.cantidadActual').html(cantidad)
+        $(this).parents('li').remove()
+    }
+    $galeria.on('click', '.componente-galeria .eliminar', eliminarItemGaleria)
+
+    function reemplazarItemGaleria(e) {
+        var $thumb = $(this).parents('.thumb')
+
+        var uploader = wp.media({
+            title: 'Reemplazar imagen',
+            button: {
+                text: 'Reemplazar'
+            },
+            multiple: false,
+        })
+
+        uploader.on('select', function() {
+            var attachment = uploader.state().get('selection').first().toJSON()
+            $thumb.find('input').val(attachment.id)
+            $thumb.find('img').attr('src', attachment.sizes.thumbnail.url)
+        })
+
+        uploader.open()
+    }
+    $galeria.on('click', '.componente-galeria .reemplazar', reemplazarItemGaleria)
 })
