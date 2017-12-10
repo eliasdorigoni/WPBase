@@ -3,4 +3,3 @@ build/
 node_modules/
 temp/
 /favicon.ico
-foundation.min.js
