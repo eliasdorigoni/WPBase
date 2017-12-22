@@ -7,12 +7,11 @@ var gulp         = require('gulp'),
     CONFIG       = require('../config.js')
 
 gulp.task('svg-individual', function(cb) {
-    gulp.src('./source/svg/*.svg')
+    return gulp.src('./source/svg/*.svg')
         .pipe(newer(CONFIG.dir.assets + 'svg'))
         .pipe(imagemin())
         .pipe(gulp.dest(CONFIG.dir.assets + 'svg/'))
         .pipe(gulpif(CONFIG.noEsBuild, livereload()))
-        .on('end', cb).on('error', cb);
 })
 
 gulp.task('svg-sprite', function(cb) {

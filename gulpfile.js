@@ -16,13 +16,13 @@ gulp.task('watch', function() {
     gulp.watch('source/js/**/*.js', ['js'])
     gulp.watch(['source/js/includes/**/*', 'source/js/backend/**/*', 'source/js/admin/**/*', ], ['includes-js'])
     gulp.watch('source/sass/**/*.scss', ['sass'])
-    gulp.watch('source/svg/*.svg', ['svg'])
+    gulp.watch('source/svg/**/*.svg', ['svg'])
     gulp.watch('source/svg/sprite/*.svg', ['svg-sprite'])
     gulp.watch('plugins/**', ['copiar-plugins'])
     gulp.watch(['source/fonts/**', 'source/js/vendor/**'], ['extraer-source'])
 })
 
-gulp.task('default', ['js', 'sass', 'comprimir-imagenes', 'svg', 'includes-js', 'favicon', 'extraer-source', /* 'phplint', 'copiar-plugins' */ ], function() {
+gulp.task('default', ['js', 'sass', 'comprimir-imagenes', 'svg', 'includes-js', 'favicon', 'extraer-source'], function() {
     var tareas = []
     if (argv.build) {
         tareas.push('comprimir-screenshot', 'completar-build')

@@ -17,24 +17,22 @@ gulp.task('copiar-plugins', function() {
 })
 
 gulp.task('completar-build', function() {
-    if (CONFIG.esBuild) {
-        return gulp.src([
-            '!*.map',
-            '!*.md',
-            '!package.json',
-            '!LICENSE',
-            './includes/**',
-            './page-templates/**',
-            './plugins/**',
-            './templates/**',
-            './woocommerce/**',
-            './vendor/**',
-            '.htaccess',
-            '*.php',
-            './config.ini',
-            './favicon.ico',
-            './style.css',
-            ], {base: '.'})
-            .pipe(gulp.dest(CONFIG.dir.root))
-    }
+    return gulp.src([
+        '!*.map',
+        '!*.md',
+        '!package.json',
+        '!LICENSE',
+        './includes/**',
+        './page-templates/**',
+        './plugins/**',
+        './templates/**',
+        './woocommerce/**',
+        './vendor/**',
+        '.htaccess',
+        '*.php',
+        './config.ini',
+        './favicon.ico',
+        './style.css',
+        ], {base: '.'})
+        .pipe(gulp.dest(CONFIG.dir.root))
 })
