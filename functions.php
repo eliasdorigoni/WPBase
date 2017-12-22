@@ -129,7 +129,6 @@ function theme_enqueueFrontend() {
     wp_enqueue_style('app');
 
     wp_enqueue_script('jquery');
-    wp_enqueue_script('foundation');
     wp_enqueue_script('app');
 
     if (is_singular() && comments_open() && get_option('thread_comments')) {
