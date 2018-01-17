@@ -32,8 +32,6 @@
 
             <?php endif; ?>
 
-            <?php get_template_part('demo/contenido'); ?>
-
         </main>
     </div>
     <div class="column large-4">
