@@ -37,7 +37,7 @@ jQuery(function($) {
             if (animarMovimiento) {
                 $navegacion.slideDown(demoraAnimacion, mostrarNavegacion)
             } else {
-                mostrarNavegacion($menu)
+                mostrarNavegacion()
             }
             $boton.addClass(claseBotonVisible)
             elementoEsVisible = true
