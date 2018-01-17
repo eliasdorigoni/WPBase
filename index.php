@@ -10,10 +10,6 @@
                         <h1 class="tituloPagina"><?php the_title(); ?></h1>
                     <?php endif; ?>
 
-                    <hr>
-                    <?php the_post_thumbnail('medium', 'expandir'); ?>
-                    <hr>
-
                     <?php the_content(); ?>
 
                 <?php endwhile; ?>

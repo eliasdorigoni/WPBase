@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Calcula la diferencia entre dos timestamps y retorna un string con las
  * unidades temporales más altas, en orden descendente: año, mes, semana, dia, hora, minuto, segundo.
@@ -93,7 +94,11 @@ function theme_agregarNombreEnBody($classes = array()) {
  * @param  array  $constantesPorDefecto  Claves y valores para constantes por defecto.
  * @param  string $archivo               Ruta absoluta al archivo INI
  */
-function cargarConstantesDesdeINI($constantesPorDefecto = array(), $archivo = THEME_DIR . 'config.ini') {
+function cargarConstantesDesdeINI($constantesPorDefecto = array(), $archivo = null) {
+    if (is_null($archivo)) {
+        $archivo = THEME_DIR . 'config.ini';
+    }
+
     $ini = (file_exists($archivo)) ? parse_ini_file($archivo) : array();
     $data = wp_parse_args($ini, $constantesPorDefecto);
 
@@ -101,7 +106,6 @@ function cargarConstantesDesdeINI($constantesPorDefecto = array(), $archivo = TH
         if (!defined($nombre)) define($nombre, $valor);
     }
 }
-
 /**
  * Retorna un array con las urls de las imagenes de los attachments.
  * O con los posts si no hay $dimensiones definidas.
@@ -238,74 +242,6 @@ function esEnteroPositivo($string = '') {
     return false;
 }
 
-
-function ampliarPostThumbnail($html, $post_id, $thumb_id, $size, $attr) {
-    if ($attr != 'expandir') {
-        return $html;
-    }
-
-    if (!preg_match('/width="(\d+)"/', $html, $m)) {
-        return $html;
-    } else {
-        $width = $m[1];
-    }
-
-    if (!preg_match('/height="(\d+)"/', $html, $m)) {
-        return $html;
-    } else {
-        $height = $m[1];
-    }
-
-    $expectedWidth = 0;
-    $expectedHeight = 0;
-
-    switch ($size) {
-        case 'thumb':
-        case 'thumbnail':
-        case 'medium':
-        case 'medium_large':
-        case 'large':
-            if ($size == 'thumb') $size = 'thumbnail';
-            $expectedWidth = get_option($size . '_size_w', 0);
-            $expectedHeight = get_option($size . '_size_h', 0);
-            break;
-        default:
-            global $_wp_additional_image_sizes;
-            if (array_key_exists($size, $_wp_additional_image_sizes)) {
-                $expectedWidth = $_wp_additional_image_sizes[$size]['width'];
-                $expectedHeight = $_wp_additional_image_sizes[$size]['height'];
-            }
-            break;
-    }
-
-    if ($expectedWidth <= 0 || $expectedHeight <= 0) {
-        return $html;
-    }
-
-    if ($width != $expectedWidth || $height != $expectedHeight) {
-        $src = wp_get_attachment_image_src($thumb_id, $size);
-
-        $html = sprintf(
-            '<span style="display: inline-block; max-width: %3$spx"><img class="expandido %2$s %3$sx%4$s" style="'
-            . 'background: #fff url(\'%1$s\') scroll no-repeat center center;'
-            . 'background-size: cover; '
-            . 'border: 1px solid red; '
-            . 'display: inline-block; '
-            . 'width: 100%%; height: 0; '
-            . 'max-width: %3$spx; '
-            . 'padding-bottom: %5$s%%'
-            . '" /></span>',
-            $src[0],
-            $size,
-            $expectedWidth,
-            $expectedHeight,
-            ($expectedHeight / $expectedWidth) * 100
-        );
-
-    }
-
-    return $html;
-}
 
 /**
  * Activa el hard crop en las dimensiones por defecto.
