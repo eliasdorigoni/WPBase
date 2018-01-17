@@ -1,5 +1,4 @@
 <?php
-
 if (!isset($content_width)) $content_width = 625;
 
 get_template_part('includes/util');
@@ -11,6 +10,7 @@ get_template_part('includes/svg');
 get_template_part('includes/templates');
 
 get_template_part('includes/analytics');
+get_template_part('includes/mapa/init');
 
 get_template_part('includes/metaboxes/subtitulo');
 
@@ -135,9 +135,9 @@ function theme_enqueueFrontend() {
         wp_enqueue_script('comment-reply');
     }
 
+    wp_enqueue_script('gmaps');
     // wp_enqueue_script('slick');
     // wp_enqueue_script('lightbox');
-    // wp_enqueue_script('gmaps');
 }
 add_action('wp_enqueue_scripts', 'theme_enqueueFrontend');
 
