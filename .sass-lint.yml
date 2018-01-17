@@ -10,7 +10,7 @@ rules:
     - 1
     -
       allow-leading-underscore: true
-      convention: 'camelcase'
+      convention: ^[a-z][a-zA-Z0-9]*(__)?([a-z][a-zA-Z0-9]*)?(--)?([a-z][a-zA-Z0-9]*)?$
   mixin-name-format: 
     - 1
     -
