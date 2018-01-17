@@ -7,15 +7,12 @@ function initMap() {
         document.getElementById(configMapa.idMapa),
         {mapTypeId: configMapa.tipo, zoom: configMapa.zoom, }
     )
+
     var markerBounds = new google.maps.LatLngBounds()
 
-    google.maps.event.addListenerOnce(map, 'bounds_changed', function() {
-        map.setZoom(configMapa.zoom)
-    })
+    if (typeof configMapa.marcadores == 'object') {
 
-    if (configMapa.marcadores.length > 0) {
-        for (i in configMapa.marcadores) {
-            var marcador = configMapa.marcadores[i]
+        configMapa.marcadores.map(function(marcador) {
             var args = {
                 clickable: false,
                 map: map,
@@ -23,11 +20,7 @@ function initMap() {
                 title: marcador.titulo,
             }
 
-            var latLng = new google.maps.LatLng(
-                marcador.coordenadas[0],
-                marcador.coordenadas[1]
-            )
-
+            var latLng = new google.maps.LatLng(marcador.coordenadas[0], marcador.coordenadas[1])
             args.position = latLng
 
             if (marcador.icono.length > 0) {
@@ -51,7 +44,14 @@ function initMap() {
             }
 
             markerBounds.extend(latLng)
-        }
+        })
+
+        // Aleja el zoom hasta lo establecido por configMapa, después de que fitBounds modifique los limites.
+        google.maps.event.addListenerOnce(map, 'bounds_changed', function() {
+            if (map.getZoom() > configMapa.zoom) {
+                map.setZoom(configMapa.zoom)
+            }
+        })
 
         map.fitBounds(markerBounds)
     }

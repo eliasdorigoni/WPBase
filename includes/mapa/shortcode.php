@@ -33,6 +33,7 @@ function retornarMapa($atts = array(), $contenido = '') {
 }
 
 function convertirMarcadores($string) {
+    $string = trim($string);
     $string = preg_replace('/( {2,}|[\r\n])/', '', $string); // Elimina espacios y nuevas lineas
     $string = do_shortcode($string);
     $string = trim($string, ',');
