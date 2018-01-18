@@ -12,8 +12,8 @@ function initMap() {
     try {
         marcadores = JSON.parse(marcadores)
     } catch (e) {
-        marcadores = []
-        hayMarcadores = false
+        // Si no hay marcadores, terminar.
+        return
     }
 
     marcadores.map(function(marcador) {
@@ -50,15 +50,13 @@ function initMap() {
         markerBounds.extend(latLng)
     })
 
-    if (hayMarcadores) {
-        // Aleja el zoom hasta lo establecido por configMapa, después de que fitBounds modifique los limites.
-        google.maps.event.addListenerOnce(map, 'bounds_changed', function() {
-            var zoom = parseInt(elemento.dataset.zoom)
-            if (map.getZoom() > zoom) {
-                map.setZoom(zoom)
-            }
-        })
-        map.fitBounds(markerBounds)
-    }
+    // Aleja el zoom hasta lo establecido por el usuario, después de que map.fitBounds() modifique los limites.
+    google.maps.event.addListenerOnce(map, 'bounds_changed', function() {
+        var zoom = parseInt(elemento.dataset.zoom)
+        if (map.getZoom() > zoom) {
+            map.setZoom(zoom)
+        }
+    })
 
+    map.fitBounds(markerBounds)
 }

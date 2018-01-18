@@ -15,13 +15,13 @@ function retornarMapa($atts = array(), $contenido = '') {
 
     $atts['class'] = esc_attr($atts['class']);
 
-    $atts['tipo'] = strtoupper($atts['tipo']);
-    $tiposValidos = array('HYBRID', 'ROADMAP', 'SATELLITE', 'TERRAIN');
+    $atts['tipo'] = strtolower($atts['tipo']);
+    $tiposValidos = array('hybrid', 'roadmap', 'satellite', 'terrain');
     if (!in_array($atts['tipo'], $tiposValidos)) {
-        $atts['tipo'] = 'SATELLITE';
+        $atts['tipo'] = 'satellite';
     }
 
-    $marcadores = esc_attr(json_encode(convertirMarcadores($contenido)));
+    $marcadores = esc_attr(convertirMarcadores($contenido));
 
     return sprintf(
         '<div id="js-mapa" class="%s" data-mapa data-zoom="%s" data-tipo="%s" data-marcadores="%s"></div>',
@@ -33,12 +33,26 @@ function retornarMapa($atts = array(), $contenido = '') {
 }
 
 function convertirMarcadores($string) {
+    // Elimina espacios al principio, al final, saltos de línea y espacios dobles.
     $string = trim($string);
-    $string = preg_replace('/( {2,}|[\r\n])/', '', $string); // Elimina espacios y nuevas lineas
-    $string = do_shortcode($string);
-    $string = trim($string, ',');
-    $string = json_decode('['.$string.']', true);
-    return $string;
+    $string = preg_replace('/( {2,}|[\r\n])/', '', $string);
+
+    // Procesa los marcadores que estén dentro.
+    $marcadores = do_shortcode($string);
+
+    // Elimina la última coma y simula un array de json
+    $json = '[' . rtrim($marcadores, ',') . ']';
+
+    // Retorna un array de marcadores.
+    return $json;
+}
+
+function limpiarCoordenadas($string) {
+    $array = explode(',', $string);
+    $array = array_map('trim', $array);
+    $array = array_map('floatval', $array);
+    $array = array_filter($array);
+    return $array;
 }
 
 function retornarMarcador($atts = array()) {
@@ -51,36 +65,30 @@ function retornarMarcador($atts = array()) {
     );
     $atts = shortcode_atts($default, $atts, 'marcador');
 
-    $coordenadas = explode(',', $atts['coordenadas']);
-    $coordenadas = array_map('trim', $coordenadas);
-    $coordenadas = array_map('floatval', $coordenadas);
-    $coordenadas = array_filter($coordenadas);
+    $coordenadas = limpiarCoordenadas($atts['coordenadas']);
 
-    if ($atts['icono'] === 'default') {
-        $icono = '';
-    } else {
+    $icono = '';
+    if ($atts['icono'] !== 'default') {
         $icono = $atts['icono'];
     }
 
     $url = '';
     if ($atts['enlazar-indicaciones'] == 1) {
-        $url = 'https://www.google.com/maps/dir/?' 
-            . http_build_query(
-                array(
-                    'api' => 1,
-                    'destination' => implode(',', $coordenadas),
-                    'travelmode' => 'driving',
-                )
-            );
+        $query = array(
+            'api' => 1,
+            'destination' => implode(',', $coordenadas),
+            'travelmode' => 'driving',
+        );
+        $url = 'https://www.google.com/maps/dir/?' . http_build_query($query);
     }
 
-    return json_encode(
-            array(
-                'titulo' => $atts['titulo'],
-                'contenido' => $atts['contenido'],
-                'coordenadas' => $coordenadas,
-                'icono' => $icono,
-                'url' => $url,
-            )
-        ) . ',';
+    $retorno = array(
+        'titulo' => $atts['titulo'],
+        'contenido' => $atts['contenido'],
+        'coordenadas' => $coordenadas,
+        'icono' => $icono,
+        'url' => $url,
+    );
+
+    return json_encode($retorno) . ',';
 }
