@@ -1,58 +1,64 @@
 function initMap() {
-    if (typeof configMapa === 'undefined') {
+    var elemento = document.getElementById('js-mapa')
+    if (elemento === null) {
         return
     }
 
-    var map = new google.maps.Map(
-        document.getElementById(configMapa.idMapa),
-        {mapTypeId: configMapa.tipo, zoom: configMapa.zoom, }
-    )
+    var map = new google.maps.Map(elemento, {mapTypeId: elemento.dataset.tipo, zoom: parseInt(elemento.dataset.zoom)}),
+        markerBounds = new google.maps.LatLngBounds(),
+        marcadores = elemento.dataset.marcadores,
+        hayMarcadores = true
 
-    var markerBounds = new google.maps.LatLngBounds()
+    try {
+        marcadores = JSON.parse(marcadores)
+    } catch (e) {
+        marcadores = []
+        hayMarcadores = false
+    }
 
-    if (typeof configMapa.marcadores == 'object') {
+    marcadores.map(function(marcador) {
+        var args = {
+            clickable: false,
+            map: map,
+            position: null,
+            title: marcador.titulo,
+        }
 
-        configMapa.marcadores.map(function(marcador) {
-            var args = {
-                clickable: false,
-                map: map,
-                position: null,
-                title: marcador.titulo,
+        var latLng = new google.maps.LatLng(marcador.coordenadas[0], marcador.coordenadas[1])
+        args.position = latLng
+
+        if (marcador.icono.length > 0) {
+            args.icon = {
+                size: new google.maps.Size(48, 48),
+                scaledSize: new google.maps.Size(48, 48),
+                url: marcador.icono,
             }
+        }
 
-            var latLng = new google.maps.LatLng(marcador.coordenadas[0], marcador.coordenadas[1])
-            args.position = latLng
+        if (marcador.url.length > 0) {
+            args.clickable = true
+        }
 
-            if (marcador.icono.length > 0) {
-                args.icon = {
-                    size: new google.maps.Size(48, 48),
-                    scaledSize: new google.maps.Size(48, 48),
-                    url: marcador.icono,
-                }
-            }
+        var marker = new google.maps.Marker(args)
 
-            if (marcador.url.length > 0) {
-                args.clickable = true
-            }
+        if (args.clickable) {
+            marker.addListener('click', function() {
+                window.open(marcador.url, '_blank');
+            })
+        }
 
-            var m = new google.maps.Marker(args)
+        markerBounds.extend(latLng)
+    })
 
-            if (args.clickable) {
-                m.addListener('click', function() {
-                    window.open(marcador.url, '_blank');
-                })
-            }
-
-            markerBounds.extend(latLng)
-        })
-
+    if (hayMarcadores) {
         // Aleja el zoom hasta lo establecido por configMapa, después de que fitBounds modifique los limites.
         google.maps.event.addListenerOnce(map, 'bounds_changed', function() {
-            if (map.getZoom() > configMapa.zoom) {
-                map.setZoom(configMapa.zoom)
+            var zoom = parseInt(elemento.dataset.zoom)
+            if (map.getZoom() > zoom) {
+                map.setZoom(zoom)
             }
         })
-
         map.fitBounds(markerBounds)
     }
+
 }

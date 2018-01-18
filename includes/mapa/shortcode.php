@@ -5,31 +5,31 @@ function retornarMapa($atts = array(), $contenido = '') {
     if (!has_shortcode($contenido, 'marcador')) {
         return;
     }
-    ob_start();
 
-    $atts = shortcode_atts(
-        array(
-            'class' => 'mapa',
-            'id' => 'js-mapa',
-            'tipo' => 'satellite',
-            'zoom' => 16,
-        ), 
-        $atts,
-        'mapa'
+    $default = array(
+        'class' => 'mapa',
+        'tipo'  => '',
+        'zoom'  => 16,
     );
-    ?>
-    <script type="text/javascript">
-        var configMapa = <?= json_encode(array(
-            'marcadores' => convertirMarcadores($contenido),
-            'zoom'       => intval($atts['zoom']),
-            'tipo'       => $atts['tipo'],
-            'idMapa'     => $atts['id'],
-        )) ?>
-    </script>
-    <div id="<?= esc_attr($atts['id']) ?>" class="<?= esc_attr($atts['class']) ?>"></div>
-    <?php
+    $atts = shortcode_atts($default, $atts, 'mapa');
 
-    return ob_get_clean();
+    $atts['class'] = esc_attr($atts['class']);
+
+    $atts['tipo'] = strtoupper($atts['tipo']);
+    $tiposValidos = array('HYBRID', 'ROADMAP', 'SATELLITE', 'TERRAIN');
+    if (!in_array($atts['tipo'], $tiposValidos)) {
+        $atts['tipo'] = 'SATELLITE';
+    }
+
+    $marcadores = esc_attr(json_encode(convertirMarcadores($contenido)));
+
+    return sprintf(
+        '<div id="js-mapa" class="%s" data-mapa data-zoom="%s" data-tipo="%s" data-marcadores="%s"></div>',
+        $atts['class'],
+        $atts['zoom'],
+        $atts['tipo'],
+        $marcadores
+    );
 }
 
 function convertirMarcadores($string) {
@@ -65,18 +65,22 @@ function retornarMarcador($atts = array()) {
     $url = '';
     if ($atts['enlazar-indicaciones'] == 1) {
         $url = 'https://www.google.com/maps/dir/?' 
-                . http_build_query(array(
-                        'api' => 1,
-                        'destination' => implode(',', $coordenadas),
-                        'travelmode' => 'driving',
-                ));
+            . http_build_query(
+                array(
+                    'api' => 1,
+                    'destination' => implode(',', $coordenadas),
+                    'travelmode' => 'driving',
+                )
+            );
     }
 
-    return json_encode(array(
-        'titulo' => $atts['titulo'],
-        'contenido' => $atts['contenido'],
-        'coordenadas' => $coordenadas,
-        'icono' => $icono,
-        'url' => $url,
-    )) . ',';
+    return json_encode(
+            array(
+                'titulo' => $atts['titulo'],
+                'contenido' => $atts['contenido'],
+                'coordenadas' => $coordenadas,
+                'icono' => $icono,
+                'url' => $url,
+            )
+        ) . ',';
 }
