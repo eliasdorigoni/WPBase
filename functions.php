@@ -20,7 +20,6 @@ get_template_part('includes/woocommerce/init');
 
 // Agrega el slug del post y el tipo + slug del post al output de body_class()
 add_filter('body_class', 'theme_agregarNombreEnBody');
-add_filter('post_thumbnail_html', 'ampliarPostThumbnail', 10, 5);
 
 // Configura el enlace a la web en login.
 add_filter('login_headertitle', 'get_bloginfo');
