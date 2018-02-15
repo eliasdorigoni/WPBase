@@ -113,17 +113,6 @@ function permitirFondoPersonalizado() {
 }
 add_action('after_setup_theme', 'permitirFondoPersonalizado');
 
-function permitirLogoPersonalizado() {
-    add_theme_support('custom-logo', array(
-        'height'      => 200,
-        'width'       => 400,
-        'flex-height' => true,
-        // 'flex-width'  => true,
-        'header-text' => array('site-title', 'site-description'),
-    ));
-}
-add_action('after_setup_theme', 'permitirLogoPersonalizado');
-
 function theme_enqueueFrontend() {
     wp_enqueue_style('google-fonts');
     wp_enqueue_style('app');

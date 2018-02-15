@@ -18,13 +18,7 @@
         <div class="row">
             <div class="column large-4">
                 <a class="logo" href="<?php echo HOME_URL; ?>" title="<?php echo bloginfo('name'); ?>">
-                <?php if (has_custom_logo()): ?>
-                    <?php the_custom_logo(); ?>
-                <?php elseif (is_file(ASSETS_DIR_IMG . 'logo.png')): ?>
                     <img srcset="<?= ASSETS_URI_IMG ?>logo.png 1x, <?= ASSETS_URI_IMG ?>logo@2x.png 2x" src="<?= ASSETS_URI_IMG ?>logo.png">
-                <?php else: ?>
-                    <?php echo bloginfo('name'); ?>
-                <?php endif ?>
                 </a>
             </div>
             <div class="column large-8">
