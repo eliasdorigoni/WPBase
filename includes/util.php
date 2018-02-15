@@ -143,8 +143,13 @@ function retornarImagenesDeAttachments($ids = array(), $dimensiones = '') {
     return $retorno;
 }
 
-
-function cortarEnPalabra($string, $cantidadCaracteres) {
+/**
+ * Corta una cadena en la última palabra después de la $cantidadDeCaracteres especificada.
+ * @param  string  $string
+ * @param  integer $cantidadDeCaracteres
+ * @return string
+ */
+function cortarEnPalabra($string = '', $cantidadDeCaracteres = 50) {
     $partes = preg_split('/([\s\n\r]+)/', $string, null, PREG_SPLIT_DELIM_CAPTURE);
     $cantidadPartes = count($partes);
 
@@ -152,7 +157,7 @@ function cortarEnPalabra($string, $cantidadCaracteres) {
     $ultimaParte = 0;
     for (; $ultimaParte < $cantidadPartes; ++$ultimaParte) {
         $caracteres += strlen($partes[$ultimaParte]);
-        if ($caracteres > $cantidadCaracteres) {
+        if ($caracteres > $cantidadDeCaracteres) {
             break;
         }
     }
@@ -163,7 +168,7 @@ function cortarEnPalabra($string, $cantidadCaracteres) {
 /**
  * Arma un array con los textos utilizados por register_post_type().
  */
-function construirLabels($singular, $plural, $esMasculino = true) {
+function construirLabels($singular = '', $plural = '', $esMasculino = true) {
     return array(
         'name'               => ucfirst($plural),
         'singular_name'      => ucfirst($singular),
@@ -190,7 +195,10 @@ function construirLabels($singular, $plural, $esMasculino = true) {
     );
 }
 
-
+/**
+ * Muestra el favicon del sitio.
+ * @return void
+ */
 function mostrarFavicon() {
     ?>
     <link rel="shortcut icon" href="<?php echo THEME_URI ?>favicon.ico" type="image/x-icon" />
