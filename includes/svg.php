@@ -32,9 +32,10 @@ function retornarSVG($atts = array()) {
         return sprintf($contenedor, file_get_contents(ASSETS_DIR_SVG . $nombre . '.svg'));
     }
 
-    $formato = '<svg class="icono icono-%1$s" role="img">'
+    $formato = '<svg class="icono icono--%1$s" role="img">'
                 . ' <use href="#%1$s" xlink:href="#%1$s"></use> '
             . '</svg>';
+
     $elemento = sprintf($formato, sanitize_title($nombre));
     return sprintf($contenedor, $elemento);
 }

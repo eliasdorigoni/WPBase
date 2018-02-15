@@ -10,17 +10,7 @@ if (!defined('ABSPATH')) exit;
  * @return array Redes disponibles
  */
 function retornarConfiguracionRedesSociales() {
-    $retorno = array(
-        'facebook' => array(),
-        'google-plus' => array(),
-        'instagram' => array(),
-        'pinterest' => array(),
-        'twitter' => array(),
-        'youtube' => array(),
-        'whatsapp' => array(),
-    );
-
-    $retorno['facebook'] = array(
+    $facebook = array(
         'nombre' => 'Facebook', # Nombre de la red, para usar en el frontend
         'option' => 'url-facebook', # Option donde guardar la URL de la página/twitter/etc del sitio
         'icono' => 'facebook', # ID del icono SVG
@@ -30,7 +20,7 @@ function retornarConfiguracionRedesSociales() {
         'compartir' => array( # Datos para armar la URL para compartir
             'url' => 'https://www.facebook.com/sharer/sharer.php?',
             'query' => array(
-                'u' => null, # Reemplaza null por el enlace a compartir
+                'u' => '{{URL}}',
                 'display' => 'popup',
                 'ref' => 'plugin',
                 'src' => 'share_button',
@@ -38,22 +28,22 @@ function retornarConfiguracionRedesSociales() {
         ),
     );
 
-    $retorno['google-plus'] = array(
+    $googleplus = array(
         'nombre' => 'Google Plus',
         'option' => 'url-google-plus',
-        'icono' => 'google-plus',
+        'icono' => 'googleplus',
         'customizer' => array(
             'label' => 'URL de Google Plus',
         ),
         'compartir' => array(
             'url' => 'https://plus.google.com/share?',
             'query' => array(
-                'url' => null,
+                'url' => '{{URL}}',
             ),
         ),
     );
 
-    $retorno['instagram'] = array(
+    $instagram = array(
         'nombre' => 'Instagram',
         'option' => 'url-instagram',
         'icono' => 'instagram',
@@ -62,7 +52,26 @@ function retornarConfiguracionRedesSociales() {
         ),
     );
 
-    $retorno['pinterest'] = array(
+    $linkedin = array(
+        'nombre' => 'Linkedin',
+        'option' => 'url-linkedin',
+        'icono' => 'linkedin',
+        'customizer' => array(
+            'label' => 'URL de Linkedin',
+        ),
+        'compartir' => array( # Datos para armar la URL para compartir
+            'url' => 'https://www.linkedin.com/shareArticle?',
+            'query' => array(
+                'url' => '{{URL}}',
+                'mini' => 'true',
+                'title' => '{{TITLE}}',
+                'summary' => '{{EXCERPT}}',
+                'source' => '{{URL}}',
+            ),
+        ),
+    );
+
+    $pinterest = array(
         'nombre' => 'Pinterest',
         'option' => 'url-pinterest',
         'icono' => 'pinterest',
@@ -71,7 +80,7 @@ function retornarConfiguracionRedesSociales() {
         ),
     );
 
-    $retorno['twitter'] = array(
+    $twitter = array(
         'nombre' => 'Twitter',
         'option' => 'url-twitter',
         'icono' => 'twitter',
@@ -81,12 +90,12 @@ function retornarConfiguracionRedesSociales() {
         'compartir' => array(
             'url' => 'https://twitter.com/home?',
             'query' => array(
-                'status' => null,
+                'status' => '{{SHORT_URL}}',
             ),
         ),
     );
 
-    $retorno['youtube'] = array(
+    $youtube = array(
         'nombre' => 'YouTube',
         'option' => 'url-youtube',
         'icono' => 'youtube',
@@ -95,18 +104,27 @@ function retornarConfiguracionRedesSociales() {
         ),
     );
 
-    $retorno['whatsapp'] = array(
+    $whatsapp = array(
         'nombre' => 'WhatsApp',
         'icono' => 'whatsapp',
         'compartir' => array(
             'url' => 'whatsapp://send?',
             'query' => array(
-                'text' => null,
+                'text' => '{{SHORT_URL}}',
             ),
         ),
     );
 
-    return $retorno;
+    return array(
+        'facebook'    => $facebook,
+        'google-plus' => $googleplus,
+        'linkedin'    => $linkedin,
+        'instagram'   => $instagram,
+        'pinterest'   => $pinterest,
+        'twitter'     => $twitter,
+        'youtube'     => $youtube,
+        'whatsapp'    => $whatsapp,
+    );
 }
 
 /**
@@ -114,7 +132,7 @@ function retornarConfiguracionRedesSociales() {
  * @param  string $string String a comprobar
  * @return boolean
  */
-function stringEsRedSocial($string = '') {
+function esRedSocialRegistrada($string = '') {
     $redesSociales = retornarConfiguracionRedesSociales();
     return array_key_exists($string, $redesSociales);
 }
@@ -174,7 +192,7 @@ function retornarPaginasRedesSociales($atts = array()) {
     if (in_array('todos', $mostrar)) {
         $mostrar = array_keys($redesSocialesExistentes);
     } else {
-        $mostrar = array_filter($mostrar, 'stringEsRedSocial');
+        $mostrar = array_filter($mostrar, 'esRedSocialRegistrada');
     }
 
     $items = array();
@@ -213,28 +231,30 @@ add_shortcode('redes-sociales', 'retornarPaginasRedesSociales');
  */
 function retornarBotonesCompartir($atts = array()) {
     $redesSocialesExistentes = retornarConfiguracionRedesSociales();
-    $default = array(
-        // Redes sociales a mostrar
-        'mostrar'  => 'todos',
-        // URL a compartir.
-        'url'      => get_the_permalink(),
-        'shorturl' => wp_get_shortlink(),
-    );
-    extract(shortcode_atts($default, $atts));
-    /**
-     * @var $mostrar string
-     * @var $url string
-     * @var $shorturl string
-     */
-    $mostrar = explode(',', $mostrar);
 
+    $default = array(
+        'id'      => 0,       // Post a compartir. 0 = actual
+        'mostrar' => 'todos', // Redes sociales a mostrar
+    );
+
+    $atts = shortcode_atts($default, $atts);
+
+    $mostrar = $atts['mostrar'];
+    $id = $atts['id'];
+
+    $url = get_the_permalink($id);
+    $shortUrl = wp_get_shortlink($id);
+    $titulo = get_the_title($id);
+    $excerpt = get_the_excerpt($id);
+
+    $mostrar = explode(',', $mostrar);
     if (in_array('todos', $mostrar)) {
         $mostrar = array_keys($redesSocialesExistentes);
     } else {
         $mostrar = array_filter($mostrar, 'stringEsRedSocial');
     }
 
-    $retorno = '';
+    $retorno = '<ul class="compartirEnRedes">';
     foreach ($mostrar as $slug) {
         $redSocial = $redesSocialesExistentes[$slug];
         if (empty($redSocial['compartir'])) {
@@ -244,19 +264,18 @@ function retornarBotonesCompartir($atts = array()) {
         // %1: URL,
         // %2: contenido del elemento,
         // %3: clase,
-        // %4: titulo (aparece en "Compartir en TITULO")
-        $formato = '<a class="%3$s" href="%1$s" onclick="return !window.open(this.href, \'%4$s\', \'width=640,height=580\')">%2$s</a>';
-
-        if ($slug == 'whatsapp') {
-            $formato = '<a class="%3$s" href="%1$s" rel="nofollow">%2$s</a>';
+        // %4: titulo
+        $formato = '<li><a class="%3$s" href="%1$s" rel="nofollow"';
+        if ($formato != 'whatsapp') {
+            $formato .= ' onclick="return !window.open(this.href, \'%4$s\', \'width=640,height=580\')"';
         }
+        $formato .= '>%2$s</a></li>';
 
-        // Modifica la URL de destino, de manera que comparta una URL especifica.
-        $valorNulo = array_filter($redSocial['compartir']['query'], 'is_null');
-        $clave = key($valorNulo);
-        $redSocial['compartir']['query'][$clave] = $url;
-        if ($slug == 'twitter') {
-            $redSocial['compartir']['query'][$clave] = $shorturl;
+        $buscar = array('{{URL}}', '{{SHORT_URL}}', '{{TITLE}}', '{{EXCERPT}}');
+        $reemplazar = array($url, $shortUrl, $titulo, $excerpt);
+
+        foreach ($redSocial['compartir']['query'] as $k => $v) {
+            $redSocial['compartir']['query'][$k] = str_replace($buscar, $reemplazar, $v);
         }
 
         $urlCompartir = $redSocial['compartir']['url'] . http_build_query($redSocial['compartir']['query']);
@@ -267,6 +286,6 @@ function retornarBotonesCompartir($atts = array()) {
         $retorno .= sprintf($formato, $urlCompartir, $contenido, $claseCSS, $titulo);
     }
 
-    return $retorno;
+    return $retorno . '</ul>';
 }
 add_shortcode('compartir', 'retornarBotonesCompartir');
