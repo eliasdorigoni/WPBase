@@ -18,8 +18,8 @@ gulp.task('svg-sprite', function(cb) {
     var options = {
         shape: {
             dimension: {
-                maxWidth: 100,
-                maxHeight: 100
+                maxWidth: 32,
+                maxHeight: 32
             },
             id: {
                 whitespace: '_',
