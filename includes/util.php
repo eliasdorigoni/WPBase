@@ -50,7 +50,13 @@ function tiempoRelativo($timestamp, $timestampComparativo = null, $retornarCanti
     return $prefijo . implode(', ', $retorno);
 }
 
-function fechaEsCorrecta($fecha = 0, $formato = 'Y-m-d H:i:s') {
+/**
+ * Comprueba si un string es una fecha con formato específico válida.
+ * @param  string $fecha
+ * @param  string $formato
+ * @return bool
+ */
+function fechaEsCorrecta($fecha = '', $formato = 'Y-m-d H:i:s') {
     $d = \Datetime::createFromFormat($formato, $input);
     return $d && $d->format($formato) === $fecha;
 }
