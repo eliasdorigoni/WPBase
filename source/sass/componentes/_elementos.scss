@@ -16,29 +16,42 @@ h6 {
 
 .icono {
     fill: #fff;
-    height: 3em;
-    width: 3em;
-    //sass-lint:disable-block class-name-format
-    &-facebook {
-        background: $colorFacebook;
+    height: 2rem;
+    width: 2rem;
+    $paddingIconos: 0.4em;
+    &--facebook {
+        background: #0063B2;
+        padding: $paddingIconos;
     }
-    &-google-plus {
-        background: $colorGooglePlus;
+    &--googleplus {
+        background: #F6432D;
+        padding: $paddingIconos;
     }
-    &-pinterest {
-        background: $colorPinterest;
+    &--linkedin {
+        background: #0077B5;
+        padding: $paddingIconos;
     }
-    &-twitter {
-        background: $colorTwitter;
+    &--pinterest {
+        background: #BD081C;
+        padding: $paddingIconos;
     }
-    &-instagram {
-        @include degradadoInstagram;
+    &--twitter {
+        background: #00ACEF;
+        padding: $paddingIconos;
     }
-    &-youtube {
-        background: $colorGooglePlus;
+    &--instagram {
+        background: #ee2a7b;
+        // http://colorzilla.com/gradient-editor/#f9ed32+0,ee2a7b+75,002aff+100
+        background: linear-gradient(45deg, #f9ed32 0%, #ee2a7b 75%, #002aff 100%); //sass-lint:disable-line no-duplicate-properties
+        padding: $paddingIconos;
     }
-    &-whatsapp {
-        background: $colorWhatsapp;
+    &--youtube {
+        background: #F6432D;
+        padding: $paddingIconos;
+    }
+    &--whatsapp {
+        background: #25D366;
+        padding: $paddingIconos;
     }
 }
 
