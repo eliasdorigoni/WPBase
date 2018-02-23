@@ -1,5 +1,30 @@
 <?php
 
+// Comprobaciones
+
+/**
+ * Comprueba si un string es un número entero mayor a cero, sin signos.
+ * @param  string $string
+ * @return bool
+ */
+function esEnteroPositivo($string = '') {
+    if (is_string($string) || is_int($string)) {
+        return preg_match('/^\d+$/', $string);
+    }
+    return false;
+}
+
+/**
+ * Comprueba si un string es una fecha con formato específico válida.
+ * @param  string $fecha
+ * @param  string $formato
+ * @return bool
+ */
+function fechaEsCorrecta($fecha = '', $formato = 'Y-m-d H:i:s') {
+    $d = \Datetime::createFromFormat($formato, $input);
+    return $d && $d->format($formato) === $fecha;
+}
+
 /**
  * Calcula la diferencia entre dos timestamps y retorna un string con las
  * unidades temporales más altas, en orden descendente: año, mes, semana, dia, hora, minuto, segundo.
@@ -51,17 +76,6 @@ function tiempoRelativo($timestamp, $timestampComparativo = null, $retornarCanti
 }
 
 /**
- * Comprueba si un string es una fecha con formato específico válida.
- * @param  string $fecha
- * @param  string $formato
- * @return bool
- */
-function fechaEsCorrecta($fecha = '', $formato = 'Y-m-d H:i:s') {
-    $d = \Datetime::createFromFormat($formato, $input);
-    return $d && $d->format($formato) === $fecha;
-}
-
-/**
  * Agrega el slug del post a las clases HTML de body_class().
  * @param $classes array
  * @return array
@@ -80,7 +94,7 @@ function usarSlugEnClases($classes = array()) {
  * @param  array  $constantesPorDefecto  Claves y valores para constantes por defecto.
  * @param  string $archivo               Ruta absoluta al archivo INI
  */
-function cargarConstantesDesdeINI($constantesPorDefecto = array(), $archivo = null) {
+function definirConstantesDesdeINI($constantesPorDefecto = array(), $archivo = null) {
     if (is_null($archivo)) {
         $archivo = THEME_DIR . 'config.ini';
     }
@@ -91,36 +105,6 @@ function cargarConstantesDesdeINI($constantesPorDefecto = array(), $archivo = nu
     foreach ($data as $nombre => $valor) {
         if (!defined($nombre)) define($nombre, $valor);
     }
-}
-/**
- * Retorna un array con las urls de las imagenes de los attachments.
- * O con los posts si no hay $dimensiones definidas.
- * 
- * @param  array  $ids         IDs de posts como valores.
- * @param  string $dimensiones Dimensiones, ej: thumbnail, medium, large.
- * @return array
- */
-function retornarImagenesDeAttachments($ids = array(), $dimensiones = '') {
-    if (!$ids || !is_array($ids)) {
-        return array();
-    }
-
-    $query = new WP_Query(array(
-        'post_type' => 'attachment',
-        'post_status' => 'any',
-        'post__in' => $ids,
-        ));
-
-    $retorno = array();
-    foreach ($query->posts as $post) {
-        if ($dimensiones) {
-            $retorno[$post->ID] = wp_get_attachment_image_src($post->ID, $dimensiones);
-        } else {
-            $retorno[$post->ID] = $post;
-        }
-    }
-
-    return $retorno;
 }
 
 /**
@@ -227,15 +211,6 @@ function retornarPostsAnteriorSiguiente() {
 function mostrarPostsAnteriorSiguiente() {
     echo retornarPostsAnteriorSiguiente();
 }
-
-
-function esEnteroPositivo($string = '') {
-    if (is_string($string) || is_int($string)) {
-        return preg_match('/^\d+$/', $string);
-    }
-    return false;
-}
-
 
 /**
  * Activa el hard crop en las dimensiones por defecto.
