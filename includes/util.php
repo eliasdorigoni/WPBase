@@ -62,31 +62,11 @@ function fechaEsCorrecta($fecha = '', $formato = 'Y-m-d H:i:s') {
 }
 
 /**
- * Elimina los valores de $array1 que estén en $array2 y reordena las
- * claves. Retorna $array1 sin las claves que coincidan en $array2.
- * @param  array  $array1 Array a retornar.
- * @param  array  $array2 Array de referencia para buscar los duplicados.
- * @return array          Retorna $array1 sin los valores de $array2
- */
-function eliminarDuplicadosDeArray($array1 = array(), $array2 = array()) {
-    if (is_array($array1) && is_array($array2)) {
-        foreach ($array2 as $valor) {
-            $clave = array_search($valor, $array1);
-            if($clave !== false) {
-                unset($array1[$clave]);
-            }
-        }
-        array_values($array1);
-    }
-    return $array1;
-}
-
-/**
  * Agrega el slug del post a las clases HTML de body_class().
  * @param $classes array
  * @return array
  */
-function theme_agregarNombreEnBody($classes = array()) {
+function usarSlugEnClases($classes = array()) {
     global $post;
     if (is_object($post)) {
         $classes[] = $post->post_type . '-' . $post->post_name;
