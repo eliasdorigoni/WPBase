@@ -45,16 +45,14 @@ add_shortcode('icono', 'retornarSVG');
  * Imprime el retorno de retornarSVG().
  * @param string/array $atts  Nombre del icono o array de configuracion.
  */
-function mostrarSVG($atts = array())
-{
+function mostrarSVG($atts = array()) {
     echo retornarSVG($atts);
 }
 
 /**
  * Imprime el sprite de iconos generado por Grunt
  */
-function mostrarSpriteSVG()
-{
+function mostrarSpriteSVG() {
     $ruta = ASSETS_DIR_SVG . 'sprite.svg';
     if (is_file($ruta)) {
         printf(
