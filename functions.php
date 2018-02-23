@@ -121,7 +121,7 @@ function theme_enqueueFrontend() {
 add_action('wp_enqueue_scripts', 'theme_enqueueFrontend');
 
 add_action('admin_enqueue_scripts', function() {
-    wp_enqueue_style('backend')
+    wp_enqueue_style('backend');
 });
 
 add_action('login_enqueue_scripts', function() {
