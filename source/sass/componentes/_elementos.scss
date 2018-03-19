@@ -1,5 +1,9 @@
-body,
+/**
+ * Todos los elementos HTML sin clases ni ids
+ */
+
 html,
+body,
 h1,
 h2,
 h3,
@@ -8,54 +12,4 @@ h5,
 h6 {
     font-family: $stackPrincipal;
     font-weight: 400;
-}
-
-.screen-reader-text { //sass-lint:disable-line class-name-format
-    display: none;
-}
-
-.icono {
-    fill: #fff;
-    height: 2rem;
-    width: 2rem;
-    $paddingIconos: 0.4em;
-    &--facebook {
-        background: #0063B2;
-        padding: $paddingIconos;
-    }
-    &--googleplus {
-        background: #F6432D;
-        padding: $paddingIconos;
-    }
-    &--linkedin {
-        background: #0077B5;
-        padding: $paddingIconos;
-    }
-    &--pinterest {
-        background: #BD081C;
-        padding: $paddingIconos;
-    }
-    &--twitter {
-        background: #00ACEF;
-        padding: $paddingIconos;
-    }
-    &--instagram {
-        background: #ee2a7b;
-        // http://colorzilla.com/gradient-editor/#f9ed32+0,ee2a7b+75,002aff+100
-        background: linear-gradient(45deg, #f9ed32 0%, #ee2a7b 75%, #002aff 100%); //sass-lint:disable-line no-duplicate-properties
-        padding: $paddingIconos;
-    }
-    &--youtube {
-        background: #F6432D;
-        padding: $paddingIconos;
-    }
-    &--whatsapp {
-        background: #25D366;
-        padding: $paddingIconos;
-    }
-}
-
-.mapa {
-    background: #ddd;
-    height: 300px;
 }
