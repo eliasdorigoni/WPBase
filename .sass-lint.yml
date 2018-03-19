@@ -16,6 +16,10 @@ rules:
     -
       allow-leading-underscore: false
       convention: 'camelcase'
+  nesting-depth:
+    - 1
+    -
+      max-depth: 3
   no-color-literals: 0
   no-important: 2
   no-qualifying-elements: 0
