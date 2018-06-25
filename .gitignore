@@ -1,5 +1,6 @@
 assets/
 build/
+config.ini
 node_modules/
 temp/
 /favicon.ico
