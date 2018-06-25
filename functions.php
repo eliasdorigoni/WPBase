@@ -12,7 +12,7 @@ require 'includes/redireccion-templates.php';
 require 'includes/analytics.php';
 require 'includes/mapa.php';
 
-require 'includes/metaboxes/subtitulo.php';
+require 'includes/subtitulo.php';
 
 require 'includes/galeria/init.php';
 require 'includes/redes-sociales.php';

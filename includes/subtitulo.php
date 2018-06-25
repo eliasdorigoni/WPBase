@@ -2,7 +2,14 @@
 if (!defined('ABSPATH')) exit;
 
 function agregarSubtitulo() {
-    add_meta_box('Subtitulo', 'Agregar frase debajo del título', 'agregarMetaboxSubtitulo', 'page', 'side', 'high');
+    add_meta_box(
+        'Subtitulo',
+        'Agregar frase debajo del título',
+        'agregarMetaboxSubtitulo',
+        'page',
+        'side',
+        'high'
+    );
 }
 add_action('add_meta_boxes', 'agregarSubtitulo');
 
