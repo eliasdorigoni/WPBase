@@ -10,7 +10,7 @@ get_template_part('includes/svg');
 get_template_part('includes/redireccion-templates');
 
 get_template_part('includes/analytics');
-get_template_part('includes/mapa/init');
+get_template_part('includes/mapa');
 
 get_template_part('includes/metaboxes/subtitulo');
 
