@@ -31,26 +31,10 @@ add_filter('widget_text','do_shortcode');
 add_action('wp_head',    'mostrarFavicon');
 add_action('login_head', 'mostrarFavicon');
 
-//////////////
-// Limpieza //
-//////////////
-
-// Se eliminan emojis
-remove_action('wp_head', 'print_emoji_detection_script', 7 );
-remove_action('wp_print_styles', 'print_emoji_styles' );
-
-// Se elimina Manifest para Windows Live Writer del head
-remove_action('wp_head', 'wlwmanifest_link');
-remove_action('wp_head', 'rsd_link');
-
-// Se elimina el meta generator
-remove_action('wp_head', 'wp_generator');
-
-function themeSetup() {
+add_action('after_setup_theme', function() {
     add_theme_support('title-tag');
     add_theme_support('post-thumbnails');
     add_theme_support('automatic-feed-links');
-
     add_theme_support(
         'html5',
         array(
@@ -61,7 +45,6 @@ function themeSetup() {
             'caption',
         )
     );
-
     add_theme_support(
         'post-formats',
         array(
@@ -73,13 +56,29 @@ function themeSetup() {
             'status',
             'video',
             'audio',
-            'chat'
+            'chat',
         )
     );
 
     register_nav_menu('principal', 'Menu de cabecera');
-}
-add_action('after_setup_theme', 'themeSetup');
+});
+
+add_action('wp_enqueue_scripts', function() {
+    wp_enqueue_style('app');
+    wp_enqueue_script('app');
+
+    if (is_singular() && comments_open() && get_option('thread_comments')) {
+        wp_enqueue_script('comment-reply');
+    }
+});
+
+add_action('admin_enqueue_scripts', function($hook) {
+    wp_enqueue_style('backend');
+});
+
+add_action('login_enqueue_scripts', function() {
+    wp_enqueue_style('custom-login');
+});
 
 function permitirFondoPersonalizado() {
     // %s = get_stylesheet_directory_uri()
@@ -106,19 +105,17 @@ function permitirFondoPersonalizado() {
 }
 add_action('after_setup_theme', 'permitirFondoPersonalizado');
 
-add_action('wp_enqueue_scripts', function() {
-    wp_enqueue_style('app');
-    wp_enqueue_script('app');
+//////////////
+// Limpieza //
+//////////////
 
-    if (is_singular() && comments_open() && get_option('thread_comments')) {
-        wp_enqueue_script('comment-reply');
-    }
-});
+// Se eliminan emojis
+remove_action('wp_head', 'print_emoji_detection_script', 7 );
+remove_action('wp_print_styles', 'print_emoji_styles' );
 
-add_action('admin_enqueue_scripts', function($hook) {
-    wp_enqueue_style('backend');
-});
+// Se elimina Manifest para Windows Live Writer del head
+remove_action('wp_head', 'wlwmanifest_link');
+remove_action('wp_head', 'rsd_link');
 
-add_action('login_enqueue_scripts', function() {
-    wp_enqueue_style('custom-login');
-});
+// Se elimina el meta generator
+remove_action('wp_head', 'wp_generator');
