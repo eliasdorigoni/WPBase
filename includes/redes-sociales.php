@@ -251,7 +251,7 @@ function retornarBotonesCompartir($atts = array()) {
     if (in_array('todos', $mostrar)) {
         $mostrar = array_keys($redesSocialesExistentes);
     } else {
-        $mostrar = array_filter($mostrar, 'stringEsRedSocial');
+        $mostrar = array_filter($mostrar, 'esRedSocialRegistrada');
     }
 
     $retorno = '<ul class="compartirEnRedes">';
