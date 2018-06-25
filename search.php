@@ -5,7 +5,7 @@
         <main id="contenido" role="main" class="main">
 
             <?php if (have_posts()): ?>
-                <h1 class="tituloPagina">Resultados de búsqueda de: <?php echo get_search_query(); ?></h1>
+                <h1 class="titulo-pagina">Resultados de búsqueda de: <?php echo get_search_query(); ?></h1>
 
                 <?php while (have_posts()): the_post(); ?>
 
@@ -42,7 +42,7 @@
                     )); ?>
 
             <?php else: ?>
-                <h1 class="tituloPagina">No hay resultados</h1>
+                <h1 class="titulo-pagina">No hay resultados</h1>
                 <p>No se encontradon coincidencias para: <?php echo get_search_query(); ?></p>
             <?php endif; ?>
 

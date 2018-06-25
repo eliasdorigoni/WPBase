@@ -1,9 +1,6 @@
-/**
- * Estilos de header.php
- */
+// Estilos de header.php
 
-.navegacionPrincipal {
-    // sass-lint:disable-block class-name-format
+.navegacion-principal {
     display: none;
     list-style-type: none;
     margin-left: 0;
@@ -36,7 +33,7 @@
         }
     }
     .current-menu-item > a,
-    .current_page_item > a {
+    .current_page_item > a {//sass-lint:disable-line class-name-format
         color: #d13a1c;
     }
     .menu-item-has-children > a {
@@ -68,7 +65,7 @@
     }
 }
 
-.toggleNavegacionPrincipal {
+.toggle-navegacion-principal {
     .icono {
         @include hamburger(#000, #222, 14px, 12px, 1px, 3);
         margin-right: 0.3em;

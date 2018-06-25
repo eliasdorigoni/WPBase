@@ -29,7 +29,7 @@ jQuery(function($) {
 
         uploader.open()
     }
-    $galeria.on('click', '.componente-galeria .cargarImagenJS', cargarItemGaleria)
+    $galeria.on('click', '#js-cargar-imagen', cargarItemGaleria)
 
     function eliminarItemGaleria(e) {
         var $widget = $(this).parents('.componente-galeria')

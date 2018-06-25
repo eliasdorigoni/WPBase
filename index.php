@@ -5,7 +5,7 @@
         <main id="contenido" role="main" <?php post_class('contenido') ?>>
             <?php if (have_posts()): ?>
                 <?php while (have_posts()) : the_post(); ?>
-                    <h1 class="tituloPagina"><?php the_title(); ?></h1>
+                    <h1 class="titulo-pagina"><?php the_title(); ?></h1>
                     <?php the_content(); ?>
                 <?php endwhile; ?>
 
@@ -19,7 +19,7 @@
 
             <?php else: // !have_posts() ?>
 
-                <h1 class="tituloPagina">Página no encontrada (error 404)</h1>
+                <h1 class="titulo-pagina">Página no encontrada (error 404)</h1>
                 <div class="contenido">
                     <p>La página que estás buscando no existe o fue movida.</p>
                     <?php get_search_form(); ?>

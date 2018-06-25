@@ -23,16 +23,15 @@
             </div>
             <div class="column large-8">
                 <?php if (has_nav_menu('principal')): ?>
-                    <button class="toggle toggleNavegacionPrincipal"><i class="icono"></i> Menú</button>
-                <nav role="navigation">
+                    <button class="toggle toggle-navegacion-principal"><i class="icono"></i> Menú</button>
                 <?php
-                    $args = array(
-                        'menu_class'     => 'navegacionPrincipal',
-                        'theme_location' => 'principal',
-                    );
-                    wp_nav_menu($args);
+                    wp_nav_menu(array(
+                        'container'       => 'nav',
+                        'container_class' => 'wrapper-navegacion-principal',
+                        'menu_class'      => 'navegacion-principal',
+                        'theme_location'  => 'principal',
+                    ));
                 ?>
-                </nav>
                 <?php endif; ?>
             </div>
         </div>

@@ -1,11 +1,9 @@
-    <?php
-        edit_post_link(
-            sprintf(
-                'Editar "%s"', get_the_title()
-                ),
-                '<section class="editar-post"><div class="row column">',
-                '</div></section>'
-            );
+<?php
+edit_post_link(
+    sprintf('Editar "%s"', get_the_title()),
+    '<section class="editar-post"><div class="row column">',
+    '</div></section>'
+);
     ?>
 	<footer class="footer">
         <?php if (is_active_sidebar('footer')): ?>
