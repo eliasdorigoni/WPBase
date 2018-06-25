@@ -1,22 +1,22 @@
 <?php
 if (!isset($content_width)) $content_width = 625;
 
-get_template_part('includes/util');
-get_template_part('includes/constantes');
-get_template_part('includes/librerias');
+require 'includes/util.php';
+require 'includes/constantes.php';
+require 'includes/librerias.php';
 
-get_template_part('includes/widgets/init');
-get_template_part('includes/svg');
-get_template_part('includes/redireccion-templates');
+require 'includes/widgets/init.php';
+require 'includes/svg.php';
+require 'includes/redireccion-templates.php';
 
-get_template_part('includes/analytics');
-get_template_part('includes/mapa');
+require 'includes/analytics.php';
+require 'includes/mapa.php';
 
-get_template_part('includes/metaboxes/subtitulo');
+require 'includes/metaboxes/subtitulo.php';
 
-get_template_part('includes/galeria/init');
-get_template_part('includes/redes-sociales');
-get_template_part('includes/woocommerce/init');
+require 'includes/galeria/init.php';
+require 'includes/redes-sociales.php';
+require 'includes/woocommerce/init.php';
 
 // Agrega el slug del post y el tipo + slug del post al output de body_class()
 add_filter('body_class', 'usarSlugEnClases');
