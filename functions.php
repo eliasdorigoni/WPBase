@@ -106,21 +106,16 @@ function permitirFondoPersonalizado() {
 }
 add_action('after_setup_theme', 'permitirFondoPersonalizado');
 
-function theme_enqueueFrontend() {
+add_action('wp_enqueue_scripts', function() {
     wp_enqueue_style('app');
     wp_enqueue_script('app');
 
     if (is_singular() && comments_open() && get_option('thread_comments')) {
         wp_enqueue_script('comment-reply');
     }
+});
 
-    // wp_enqueue_script('gmaps');
-    // wp_enqueue_script('slick');
-    // wp_enqueue_script('lightbox');
-}
-add_action('wp_enqueue_scripts', 'theme_enqueueFrontend');
-
-add_action('admin_enqueue_scripts', function() {
+add_action('admin_enqueue_scripts', function($hook) {
     wp_enqueue_style('backend');
 });
 
