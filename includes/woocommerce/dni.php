@@ -47,7 +47,7 @@ function agregarDNIEnEmail($fields, $sent_to_admin, $order) {
 add_filter('woocommerce_email_customer_details_fields', 'agregarDNIEnEmail', 20, 3);
     
 function agregarDNIEnPanelPedidos($order) {
-    $valor = $this->extraerValorDeMetadata($order, '_billing_dni_cuit');
+    $valor = extraerValorDeMetadata($order, '_billing_dni_cuit');
     if ($valor) {
         $valor = wptexturize($valor);
         echo '<tr>'
